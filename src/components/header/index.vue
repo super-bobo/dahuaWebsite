@@ -39,7 +39,7 @@
         </template>
         <template v-else>
           <router-link  tag="div" :to="'/products/' + firItem.id" :key="firItem.id" class="ellipsis">
-            {{firItem.name}}dd
+            {{firItem.name}}
           </router-link>
         </template>
       </li>
