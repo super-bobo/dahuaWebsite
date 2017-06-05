@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import App from '../App'
 
 const home = r => require.ensure([], () => r(require('@/views/home/')), 'home')
+const floatmenu = r => require.ensure([], () => r(require('@/views/floatmenu/')), 'floatmenu')
 
 Vue.use(Router)
 
@@ -17,6 +18,7 @@ Vue.use(Router)
 // })
 
 export default new Router({
+  mode: 'history',
   routes: [{
     path: '/',
     component: App, //顶层路由，对应index.html
@@ -30,6 +32,11 @@ export default new Router({
         {
             path: '/home',
             component: home
+        },
+        //浮动菜单栏
+        {
+            path: '/floatmenu',
+            component: floatmenu
         },
     ]
   }]

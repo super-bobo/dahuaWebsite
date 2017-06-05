@@ -1,12 +1,9 @@
 <template>
-  	<div>
-        <head-top></head-top>
-        
-    </div>
+    <float-menu></float-menu>
 </template>
 
 <script>
-import headTop from '@/components/header/'
+import floatMenu from '@/components/floatmenu/'
 export default {
     data(){
         return{
@@ -19,14 +16,10 @@ export default {
     },
 
     components:{
-        headTop
+        floatMenu
     },
 
     methods:{
-        //点击图标刷新页面
-        reload(){
-            window.location.reload();
-        }
     },
 }
 
