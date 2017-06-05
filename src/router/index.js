@@ -7,16 +7,6 @@ const floatmenu = r => require.ensure([], () => r(require('@/views/floatmenu/'))
 
 Vue.use(Router)
 
-// export default new Router({
-//   routes: [
-//     {
-//       path: '/',
-//       name: 'Hello',
-//       component: Hello
-//     }
-//   ]
-// })
-
 export default new Router({
   mode: 'history',
   routes: [{

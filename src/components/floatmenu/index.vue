@@ -1,26 +1,26 @@
 <template>
   <section class="dh-header-floatmenu">
+    <div class="dh-floatmenu-close">
+      <div class="dh-close-btn"><i class="fa fa-close" aria-hidden="true"></i></div>
+    </div>
     <ul class="dh-floatmenu-fir">
-      <li class="dh-floatmenu-list dh-floatmenu-close">
-        <i class="fa fa-close" aria-hidden="true"></i>
-      </li>
       <li class="dh-floatmenu-list" v-for="firItem in floatMenus">
         <template v-if="firItem.secmenu">
-          <div class="dh-floatmenu-list">{{firItem.firmenu.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+          <div class="dh-floatmenu-link dh-has-icon">{{firItem.firmenu.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
           <ul class="dh-floatmenu-sec">
             <li class="dh-floatmenu-list" v-for="secItem in firItem.secmenu">
               <template v-if="secItem.thirmenu">
-                <div>{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                <div class="dh-floatmenu-link dh-has-icon">{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
                 <ul class="dh-floatmenu-thir">
-                  <li v-for="thirItem in secItem.thirmenu">
-                    <router-link  tag="a" :to="'/products/' + thirItem.id" :key="thirItem.id" class="">
+                  <li class="dh-floatmenu-list" v-for="thirItem in secItem.thirmenu">
+                    <router-link  tag="a" :to="'/products/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link">
                       {{thirItem.name}}
                     </router-link>
                   </li>
                 </ul>
               </template>
               <template v-else>
-                <router-link  tag="a" :to="'/products/' + secItem.id" :key="secItem.id" class="ellipsis">
+                <router-link  tag="a" :to="'/products/' + secItem.id" :key="secItem.id" class="dh-floatmenu-link">
                   {{secItem.name}}
                 </router-link>
               </template>
@@ -30,7 +30,7 @@
 
 
         <template v-else>
-          <router-link  tag="a" :to="'/products/' + firItem.firmenu.id" :key="firItem.firmenu.id" class="ellipsis">
+          <router-link  tag="a" :to="'/products/' + firItem.firmenu.id" :key="firItem.firmenu.id" class="dh-floatmenu-link">
             {{firItem.firmenu.name}}
           </router-link>
         </template>
@@ -133,10 +133,70 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/styles/common';
 .dh-header-floatmenu{
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
+  @close-height: 56px;
+  @list-height: 48px;
   background-color: #fff;
+  li{
+    position: relative;
+    border-top: solid 1px (#fff * .96);
+  }
+  .dh-floatmenu-close{
+    width: 100%;
+    height: @close-height;
+    background-color: @dh-theme-color;
+    color: #fff;
+    text-align: right;
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 999;
+    .dh-close-btn{
+      display: inline-block;
+      margin-right: 18px;
+      text-align: center;
+      margin-top: (@close-height - 32)/2;
+      i{
+        font-size: 32px;
+        color: #fff;
+      }
+    }
+  }
+  .dh-floatmenu-link{
+    display: block;
+    height: @list-height;
+    line-height: @list-height;
+    padding: 0 18px;
+    &.dh-has-icon{
+      padding-right: 56px;
+    }
+    i.fa{
+      position: absolute;
+      top: (@list-height - 16)/2;
+      right: 18px;
+      
+    }
+  }
+  .dh-floatmenu-fir{
+    padding-top: @close-height;
+    .dh-floatmenu-link{
+      background-color: @dh-theme-color;
+      color: #fff;
+    }
+    &.active{
+      background-color: @dh-theme-color * 1.3;
+    }
+  }
+  .dh-floatmenu-sec{
+    .dh-floatmenu-link{
+      background-color: #eaecee;
+      color: @dh-font-color;
+    }
+  }
+  .dh-floatmenu-thir{
+    .dh-floatmenu-link{
+      background-color: #fff;
+      color: @dh-font-color;
+    }
+  }
 }
 </style>
