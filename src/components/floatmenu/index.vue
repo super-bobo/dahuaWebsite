@@ -8,11 +8,11 @@
         <li class="dh-floatmenu-list" v-for="(firItem, firIndex) in floatMenus">
           <template v-if="firItem.secmenu">
             <div class="dh-floatmenu-link dh-has-icon" @click="currentFirNode= currentFirNode===firIndex? -1:firIndex" :class="{active: firIndex === currentFirNode}">{{firItem.firmenu.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-            <ul class="dh-floatmenu-sec" :class="{active: firIndex === currentFirNode}">
+            <ul class="dh-floatmenu-sec" v-show="firIndex === currentFirNode">
               <li class="dh-floatmenu-list" v-for="(secItem, secIndex) in firItem.secmenu">
                 <template v-if="secItem.thirmenu">
                   <div class="dh-floatmenu-link dh-has-icon" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex" :class="{active: secIndex === currentSecNode}">{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-                  <ul class="dh-floatmenu-thir" :class="{active: secIndex === currentSecNode}">
+                  <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
                     <li class="dh-floatmenu-list" v-for="thirItem in secItem.thirmenu">
                       <router-link  tag="a" :to="'/products/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link">
                         {{thirItem.name}}
@@ -201,9 +201,6 @@ export default {
     }
   }
   .dh-floatmenu-sec{
-    display: none;
-    transform:scale(1,0);
-    transition: all ease .3s;
     .dh-floatmenu-link{
       background-color: #eaecee;
       color: @dh-font-color;
@@ -211,22 +208,12 @@ export default {
         background-color: #dadada;
       }
     }
-    &.active{
-      transform:scale(1,1);
-      display: block;
-    }
   }
   .dh-floatmenu-thir{
-    display: none;
-    transform:scale(1,0);
     transition: all ease .3s;
     .dh-floatmenu-link{
       background-color: #fff;
       color: @dh-font-color;
-    }
-    &.active{
-      transform:scale(1,1);
-      display: block;
     }
   }
 }
