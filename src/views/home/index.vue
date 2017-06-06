@@ -1,7 +1,9 @@
 <template>
   	<div>
         <head-top></head-top>
-        
+        <scroller style="padding-top: 46px;z-index: 1;">
+            
+        </scroller>
     </div>
 </template>
 

@@ -3,6 +3,8 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const autoprefixer = require('autoprefixer')
+const precss = require('precss')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -37,7 +39,7 @@ module.exports = {
         test: /\.(css|less)$/,
         loader: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: "css-loader!less-loader"
+          use: "css-loader?importLoaders=1!less-loader!postcss-loader"
         })
       },
       {
@@ -64,6 +66,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('styleSheets.css')
+    new ExtractTextPlugin('styleSheets.css'),
+    precss,
+    autoprefixer
   ]
 }

@@ -30,10 +30,14 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/styles/common';
 .dh-header{
-    position: relative;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
     padding: 3px 0;
     box-sizing: border-box;
     background-color: #fff;
+    z-index: 2;
     .dh-header-left, .dh-header-right{
       position: absolute;
       top: 12px;
