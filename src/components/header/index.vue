@@ -1,5 +1,4 @@
 <template>
-<div>
   <section class="dh-header">
     <div class="dh-header-left">
       <router-link :to="'/floatmenu'">
@@ -15,7 +14,6 @@
       </router-link>
     </div>
   </section>
-</div>
 </template>
 
 <script>

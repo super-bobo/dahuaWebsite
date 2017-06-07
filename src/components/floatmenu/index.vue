@@ -7,11 +7,11 @@
       <ul class="dh-floatmenu-fir">
         <li class="dh-floatmenu-list" v-for="(firItem, firIndex) in floatMenus">
           <template v-if="firItem.secmenu">
-            <div class="dh-floatmenu-link dh-has-icon" @click="currentFirNode= currentFirNode===firIndex? -1:firIndex" :class="{active: firIndex === currentFirNode}">{{firItem.firmenu.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+            <div class="dh-floatmenu-link dh-has-icon" @click="currentFirNode= currentFirNode===firIndex? -1:firIndex;currentSecNode=-1;" :class="{active: firIndex === currentFirNode}">{{firItem.firmenu.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
             <ul class="dh-floatmenu-sec" v-show="firIndex === currentFirNode">
               <li class="dh-floatmenu-list" v-for="(secItem, secIndex) in firItem.secmenu">
                 <template v-if="secItem.thirmenu">
-                  <div class="dh-floatmenu-link dh-has-icon" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex" :class="{active: secIndex === currentSecNode}">{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                  <div class="dh-floatmenu-link dh-has-icon" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;" :class="{active: secIndex === currentSecNode}">{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
                   <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
                     <li class="dh-floatmenu-list" v-for="thirItem in secItem.thirmenu">
                       <router-link  tag="a" :to="'/products/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link">
