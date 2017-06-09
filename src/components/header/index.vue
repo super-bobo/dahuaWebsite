@@ -1,25 +1,38 @@
 <template>
+<div>
   <section class="dh-header">
     <div class="dh-header-left">
-      <router-link :to="'/floatmenu'">
+      <div @click="isShowMenu">
           <i class="fa fa-bars" aria-hidden="true"></i>
-      </router-link>
+      </div>
     </div>
     <h1 class="dh-header-title">
       <img class="dh-logo" src="../../assets/images/dh-logo.png">
     </h1>
     <div class="dh-header-right">
-      <router-link :to="'/floatmenu'">
+      <div>
           <i class="fa fa-search" aria-hidden="true"></i>
-      </router-link>
+      </div>
     </div>
   </section>
+  <float-menu :showMenu="showMenu" @ShowMenuMethods="isShowMenu"></float-menu>
+</div>
 </template>
 
 <script>
+import floatMenu from '@/components/floatmenu/'
 export default {
   data () {
     return {
+      showMenu: false
+    }
+  },
+  components: {
+      floatMenu,
+  },
+  methods: {
+    isShowMenu() {
+      this.showMenu = !this.showMenu
     }
   }
 }
@@ -57,7 +70,7 @@ export default {
       height: 40px;
       line-height: 40px;
       .dh-logo{
-        height: 64%;
+        height: 72%;
         vertical-align: middle;
       }
     }

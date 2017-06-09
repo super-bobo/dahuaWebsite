@@ -1,43 +1,43 @@
 <template>
-  <section class="dh-header-floatmenu">
+  <section class="dh-header-floatmenu" :class="{'dh-show-floatmenu': showMenu}">
     <div class="dh-floatmenu-close">
-      <div class="dh-close-btn" onclick="window.history.go(-1)"><i class="fa fa-close" aria-hidden="true"></i></div>
+      <div class="dh-close-btn" @click="isShowMenu"><i class="fa fa-close" aria-hidden="true"></i></div>
     </div>
-    <scroller>
-      <ul class="dh-floatmenu-fir">
-        <li class="dh-floatmenu-list" v-for="(firItem, firIndex) in floatMenus">
-          <template v-if="firItem.secmenu">
-            <div class="dh-floatmenu-link dh-has-icon" @click="currentFirNode= currentFirNode===firIndex? -1:firIndex;currentSecNode=-1;" :class="{active: firIndex === currentFirNode}">{{firItem.firmenu.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-            <ul class="dh-floatmenu-sec" v-show="firIndex === currentFirNode">
-              <li class="dh-floatmenu-list" v-for="(secItem, secIndex) in firItem.secmenu">
-                <template v-if="secItem.thirmenu">
-                  <div class="dh-floatmenu-link dh-has-icon" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;" :class="{active: secIndex === currentSecNode}">{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-                  <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
-                    <li class="dh-floatmenu-list" v-for="thirItem in secItem.thirmenu">
-                      <router-link  tag="a" :to="'/products/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link">
-                        {{thirItem.name}}
-                      </router-link>
-                    </li>
-                  </ul>
-                </template>
-                <template v-else>
-                  <router-link  tag="a" :to="'/products/' + secItem.id" :key="secItem.id" class="dh-floatmenu-link">
-                    {{secItem.name}}
-                  </router-link>
-                </template>
-              </li>
-            </ul>
-          </template>
+      <scroller lock-x ref="scrollerEvent">
+        <ul class="dh-floatmenu-fir">
+          <li class="dh-floatmenu-list" v-for="(firItem, firIndex) in floatMenus">
+            <template v-if="firItem.secmenu">
+              <div class="dh-floatmenu-link dh-has-icon" @click="currentFirNode= currentFirNode===firIndex? -1:firIndex;currentSecNode=-1;" :class="{active: firIndex === currentFirNode}">{{firItem.firmenu.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+              <ul class="dh-floatmenu-sec" v-show="firIndex === currentFirNode">
+                <li class="dh-floatmenu-list" v-for="(secItem, secIndex) in firItem.secmenu">
+                  <template v-if="secItem.thirmenu">
+                    <div class="dh-floatmenu-link dh-has-icon" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;" :class="{active: secIndex === currentSecNode}">{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+                    <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
+                      <li class="dh-floatmenu-list" v-for="thirItem in secItem.thirmenu">
+                        <router-link  tag="a" :to="'/products/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                          {{thirItem.name}}
+                        </router-link>
+                      </li>
+                    </ul>
+                  </template>
+                  <template v-else>
+                    <router-link  tag="a" :to="'/products/' + secItem.id" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                      {{secItem.name}}
+                    </router-link>
+                  </template>
+                </li>
+              </ul>
+            </template>
 
 
-          <template v-else>
-            <router-link  tag="a" :to="'/home'" :key="firItem.firmenu.id" class="dh-floatmenu-link">
-              {{firItem.firmenu.name}}
-            </router-link>
-          </template>
-        </li>
-      </ul>
-    </scroller>
+            <template v-else>
+              <router-link  tag="a" :to="'/home'" :key="firItem.firmenu.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                {{firItem.firmenu.name}}
+              </router-link>
+            </template>
+          </li>
+        </ul>
+      </scroller>
   </section>
 </template>
 
@@ -122,7 +122,9 @@ var floatMenus = [
       ]
     }
 ];
+import { Scroller } from 'vux'
 export default {
+  props: ['showMenu'],
   data () {
     return {
       floatMenus: floatMenus,
@@ -131,9 +133,12 @@ export default {
     }
   },
   methods: {
-    toggleList: function () {
-      
+    isShowMenu: function (){
+       this.$emit('ShowMenuMethods')
     }
+  },
+  components: {
+    Scroller
   }
 }
 </script>
@@ -141,9 +146,19 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/styles/common';
 .dh-header-floatmenu{
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 3;
+  position: fixed;
+  left: -100%;
+  top: 0;
+  transition: all ease .3s;
+  &.dh-show-floatmenu{
+    left: 0;
+  }
   @close-height: 56px;
   @list-height: 48px;
-  background-color: #fff;
   li{
     position: relative;
     border-top: solid 1px (#fff * .96);
@@ -154,7 +169,7 @@ export default {
     background-color: @dh-theme-color;
     color: #fff;
     text-align: right;
-    position: fixed;
+    position: absolute;
     top:0;
     left: 0;
     z-index: 999;

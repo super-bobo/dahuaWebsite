@@ -5,10 +5,6 @@ import App from './App'
 import router from './router'
 require('font-awesome-webpack')
 import FastClick from 'fastclick'
-import VueScroller from 'vue-scroller'
-Vue.use(VueScroller)
-import VueAwesomeSwiper from 'vue-awesome-swiper'
-Vue.use(VueAwesomeSwiper)
 
 if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {
@@ -18,10 +14,6 @@ if ('addEventListener' in document) {
 
 Vue.config.productionTip = false
 
-
-// const FastClick = require('fastclick')
-// FastClick.attach(document.body)
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

@@ -5,12 +5,13 @@ var vueLoaderConfig = require('./vue-loader.conf')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require('autoprefixer')
 const precss = require('precss')
+const vuxLoader = require('vux-loader')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-module.exports = {
+let webpackConfig = {
   entry: {
     app: './src/main.js'
   },
@@ -36,10 +37,17 @@ module.exports = {
         options: vueLoaderConfig
       },
       {
-        test: /\.(css|less)$/,
+        test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: "css-loader?importLoaders=1!less-loader!postcss-loader"
+          use: "css-loader?importLoaders=1!postcss-loader"
+        })
+      },
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader!less-loader!postcss-loader"
         })
       },
       {
@@ -71,3 +79,8 @@ module.exports = {
     autoprefixer
   ]
 }
+
+
+module.exports = vuxLoader.merge(webpackConfig, {
+  plugins: ['vux-ui']
+});
