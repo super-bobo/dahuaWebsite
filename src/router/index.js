@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import App from '../App'
 
 const home = r => require.ensure([], () => r(require('@/views/home/')), 'home')
-//const floatmenu = r => require.ensure([], () => r(require('@/views/floatmenu/')), 'floatmenu')
+const product = r => require.ensure([], () => r(require('@/views/product/')), 'product')
 
 Vue.use(Router)
 
@@ -24,10 +24,16 @@ export default new Router({
             component: home
         },
         //产品图
-        // {
-        //     path: '/floatmenu',
-        //     component: floatmenu
-        // },
+        {
+            path: '/product',
+            component: product,
+            // children: [
+            //     {
+            //         path: '/product',
+            //         component: ''
+            //     }
+            // ]
+        },
     ]
   }]
 })

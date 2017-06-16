@@ -1,96 +1,11 @@
-body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, a, p, h1, h2, h3, h4,h5, h6, b, textarea, button, input, select, figure, figcaption{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    font-style: normal;
-    text-decoration: none;
-    border: none;
-    color: #2c3e50;
-    font-weight: normal;
-    font-family: 'Avenir', Helvetica, "Microsoft Yahei", Arial, sans-serif;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color:transparent;
-    -webkit-font-smoothing: antialiased;
-    &:hover{
-        outline: none;
-    }
-}
-ul, li{
-    list-style: none;
-}
-
-/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
-::-webkit-scrollbar  
-{  
-    width: 0px;  
-    height: 0px;  
-    background-color: #F5F5F5;  
-}  
-  
-/*定义滚动条轨道 内阴影+圆角*/  
-::-webkit-scrollbar-track  
-{  
-    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0);  
-    border-radius: 10px;  
-    background-color: #F5F5F5;  
-}  
-  
-/*定义滑块 内阴影+圆角*/  
-::-webkit-scrollbar-thumb  
-{  
-    border-radius: 10px;  
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
-    background-color: #555;  
-}  
-
-input[type="button"], input[type="submit"], input[type="search"], input[type="reset"] {
-    -webkit-appearance: none;
-}
-
-textarea { -webkit-appearance: none;}   
-
-html,body{
-    height: 100%;
-    width: 100%;
-    background-color: #F5F5F5;
-}
-
-
-.dh-clear:after{
-    content: '';
-    display: block;
-    clear: both;
-}
-
-.dh-clear{
-    zoom:1;
-}
-
-.dh-left{
-    float: left;
-}
-
-.dh-right{
-    float: right;
-}
-
-.dh-elip{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.dh-container-scroller{
-    padding-top: 46px;
-    z-index: 1;
-    overflow: hidden;
-}
-.dh-container{
-    padding: 0 4.8%;
-    margin: 0 auto;
-}
-.dh-container-fluid{
-    margin: 0 auto;
-}
 @dh-theme-color: #034585;//主色系
+@dh-ligth-color: #5b656e;//浅色系
 @dh-font-color: #2c3e50;//字体颜色
-@dh-bg-color: #eaecee;//字体颜色
+@dh-bg-color: #eaecee;//背景颜色
+
+//动作
+.trandtion-ease(@time: .2s){
+    transition: all ease-in-out @time;
+    -webkit-transition: all ease-in-out @time;
+    -ms-transition: all ease-in-out @time;
+}

@@ -41,7 +41,7 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/styles/common';
 .dh-header{
-    position: absolute;
+    position: fixed;
     width: 100%;
     left: 0;
     top: 0;
@@ -51,10 +51,10 @@ export default {
     z-index: 2;
     .dh-header-left, .dh-header-right{
       position: absolute;
-      top: 12px;
+      top: 19px;
       display: block;
-      font-size: 21px;
-      line-height: 21px;
+      font-size: 24px;
+      line-height: 24px;
       color: #333;
     }
     .dh-header-left{
@@ -67,10 +67,10 @@ export default {
       width: auto;
       margin: 0 88px;
       text-align: center;
-      height: 40px;
-      line-height: 40px;
+      height: 56px;
+      line-height: 56px;
       .dh-logo{
-        height: 72%;
+        height: 56%;
         vertical-align: middle;
       }
     }

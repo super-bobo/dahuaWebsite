@@ -13,7 +13,7 @@ export default {
 
 </script>
 <style lang="less">
-  	@import './assets/styles/common';
+  	@import './assets/styles/reset';
 	.router-fade-enter-active, .router-fade-leave-active {
 	  	transition: opacity .3s;
 	}

@@ -6,6 +6,9 @@ import router from './router'
 require('font-awesome-webpack')
 import FastClick from 'fastclick'
 
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller)
+
 if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {
         FastClick.attach(document.body);

@@ -3,7 +3,7 @@
     <div class="dh-floatmenu-close">
       <div class="dh-close-btn" @click="isShowMenu"><i class="fa fa-close" aria-hidden="true"></i></div>
     </div>
-      <scroller lock-x ref="scrollerEvent">
+      <scroller>
         <ul class="dh-floatmenu-fir">
           <li class="dh-floatmenu-list" v-for="(firItem, firIndex) in floatMenus">
             <template v-if="firItem.secmenu">
@@ -21,7 +21,7 @@
                     </ul>
                   </template>
                   <template v-else>
-                    <router-link  tag="a" :to="'/products/' + secItem.id" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                    <router-link  tag="a" :to="'/product/' + secItem.id" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
                       {{secItem.name}}
                     </router-link>
                   </template>
@@ -122,7 +122,6 @@ var floatMenus = [
       ]
     }
 ];
-import { Scroller } from 'vux'
 export default {
   props: ['showMenu'],
   data () {
@@ -136,9 +135,6 @@ export default {
     isShowMenu: function (){
        this.$emit('ShowMenuMethods')
     }
-  },
-  components: {
-    Scroller
   }
 }
 </script>
@@ -191,7 +187,7 @@ export default {
     &.dh-has-icon{
       padding-right: 56px;
       .fa{
-        transition: all ease .3s;
+        .trandtion-ease();
       }
       &.active{
         .fa{
@@ -210,6 +206,7 @@ export default {
     .dh-floatmenu-link{
       background-color: @dh-theme-color;
       color: #fff;
+      .trandtion-ease();
       &.active{
         background-color: @dh-theme-color * 1.3;
       }
@@ -219,6 +216,7 @@ export default {
     .dh-floatmenu-link{
       background-color: #eaecee;
       color: @dh-font-color;
+      .trandtion-ease();
       &.active{
         background-color: #dadada;
       }

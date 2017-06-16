@@ -1,11 +1,12 @@
-var path = require('path')
-var utils = require('./utils')
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
+const path = require('path')
+const utils = require('./utils')
+const config = require('../config')
+const vueLoaderConfig = require('./vue-loader.conf')
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require('autoprefixer')
 const precss = require('precss')
 const vuxLoader = require('vux-loader')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -70,13 +71,18 @@ let webpackConfig = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /vue-scroller.src.*?js$/,
+        loader: 'babel-loader'
       }
     ]
   },
   plugins: [
     new ExtractTextPlugin('styleSheets.css'),
     precss,
-    autoprefixer
+    autoprefixer,
+    new OptimizeCssAssetsPlugin()
   ]
 }
 
