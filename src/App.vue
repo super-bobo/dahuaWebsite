@@ -14,10 +14,5 @@ export default {
 </script>
 <style lang="less">
   	@import './assets/styles/reset';
-	.router-fade-enter-active, .router-fade-leave-active {
-	  	transition: opacity .3s;
-	}
-	.router-fade-enter, .router-fade-leave-active {
-	  	opacity: 0;
-	}
+  	@import '~vux/src/styles/1px';
 </style>

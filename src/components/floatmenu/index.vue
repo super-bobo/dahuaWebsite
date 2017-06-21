@@ -14,14 +14,14 @@
                     <div class="dh-floatmenu-link dh-has-icon" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;" :class="{active: secIndex === currentSecNode}">{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
                     <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
                       <li class="dh-floatmenu-list" v-for="thirItem in secItem.thirmenu">
-                        <router-link  tag="a" :to="'/products/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                        <router-link  tag="a" :to="'/product/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
                           {{thirItem.name}}
                         </router-link>
                       </li>
                     </ul>
                   </template>
                   <template v-else>
-                    <router-link  tag="a" :to="'/product/' + secItem.id" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                    <router-link  tag="a" :to="'/product/subProduct'" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
                       {{secItem.name}}
                     </router-link>
                   </template>
@@ -149,7 +149,7 @@ export default {
   position: fixed;
   left: -100%;
   top: 0;
-  transition: all ease .3s;
+  .trandtion-ease(0.3s);
   &.dh-show-floatmenu{
     left: 0;
   }
@@ -157,7 +157,7 @@ export default {
   @list-height: 48px;
   li{
     position: relative;
-    border-top: solid 1px (#fff * .96);
+    border-top: solid 1px #90b0d0;
   }
   .dh-floatmenu-close{
     width: 100%;
@@ -171,9 +171,10 @@ export default {
     z-index: 999;
     .dh-close-btn{
       display: inline-block;
-      margin-right: 18px;
+      margin-right: 12px;
       text-align: center;
-      margin-top: (@close-height - 32)/2;
+      padding: 6px;
+      margin-top: (@close-height - 44)/2;
       i{
         font-size: 32px;
         color: #fff;
@@ -213,6 +214,9 @@ export default {
     }
   }
   .dh-floatmenu-sec{
+    .dh-floatmenu-list{
+      border-color: #fff;
+    }
     .dh-floatmenu-link{
       background-color: #eaecee;
       color: @dh-font-color;
@@ -224,6 +228,9 @@ export default {
   }
   .dh-floatmenu-thir{
     transition: all ease .3s;
+    .dh-floatmenu-list{
+      border-color: #eaecee;
+    }
     .dh-floatmenu-link{
       background-color: #fff;
       color: @dh-font-color;

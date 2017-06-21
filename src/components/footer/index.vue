@@ -6,29 +6,29 @@
       <P class="dh-footer-text">Enter your email address to receive the latest news & products information</P>
       <div class="dh-footer-form">
         <div class="part1">
-          <input type="" name="">
+          <input type="" name="" v-model="emailAddress">
         </div>
         <div class="part2">
-          <button>Submit</button>
+          <button @click="postAddress">Submit</button>
         </div>
       </div>
     </article>
     <article class="dh-footer-part">
       <h2 class="dh-footer-title">Follow Us</h2> 
       <div class="dh-footer-link">
-        <a href="facebook">
+        <a href="https://www.facebook.com/pages/Dahua-Technology-Co-Ltd/440623362714293?fref=ts">
           <span class="dh-facebook"></span>
         </a>
-        <a href="youtube">
+        <a href="https://www.youtube.com/user/DahuaTechnology">
           <span class="dh-youtobe"></span>
         </a>
-        <a href="in">
+        <a href="http://www.linkedin.com/company/dahua-technology?trk=biz-companies-cym">
           <span class="dh-linkedin"></span>
         </a>
-        <a href="google">
+        <a href="https://plus.google.com/109119030969053311967">
           <span class="dh-google"></span>
         </a>
-        <a href="facebook">
+        <a href="http://www.dahuasecurity.com/feed.php">
           <span class="dh-rss"></span>
         </a>
       </div>
@@ -37,18 +37,29 @@
       <p>© 2010-2017 Dahua Technology Co., Ltd</p>
     </article>
   </section>
+  <toast v-model="showModule" type="text" text="please input your email"></toast>
 </div>
 </template>
 
 <script>
+import { Toast } from 'vux'
 export default {
   data () {
     return {
-      
+      emailAddress: "",
+      showModule: false
     }
   },
   methods: {
-    
+    postAddress: function(){
+      const _this = this;
+      if(this.emailAddress == ""){
+          _this.showModule = true;
+      }
+    }
+  },
+  components: {
+    Toast
   }
 }
 </script>

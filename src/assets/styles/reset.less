@@ -4,10 +4,9 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
     list-style: none;
     font-style: normal;
     text-decoration: none;
-    border: none;
-    color: #2c3e50;
+    border: none; 
     font-weight: normal;
-    font-family: 'Segoe UI', Helvetica, "Microsoft Yahei", Arial, sans-serif;
+    font-family:  'Segoe UI', 'PingFang SC', 'Helvetica Neue', Helvetica,  'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
     box-sizing: border-box;
     -webkit-tap-highlight-color:transparent;
     -webkit-font-smoothing: antialiased;
@@ -17,6 +16,10 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
 }
 ul, li{
     list-style: none;
+}
+input[type="button"], input[type="submit"], input[type="reset"], button {
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
@@ -100,5 +103,14 @@ html,body{
   text-align: center;
   h3{
     font-weight: bold;
+    color: #2c3e50;
   }
+}
+
+//切换动画
+.router-fade-enter-active, .router-fade-leave-active {
+    transition: opacity .3s;
+}
+.router-fade-enter, .router-fade-leave {
+    opacity: 0;
 }

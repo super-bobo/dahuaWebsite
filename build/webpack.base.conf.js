@@ -79,7 +79,7 @@ let webpackConfig = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('styleSheets.css'),
+    new ExtractTextPlugin('static/css/styleSheets.css'),
     precss,
     autoprefixer,
     new OptimizeCssAssetsPlugin()

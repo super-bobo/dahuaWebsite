@@ -1,8 +1,8 @@
 <template>
 <div>
   <section class="dh-header">
-    <div class="dh-header-left">
-      <div @click="isShowMenu">
+    <div class="dh-header-left" @click="isShowMenu">
+      <div>
           <i class="fa fa-bars" aria-hidden="true"></i>
       </div>
     </div>
@@ -51,17 +51,18 @@ export default {
     z-index: 2;
     .dh-header-left, .dh-header-right{
       position: absolute;
-      top: 19px;
+      top: 15px;
       display: block;
+      padding: 4px 8px;
       font-size: 24px;
       line-height: 24px;
       color: #333;
     }
     .dh-header-left{
-      left: 18px;
+      left: 10px;
     }
     .dh-header-right{
-      right: 18px;
+      right: 10px;
     }
     .dh-header-title{
       width: auto;
