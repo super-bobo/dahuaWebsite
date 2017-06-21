@@ -6,7 +6,7 @@
       <P class="dh-footer-text">Enter your email address to receive the latest news & products information</P>
       <div class="dh-footer-form">
         <div class="part1">
-          <input type="" name="" v-model="emailAddress">
+          <input type="text" name="" v-model="emailAddress">
         </div>
         <div class="part2">
           <button @click="postAddress">Submit</button>
@@ -127,8 +127,8 @@ export default {
     display: inline-block;
     span{
       display: block;
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 100%;

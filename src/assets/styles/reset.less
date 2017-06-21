@@ -17,10 +17,6 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
 ul, li{
     list-style: none;
 }
-input[type="button"], input[type="submit"], input[type="reset"], button {
-    -webkit-appearance: none;
-    border-radius: 0;
-}
 
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
 ::-webkit-scrollbar  
@@ -46,7 +42,7 @@ input[type="button"], input[type="submit"], input[type="reset"], button {
     background-color: #555;  
 }  
 
-input[type="button"], input[type="submit"], input[type="search"], input[type="reset"] {
+input[type="button"], input[type="submit"], input[type="search"], input[type="reset"], button {
     -webkit-appearance: none;
 }
 
@@ -109,8 +105,8 @@ html,body{
 
 //切换动画
 .router-fade-enter-active, .router-fade-leave-active {
-    transition: opacity .3s;
+    transition: opacity .2s ease-in-out;
 }
-.router-fade-enter, .router-fade-leave {
+.router-fade-enter, .router-fade-leave-active {
     opacity: 0;
 }
