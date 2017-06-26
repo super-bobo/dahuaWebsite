@@ -2,7 +2,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+//const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const autoprefixer = require('autoprefixer')
 const precss = require('precss')
 const vuxLoader = require('vux-loader')
@@ -39,17 +39,19 @@ let webpackConfig = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader?importLoaders=1!postcss-loader"
-        })
+        // loader: ExtractTextPlugin.extract({
+        //   fallback: "style-loader",
+        //   use: "css-loader?importLoaders=1!postcss-loader"
+        // }),
+        loader: 'style-loader!css-loader?importLoaders=1!postcss-loader'
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader!less-loader!postcss-loader"
-        })
+        // loader: ExtractTextPlugin.extract({
+        //   fallback: "style-loader",
+        //   use: "css-loader!less-loader!postcss-loader"
+        // }),
+        loader: 'style-loader!css-loader!less-loader!postcss-loader'
       },
       {
         test: /\.js$/,
@@ -79,7 +81,7 @@ let webpackConfig = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('static/css/styleSheets.css'),
+    // new ExtractTextPlugin('static/css/styleSheets.css'),
     precss,
     autoprefixer,
     new OptimizeCssAssetsPlugin()

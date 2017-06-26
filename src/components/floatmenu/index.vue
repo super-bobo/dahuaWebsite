@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { mapGetters , mapActions } from 'vuex'
 var floatMenus = [
     {
       'firmenu': {
@@ -131,10 +132,27 @@ export default {
       currentSecNode: -1
     }
   },
+  computed: {
+    ...mapGetters([
+      'productMenu'
+    ])
+  },
   methods: {
     isShowMenu: function (){
        this.$emit('ShowMenuMethods')
-    }
+       
+    },
+    ...mapActions(['getProductMenu'])
+  },
+  created() {
+    console.log(this.getProductMenu()["[[PromiseValue]]"])
+  },
+  mounted: function() {
+    // console.log(api.productMenu())
+    // this.productMenu = api.productMenu();
+    // console.log(1);
+    
+   
   }
 }
 </script>

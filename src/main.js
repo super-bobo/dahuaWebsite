@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 require('font-awesome-webpack')
 import FastClick from 'fastclick'
+import store from './vuex/store'
+import axios from 'axios'
+Vue.prototype.$http = axios
 
 import VueScroller from 'vue-scroller'
 Vue.use(VueScroller)
@@ -20,6 +23,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
