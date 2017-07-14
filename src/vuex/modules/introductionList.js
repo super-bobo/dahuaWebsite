@@ -1,27 +1,27 @@
 import api from '../../fetch/api'
 
 const state = {
-    productMenu: ''
+    introductionList: ''
 }
 
 const actions = {
 
     /**/
-    getProductMenu() {
-        api.productMenu()
+    getIntroductionList({commit}, params) {
+        api.introductionList(params)
             .then(res => {
-                state.productMenu = res;
+                state.introductionList = res;
                 console.log(res)
             })
     }
 }
 
 const getters = {
-    productMenu: state => state.productMenu
+    introductionList: state => state.introductionList
 }
 
 const mutations = {
-    
+   
 }
 
 export default {

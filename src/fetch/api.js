@@ -4,8 +4,15 @@ import qs from 'qs'
 // axios 配置
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['accept'] = 'application/json, text/plain, */*';
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
-axios.defaults.baseURL = 'http://localhost:8080/';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/' : 'http://mobiletest.dahuasecurity.com/';
+
+// axios.interceptors.request.use((config) => {
+//     config.data = qs.stringify(config.data);
+//     return config;
+// }, function(error) {
+//     return Promise.reject(error);
+// });
 
 //POST传参序列化
 axios.interceptors.request.use((config) => {
@@ -17,42 +24,183 @@ axios.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 
-//返回状态判断
-axios.interceptors.response.use((res) =>{
-    if(!res.data.success){
-        // _.toast(res.data.msg);
-        return Promise.reject(res);
-    }
-    return res;
-}, (error) => {
-    return Promise.reject(error);
-});
 
-export function fetch(url, params) {
-    return new Promise((resolve, reject) => {
-        axios.post(url, params)
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch((error) => {
-               reject(error)
-            })
+export function fetchPost (url, params = {}) {
+  return new Promise((resolve, reject) => {
+    axios.post(url, params).then(res => {
+      resolve(res.data)
+    }).catch((error) => {
+      reject(error);
     })
+  })
+}
+export function fetchGet (url, params) {
+  return new Promise((resolve, reject) => {
+    axios.get(url, params).then(res => {
+      resolve(res.data)
+    }).catch((error) => {
+      reject(error);
+    })
+  })
 }
 
 export default {
 
-    /**
-     * 获取产品菜单栏
-     */
+    /*获取产品菜单栏*/
     productMenu() {
-        return fetch('indexApi/home/products_menu')
+        return fetchGet('indexApi/home/index_menu')
     },
 
-    /**
-     * 获取约跑步详情
-     */
-    SportsDetail(id) {
-        return fetch('/api/sportDetail', {sportId: id})
-    }
+    /*获取首页banner */
+    homeBanner() {
+        return fetchGet('indexApi/home/banner')
+    },
+
+    /*获取最新产品 */
+    newProducts() {
+        return fetchGet('indexApi/home/products_index')
+    },
+
+    /*获取最新事件 */
+    newsEvent() {
+        return fetchGet('indexApi/home/news_index')
+    },
+
+    /*获取消息列表 */
+    storyList() {
+        return fetchGet('indexApi/home/story_index')
+    },
+
+    /*获取所有产品列表 */
+    allProducts() {
+        return fetchGet('indexApi/product/main_product')
+    },
+
+    /*获取子产品列表 */
+    subProducts(id) {
+        return fetchGet('indexApi/product/menu_product?id=' + id)
+    },
+
+    /*获取子产品子列表 */
+    productList(id) {
+        return fetchGet('indexApi/product/product_list?id=' + id)
+    },
+
+    /*获取最新子产品子列表 */
+    newProductList() {
+        return fetchGet('indexApi/product/product_list?new=1')
+    },
+
+    /*获取产品详情 */
+    productDetail(id) {
+        return fetchGet('indexApi/product/product_info?id=' + id)
+    },
+
+    /*获取产品删选列表 */
+    productSelect(params) {
+        return fetchPost('indexApi/product/product_select', params)
+    },
+
+    /*获取删选产品列表 */
+    productSelectFilter() {
+        return fetchGet('indexApi/menu/main_menu')
+    },
+
+    /*获取删选后的产品列表 */
+    productToFilter(params) {
+        return fetchGet('indexApi/menu/second_menu?main_id=' + params.main_id + '&small=' + params.small)
+    },
+
+    /*获取删选后的产品选择列表 */
+    productToFilterMenu(params) {
+        return fetchGet('indexApi/menu/search_menu?search_id=' + params.search_id)
+    },
+
+    /*获取产品比较表格列表 */
+    productToCompare(params) {
+        return fetchGet('indexApi/product/product_compare?compare=' + JSON.stringify(params.compare))
+    },
+
+    /*获取newsroom */
+    newsroom() {
+        return fetchGet('indexApi/newsroom/newsroom')
+    },
+
+    /*获取newsroom   successStory */
+    successStory(params) {
+        return fetchGet('indexApi/newsroom/success_stories')
+    },
+
+    /*获取newsroom   successStoryList */
+    successStoryList(params) {
+        return fetchGet('indexApi/newsroom/banking_list?id=' + params)
+    },
+
+    /*获取newsroom   successStoryDetail */
+    successStoryDetail(params) {
+        return fetchGet('indexApi/newsroom/banking_info?id=' + params)
+    },
+
+    /*获取newsroom   eventsList */
+    eventsList() {
+        return fetchGet('indexApi/newsroom/events_list')
+    },
+
+    /*获取newsroom   newsletter */
+    newsletter() {
+        return fetchGet('indexApi/newsroom/newsletter_list')
+    },
+
+    /*获取newsroom   pressRelease*/
+    pressRelease(params) {
+        return fetchGet('indexApi/newsroom/news_list?date=' + params)
+    },
+
+    /*获取newsroom   pressRelease*/
+    pressReleaseDetail(params) {
+        return fetchGet('indexApi/newsroom/news_info?id=' + params)
+    },
+
+    /*获取about us  introductionList*/
+    introductionList(params) {
+        return fetchGet('indexApi/about_us/single_page?keyword=introduction')
+    },
+
+    /*获取about us  contactUs*/
+    contactUs() {
+        return fetchGet('indexApi/about_us/contact_us')
+    },
+
+    /*获取about us  career*/
+    career(params) {
+        return fetchGet('indexApi/about_us/open_positions?country_id='+ params.country_id + '&function=' + params.functions + '&search=' + params.search)
+    },
+
+    /*获取about us  career*/
+    awards() {
+        return fetchGet('indexApi/about_us/awards_certifications')
+    },
+
+
+    /*获取partner technologyPartner*/
+    technologyPartner(params) {
+        return fetchGet('indexApi/partner/technology_partner?menu_id=' + params)
+    },
+
+    /*获取partner technologyPartner*/
+    distributionPartner(params) {
+        return fetchGet('indexApi/partner/distribution_partner?menu_id=' + params)
+    },
+
+    /*获取partner IPCSupportList*/
+    IPCSupportList() {
+        return fetchGet('indexApi/partner/nvr')
+    },
+
+
+    /*获取support cybersecurity*/
+    cybersecurity() {
+        return fetchGet('indexApi/support/single_page?keyword=cybersecurity')
+    },
+
 }

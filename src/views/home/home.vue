@@ -4,9 +4,9 @@
         <div class="dh-container-scroller">
           <div class="dh-swiper-wrapper">
               <swiper loop auto class="dh-index-swiper" 
-                  :list="swiper_list" 
+                  :list="homeBanner" 
                   :aspect-ratio="4/3" 
-                  :index="swiper_index"
+                  :index="bannerIndex"
                   :interval="8000"
                   :show-desc-mask="true">
               </swiper>
@@ -15,53 +15,16 @@
               <section class="dh-index-wrapper dh-newproduct-wrapper">
                   <article class="dh-index-title-box">
                       <h2 class="dh-index-title dh-left">New Products</h2>
-                      <router-link tag="a" :to="'/home'" class="dh-index-morebtn dh-right">more</router-link>
+                      <router-link tag="a" :to="'/product/newProductList'" class="dh-index-morebtn dh-right">more</router-link>
                   </article>
                   <ul class="dh-newproduct-main">
-                      <li class="dh-newproduct-list">
-                        <router-link tag="a" :to="'/product/productList'">
+                      <li class="dh-newproduct-list" v-for="item in newProducts.data" v-if="newProducts">
+                        <router-link tag="a" :to="'/product/productDetail/' + item.id">
                           <figure>
-                            <img class="dh-newproduct-img" src="../../assets/images/protect-img.png" alt="" />
+                            <img class="dh-newproduct-img" :src="item.pro_thumb" alt="" />
                             <figcaption>
-                                <h3 class="dh-elip">NVR6000/6000D/6000DR</h3>
-                                <p>8/16 Channel 1U 8PoE 
-Network Video Recorder</p>
-                            </figcaption>
-                          </figure>
-                        </router-link>
-                      </li>
-                      <li class="dh-newproduct-list">
-                        <router-link tag="a" :to="'/product/productList'">
-                          <figure>
-                            <img class="dh-newproduct-img" src="../../assets/images/protect-img.png" alt="" />
-                            <figcaption>
-                                <h3 class="dh-elip">NVR6000/6000D/6000DR</h3>
-                                <p>8/16 Channel 1U 8PoE 
-Network Video Recorder</p>
-                            </figcaption>
-                          </figure>
-                        </router-link>
-                      </li>
-                      <li class="dh-newproduct-list">
-                        <router-link tag="a" :to="'/product/productList'">
-                          <figure>
-                            <img class="dh-newproduct-img" src="../../assets/images/protect-img.png" alt="" />
-                            <figcaption>
-                                <h3 class="dh-elip">NVR6000/6000D/6000DR</h3>
-                                <p>8/16 Channel 1U 8PoE 
-Network Video Recorder</p>
-                            </figcaption>
-                          </figure>
-                        </router-link>
-                      </li>
-                      <li class="dh-newproduct-list">
-                        <router-link tag="a" :to="'/product/productList'">
-                          <figure>
-                            <img class="dh-newproduct-img" src="../../assets/images/protect-img.png" alt="" />
-                            <figcaption>
-                                <h3 class="dh-elip">NVR6000/6000D/6000DR</h3>
-                                <p>8/16 Channel 1U 8PoE 
-Network Video Recorder</p>
+                                <h3 class="dh-elip">{{item.name}}</h3>
+                                <p>{{item.text}}</p>
                             </figcaption>
                           </figure>
                         </router-link>
@@ -72,7 +35,7 @@ Network Video Recorder</p>
                   <article class="dh-index-title-box dh-spe">
                       <h2 class="dh-index-title">Newsletter</h2>
                   </article>
-                  <router-link  tag="a" :to="'/newsletter/'">
+                  <router-link  tag="a" :to="'/newsroom/newsletter'">
                     <figure>
                       <img class="dh-newproduct-img" src="../../assets/images/dh-newsletter-img.png" alt="" />
                       <figcaption>
@@ -86,26 +49,14 @@ Network Video Recorder</p>
                       <h2 class="dh-index-title">News & Events</h2>
                   </article>
                   <ul class="dh-events-main">
-                    <li class="dh-events-list">
-                      <router-link  tag="a" :to="'/events/'" class="dh-event-link">
-                        <time>[2017-06-12]</time>
-                        <p>Another Big Step, Dahua Technology Takes HDCVI to the 4.0 Era</p>
-                      </router-link>
-                    </li>
-                    <li class="dh-events-list">
-                      <router-link  tag="a" :to="'/events/'" class="dh-event-link">
-                        <time>[2017-06-12]</time>
-                        <p>Another Big Step, Dahua Technology Takes HDCVI to the 4.0 Era</p>
-                      </router-link>
-                    </li>
-                    <li class="dh-events-list">
-                      <router-link  tag="a" :to="'/events/'" class="dh-event-link">
-                        <time>[2017-06-12]</time>
-                        <p>Another Big Step, Dahua Technology Takes HDCVI to the 4.0 Era</p>
+                    <li class="dh-events-list" v-for="item in newsEvent.data" v-if="newsEvent">
+                      <router-link  tag="a" :to="'/newsroom/pressReleaseDetail/' + item.id" class="dh-event-link">
+                        <time>[{{item.post_date}}]</time>
+                        <p>{{item.name}}</p>
                       </router-link>
                     </li>
                     <li class="dh-events-more">
-                      <router-link  tag="a" :to="'/events/'" class="dh-index-morebtn">
+                      <router-link  tag="a" :to="'/newsroom/pressRelease'" class="dh-index-morebtn">
                         View all news
                       </router-link>
                     </li>
@@ -118,11 +69,11 @@ Network Video Recorder</p>
                   <article>
                     <figure>
                       <img class="dh-width-fluid" src="../../assets/images/dh-story-img.png" alt="" />
-                      <figcaption>
-                        <h3>Dahua Professional Surveillance System Transforms Cutral-Có, Argentina into Safe City in 30 Days</h3>
-                        <p>HANGZHOU, CHINA/April 18, 2017 — As the second largest city in Neuquén Province and one of Argentina’s most important oil producing regions, Cutral-Có was in need of a solution to safeguard …</p>
+                      <figcaption v-if="storyList">
+                        <h3>{{storyList.data.name}}</h3>
+                        <p>{{storyList.data.messages_e}} …</p>
                         <div class="dh-stoty-more">
-                          <router-link  tag="a" :to="'/events/'" class="dh-index-morebtn">
+                          <router-link  tag="a" :to="'/newsroom/successStoryDetail/' + storyList.data.id" class="dh-index-morebtn">
                             Read the full story
                           </router-link>
                         </div>
@@ -140,36 +91,32 @@ Network Video Recorder</p>
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
 import { Swiper } from 'vux'
-import bannerSrc01 from '../../assets/images/dh-banner01.png'
-import bannerSrc02 from '../../assets/images/dh-banner02.png'
-import bannerSrc03 from '../../assets/images/dh-banner03.png'
 
-const baseList = [{
-  url: 'javascript:',
-  img: bannerSrc01
-}, {
-  url: 'javascript:',
-  img: bannerSrc02
-}, {
-  url: 'javascript:',
-  img: bannerSrc03
-}]
-
-const urlList = baseList.map((item, index) => ({
-  url: 'http://m.baidu.com',
-  img: item.img
-}))
+import { mapGetters } from 'vuex'
 export default {
     data(){
         return{
-            swiper_list: urlList,
-            swiper_index: 0,
         }
     },
     components: {
         headTop,
         Swiper,
         footerPart
+    },
+    computed: {
+      ...mapGetters([
+        'newsEvent',
+        'newProducts',
+        'homeBanner',
+        'bannerIndex',
+        'storyList'
+      ])
+    },
+    created() {
+      if(this.newsEvent.length == 0) this.$store.dispatch('getNewsEvent')
+      if(this.newProducts.length == 0) this.$store.dispatch('getNewProducts')
+      if(this.homeBanner.length == 0) this.$store.dispatch('getHomeBanner')
+      if(this.storyList.length == 0) this.$store.dispatch('getStoryList')
     },
     methods: {
     }
@@ -188,17 +135,21 @@ export default {
     .dh-index-swiper{
       &.vux-slider .vux-indicator,
       &.vux-slider .vux-indicator-right{
-        right: 50%;
-        margin-right: -24px;
-        a .vux-icon-dot{
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          &.active{
-            background-color: @dh-theme-color;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        a {
+          margin: 0 3px;
+          float: none;
+          .vux-icon-dot{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            &.active{
+              background-color: @dh-theme-color;
+            }
           }
         }
-
       }
     }
     .dh-index-wrapper{
@@ -207,6 +158,9 @@ export default {
     .dh-newproduct-wrapper{
         padding: 20px 5%;
         background-color: @dh-bg-color;
+        .dh-newproduct-img{
+          background-color: #fff;
+        }
     }
     @dh-index-title: 26px;
     .dh-index-title-box{

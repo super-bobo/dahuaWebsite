@@ -1,3 +1,5 @@
+@import './common';
+
 body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, a, p, h1, h2, h3, h4,h5, h6, b, textarea, button, input, select, figure, figcaption{
     padding: 0;
     margin: 0;
@@ -51,7 +53,6 @@ textarea { -webkit-appearance: none;}
 html,body{
     height: 100%;
     width: 100%;
-    background-color: #F5F5F5;
 }
 
 
@@ -95,12 +96,16 @@ html,body{
   height: 48px;
   line-height: 48px;
   font-size: 20px;
-  background-color: #eaecee;
+  background-color: @dh-bg-color;
   text-align: center;
   h3{
     font-weight: bold;
     color: #2c3e50;
   }
+}
+
+[v-cloak] {
+  display: none;
 }
 
 //切换动画

@@ -5,23 +5,23 @@
     </div>
       <scroller>
         <ul class="dh-floatmenu-fir">
-          <li class="dh-floatmenu-list" v-for="(firItem, firIndex) in floatMenus">
-            <template v-if="firItem.secmenu">
-              <div class="dh-floatmenu-link dh-has-icon" @click="currentFirNode= currentFirNode===firIndex? -1:firIndex;currentSecNode=-1;" :class="{active: firIndex === currentFirNode}">{{firItem.firmenu.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+          <li class="dh-floatmenu-list" v-for="(firItem, firIndex) in productMenu.data" v-if="productMenu">
+            <template v-if="firIndex != 0">
+              <div class="dh-floatmenu-link dh-has-icon" @click="currentFirNode= currentFirNode===firIndex? -1:firIndex;currentSecNode=-1;" :class="{active: firIndex === currentFirNode}">{{firItem.name}}<i class="fa fa-chevron-down" aria-hidden="true"></i></div>
               <ul class="dh-floatmenu-sec" v-show="firIndex === currentFirNode">
-                <li class="dh-floatmenu-list" v-for="(secItem, secIndex) in firItem.secmenu">
-                  <template v-if="secItem.thirmenu">
+                <li class="dh-floatmenu-list" v-for="(secItem, secIndex) in firItem.child">
+                  <template v-if="secItem.child">
                     <div class="dh-floatmenu-link dh-has-icon" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;" :class="{active: secIndex === currentSecNode}">{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
                     <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
-                      <li class="dh-floatmenu-list" v-for="thirItem in secItem.thirmenu">
-                        <router-link  tag="a" :to="'/product/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                      <li class="dh-floatmenu-list" v-for="thirItem in secItem.child">
+                        <router-link  tag="a" :to="'/'+ firItem.url + '/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
                           {{thirItem.name}}
                         </router-link>
                       </li>
                     </ul>
                   </template>
                   <template v-else>
-                    <router-link  tag="a" :to="'/product/subProduct'" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                    <router-link  tag="a" :to="'/'+ secItem.url" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
                       {{secItem.name}}
                     </router-link>
                   </template>
@@ -29,105 +29,24 @@
               </ul>
             </template>
 
-
             <template v-else>
-              <router-link  tag="a" :to="'/home'" :key="firItem.firmenu.id" class="dh-floatmenu-link" @click.native="isShowMenu">
-                {{firItem.firmenu.name}}
+              <router-link  tag="a" :to="'/'+ firItem.url" :key="firItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                {{firItem.name}}
               </router-link>
             </template>
           </li>
         </ul>
+
       </scroller>
   </section>
 </template>
 
 <script>
-import { mapGetters , mapActions } from 'vuex'
-var floatMenus = [
-    {
-      'firmenu': {
-        'name': 'HOME',
-        'id': '1'
-      }
-    },
-    {
-      'firmenu': {
-        'name': 'PRODUCTS',
-        'id': '2'
-      },
-      'secmenu': [
-        {
-          'name': 'New Products',
-          'id': '2-1'
-        },
-        {
-          'name': 'Product Selector',
-          'id': '2-2'
-        },
-        {
-          'name': 'Network Products',
-          'id': '2-3',
-          'thirmenu': [
-            {
-              'name': "Network Camera",
-              'id': '3-1'
-            },
-            {
-              'name': 'Network PTZ Camera',
-              'id': '3-2'
-            },
-          ]
-        }
-      ]
-    },
-    {
-      'firmenu': {
-        'name': 'SOLUTION',
-        'id': '2'
-      },
-      'secmenu': [
-        {
-          'name': 'New Products',
-          'id': '2-1'
-        },
-        {
-          'name': 'Product Selector'
-        },
-        {
-          'name': 'Network Products',
-          'thirmenu': [
-            {
-              'name': 'Network Camera'
-            },
-            {
-              'name': 'Network PTZ Camera'
-            },
-          ]
-        }
-      ]
-    },
-    {
-      'firmenu': {
-        'name': '22'
-      },
-      'secmenu': [
-        {
-          'name': 'New Products'
-        },
-        {
-          'name': 'Product Selector'
-        },
-        {
-          'name': 'Network Products'
-        }
-      ]
-    }
-];
+import { mapGetters } from 'vuex'
 export default {
   props: ['showMenu'],
   data () {
     return {
-      floatMenus: floatMenus,
       currentFirNode: -1,
       currentSecNode: -1
     }
@@ -141,18 +60,14 @@ export default {
     isShowMenu: function (){
        this.$emit('ShowMenuMethods')
        
-    },
-    ...mapActions(['getProductMenu'])
+    }
   },
   created() {
-    console.log(this.getProductMenu()["[[PromiseValue]]"])
+    if(this.productMenu.length == 0) this.$store.dispatch('getProductMenu')
+
   },
-  mounted: function() {
-    // console.log(api.productMenu())
-    // this.productMenu = api.productMenu();
-    // console.log(1);
-    
-   
+  mounted() {
+      
   }
 }
 </script>
@@ -163,7 +78,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #fff;
-  z-index: 3;
+  z-index: 11;
   position: fixed;
   left: -100%;
   top: 0;
@@ -238,6 +153,7 @@ export default {
     .dh-floatmenu-link{
       background-color: #eaecee;
       color: @dh-font-color;
+      padding-left: 32px;
       .trandtion-ease();
       &.active{
         background-color: #dadada;
@@ -252,6 +168,7 @@ export default {
     .dh-floatmenu-link{
       background-color: #fff;
       color: @dh-font-color;
+      padding-left: 48px;
     }
   }
 }

@@ -6,7 +6,7 @@
           <i class="fa fa-bars" aria-hidden="true"></i>
       </div>
     </div>
-    <h1 class="dh-header-title">
+    <h1 class="dh-header-title" @click="reload">
       <img class="dh-logo" src="../../assets/images/dh-logo.png">
     </h1>
     <div class="dh-header-right">
@@ -33,6 +33,9 @@ export default {
   methods: {
     isShowMenu() {
       this.showMenu = !this.showMenu
+    },
+    reload(){
+        window.location.reload();
     }
   }
 }
@@ -48,7 +51,7 @@ export default {
     padding: 3px 0;
     box-sizing: border-box;
     background-color: #fff;
-    z-index: 2;
+    z-index: 10;
     .dh-header-left, .dh-header-right{
       position: absolute;
       top: 15px;

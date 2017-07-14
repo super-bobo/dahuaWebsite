@@ -18,7 +18,7 @@
     "vue-scroller": "^2.2.0",
     "vue-swiper": "^0.5.0",
     "vuex": "^2.3.1",
-    "vux": "^2.3.4"
+    "vux": "^2.5.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

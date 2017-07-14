@@ -8,39 +8,26 @@
             </div>
             <ul class="dh-container dh-product-item">
               <li class="dh-product-select-enter">
-                <router-link tag="a" :to='"/product/productDetail"'>
+                <router-link tag="a" :to='"/product/productDetail/"'>
                   <div class="dh-toptitle">
                     <h3>Product Selector</h3>
                     <p>Use one of the options below to locate your desired
   product.</p>
                   </div>
                   <div class="dh-img">
-                    <img class="dh-width-fluid" src="../../../assets/images/dh-selectproduct-img.png">
+                    <img class="dh-width-fluid" src="../../assets/images/dh-selectproduct-img.png">
                   </div>
                 </router-link>
               </li>
-              <li class="dh-product-list dh-newproduct">
-                <router-link tag='a' :to='"/product/productDetail"'>
+              <li class="dh-product-list dh-newproduct" v-for="(item, index) in newProductList.data" v-if="newProductList">
+                <router-link tag='a' :to='"/product/productDetail/" + item.id'>
                   <figure>
                     <div class="dh-product-pic">
-                      <img src="../../../assets/images/dh-subproduct-img.png" alt="" />
+                      <img :src="item.pro_thumb" alt="" />
                     </div>
                     <div class="dh-product-text">
-                      <h3>IPC-HFW8331E-Z</h3>
-                      <p>3MP WDR IR Bullet Network Camera</p>
-                    </div>
-                  </figure>
-                </router-link>
-              </li>
-              <li class="dh-product-list dh-newproduct">
-                <router-link tag='a' :to='"/product/productDetail"'>
-                  <figure>
-                    <div class="dh-product-pic">
-                      <img src="../../../assets/images/dh-subproduct-img.png" alt="" />
-                    </div>
-                    <div class="dh-product-text">
-                      <h3>IPC-HFW8331E-Z</h3>
-                      <p>3MP WDR IR Bullet Network Camera</p>
+                      <h3>{{item.name}}</h3>
+                      <p>{{item.text}}</p>
                     </div>
                   </figure>
                 </router-link>
@@ -55,6 +42,9 @@
 <script>
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
+
+import { mapGetters } from 'vuex'
+
 export default {
     data(){
         return{
@@ -65,6 +55,14 @@ export default {
         headTop,
         footerPart
     },
+    computed: {
+      ...mapGetters([
+        'newProductList'
+      ])
+    },
+    created () {
+      if(this.newProductList.length == 0) this.$store.dispatch('getNewProductList')
+    },
     methods: {
     }
 }
@@ -72,13 +70,13 @@ export default {
 </script>
 
 <style lang="less">
-    @import '../../../assets/styles/common';
+    @import '../../assets/styles/common';
     .dh-product-item{
       margin-top: 18px;
       .dh-product-list{
         margin-bottom: 18px;
         &.dh-newproduct{
-          background: url(../../../assets/images/dh-newproducts-icon.png) 0 0 no-repeat;
+          background: url(../../assets/images/dh-newproducts-icon.png) 0 0 no-repeat;
           background-size: 65px;
         }
         img{
@@ -114,7 +112,7 @@ export default {
       margin-bottom: 18px;
       .dh-toptitle{
         padding-left: 30px;
-        background: url(../../../assets/images/dh-selectproduct-icon.png) 0 5px no-repeat;
+        background: url(../../assets/images/dh-selectproduct-icon.png) 0 5px no-repeat;
         background-size: 21px 17px;
         color: #fff;
         h3{

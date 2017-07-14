@@ -7,26 +7,14 @@
               <h3>Network Products</h3>
             </div>
             <ul class="dh-container dh-product-item">
-              <li class="dh-product-list">
-                <router-link tag='a' :to='"/product/productList"'>
+              <li class="dh-product-list" v-for="(item, index) in subProducts.data" v-if="subProducts">
+                <router-link tag='a' :to='"/product/productList/" + item.id'>
                   <figure>
                     <div class="dh-product-pic">
-                      <img src="../../../assets/images/dh-subproduct-img.png" alt="" />
+                      <img :src="item.menu_image" alt="" />
                     </div>
                     <div class="dh-product-text">
-                      <h3>Network Camera</h3>
-                    </div>
-                  </figure>
-                </router-link>
-              </li>
-              <li class="dh-product-list">
-                <router-link tag='a' :to='"/product/productList"'>
-                  <figure>
-                    <div class="dh-product-pic">
-                      <img src="../../../assets/images/dh-subproduct-img.png" alt="" />
-                    </div>
-                    <div class="dh-product-text">
-                      <h3>Network Camera</h3>
+                      <h3>{{item.name}}</h3>
                     </div>
                   </figure>
                 </router-link>
@@ -41,15 +29,28 @@
 <script>
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
+
+import { mapGetters } from 'vuex'
+
 export default {
     data(){
         return{
-            
         }
     },
     components: {
         headTop,
         footerPart
+    },
+    computed: {
+      ...mapGetters([
+        'subProducts'
+      ])
+    },
+    created () {
+      console.log(this.$route.params.productId);
+      this.$store.dispatch('getSubProducts', this.$route.params.productId)
+    },
+    mounted(){
     },
     methods: {
     }
@@ -58,7 +59,7 @@ export default {
 </script>
 
 <style lang="less">
-    @import '../../../assets/styles/common';
+    @import '../../assets/styles/common';
     .dh-product-item{
       margin-top: 18px;
       .dh-product-list{

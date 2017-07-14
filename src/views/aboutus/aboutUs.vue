@@ -6,17 +6,17 @@
         <div class="dh-container-scroller">
           <section class="dh-product-wrapper">
             <div class="dh-sub-title">
-              <h3>All Products</h3>
+              <h3>About us</h3>
             </div>
             <ul class="dh-container dh-product-item">
-              <li class="dh-allproduct-list" v-for="(item, index) in allProducts.data" v-if="allProducts">
+              <!-- <li class="dh-allproduct-list" v-for="(item, index) in allProducts.data">
                 <router-link tag='a' :to='"/product/subProduct/" + item.id'>
                   <figure>
                     <img class="dh-width-fluid" :src="item.menu_image" alt="" />
                     <p>{{item.name}}</p>
                   </figure>
                 </router-link>
-              </li>
+              </li> -->
             </ul>
           </section>
           <footer-part></footer-part>
