@@ -4,11 +4,11 @@
         <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-product-wrapper">
+            <section class="dh-main-wrapper">
               <div class="dh-sub-title">
                 <h3>Contact Us</h3>
               </div>
-              <div class="dh-container dh-contactus">
+              <div class="dh-contactus">
                 <section class="dh-content" v-html="contactUs.data.content" v-if="contactUs"></section>
               </div>
             </section>
@@ -64,12 +64,27 @@ export default {
       }
       .dh-content{
         margin-top: 12px;
+        >P{
+          margin: 0 10px;
+        }
         *{
           color: #606060;
           font-size: 15px!important;
         }
+        .sideMenu{
+          margin-top: 20px;
+          word-break: break-all;
+          td{
+            width: auto;
+          }
+          h3{
+            margin: 0 10px;
+          }
+        }
         img{
           max-width: 100%;
+          min-width: 120px;
+          height: auto;
         }
       }
 </style>

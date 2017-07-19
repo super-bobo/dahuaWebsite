@@ -4,7 +4,7 @@
         <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-product-wrapper">
+            <section class="dh-main-wrapper">
               <div class="dh-sub-title">
                 <h3>Events</h3>
               </div>

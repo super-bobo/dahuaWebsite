@@ -4,7 +4,7 @@
         <div v-show="isSecondPage">
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-product-wrapper" v-if="introductionList">
+            <section class="dh-main-wrapper" v-if="introductionList">
               <div class="dh-sub-title">
                 <h3>{{introductionList.data.name}}</h3>
               </div>
@@ -77,6 +77,7 @@ export default {
         }
         img{
           max-width: 100%;
+          min-width: 120px;
         }
       }
     }

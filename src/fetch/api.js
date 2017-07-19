@@ -7,13 +7,6 @@ axios.defaults.headers.post['accept'] = 'application/json, text/plain, */*';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/' : 'http://mobiletest.dahuasecurity.com/';
 
-// axios.interceptors.request.use((config) => {
-//     config.data = qs.stringify(config.data);
-//     return config;
-// }, function(error) {
-//     return Promise.reject(error);
-// });
-
 //POST传参序列化
 axios.interceptors.request.use((config) => {
     if(config.method  === 'post'){
@@ -202,5 +195,46 @@ export default {
     cybersecurity() {
         return fetchGet('indexApi/support/single_page?keyword=cybersecurity')
     },
+
+    /*获取support annoucement*/
+    annoucement() {
+        return fetchGet('indexApi/support/annoucement')
+    },
+
+    /*获取support annoucement*/
+    annoucementDetail(params) {
+        return fetchGet('indexApi/support/annoucement_info?id=' + params)
+    },
+
+    /*获取support vulnerability-reporting*/
+    vulnerabilityReporting() {
+        return fetchGet('indexApi/support/single_page?keyword=vulnerability-reporting')
+    },
+
+    /*获取support best-practices*/
+    bestPractices() {
+        return fetchGet('indexApi/support/single_page?keyword=best-practices')
+    },
+    /*获取support about-dhcc*/
+    aboutDhcc() {
+        return fetchGet('indexApi/support/single_page?keyword=about-dhcc')
+    },
+
+
+    /*获取solution banking*/
+    solutionBank(params) {
+        return fetchGet('indexApi/solution/solution_bank?menu_id=' + params)
+    },
+
+    /*获取solution entrance*/
+    entrance(params) {
+        return fetchGet('indexApi/solution/solution_area?menu_id=' + params.bankId + '&lb_id=' + params.entranceId)
+    },
+
+    /*获取solution keytechnology*/
+    keyTechnology(params) {
+        return fetchGet('indexApi/solution/key_technology?menu_id=' + params)
+    },
+
 
 }

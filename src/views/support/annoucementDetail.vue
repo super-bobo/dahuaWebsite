@@ -5,11 +5,11 @@
           <head-top></head-top>
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
-              <div class="dh-sub-title">
-                <h3>Cybersecurity</h3>
+              <div class="dh-sub-title" v-if="annoucementDetail">
+                <h3>{{annoucementDetail.data.name}}</h3>
               </div>
-              <div class="dh-container dh-cybersecurity">
-                <section v-html="cybersecurity.data.content" v-if="cybersecurity"></section>
+              <div class="dh-container dh-annoucementDetail" v-if="annoucementDetail">
+                <section v-html="annoucementDetail.data.message"></section>
               </div>
             </section>
             <footer-part></footer-part>
@@ -40,7 +40,7 @@ export default {
     },
     computed: {
       ...mapGetters([
-        'cybersecurity'
+        'annoucementDetail'
       ])
     },
     created () {
@@ -48,7 +48,7 @@ export default {
     },
     methods: {
       getStatus () {
-        this.$store.dispatch('getCybersecurity')
+        this.$store.dispatch('getAnnoucementDetail', this.$route.params.annoucementId)
       }
     }
 }
@@ -57,8 +57,10 @@ export default {
 
 <style lang="less" scoped>
     @import '../../assets/styles/common';
-    .dh-cybersecurity{
-      margin: 10px 0 20px;
+    .dh-annoucementDetail{
       color: #606060;
+      *{
+        text-align: left!important;
+      }
     }
 </style>

@@ -2,9 +2,9 @@
   	<div class="dh-subpage">
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-product-wrapper">
-            <div class="dh-sub-title">
-              <h3>New Products</h3>
+          <section class="dh-main-wrapper">
+            <div class="dh-sub-title" v-if="newProductList">
+              <h3>{{newProductList.data.name}}</h3>
             </div>
             <ul class="dh-container dh-product-item">
               <li class="dh-product-select-enter">
@@ -19,21 +19,25 @@
                   </div>
                 </router-link>
               </li>
-              <li class="dh-product-list dh-newproduct" v-for="(item, index) in newProductList.data" v-if="newProductList">
-                <router-link tag='a' :to='"/product/productDetail/" + item.id'>
-                  <figure>
-                    <div class="dh-product-pic">
-                      <img :src="item.pro_thumb" alt="" />
-                    </div>
-                    <div class="dh-product-text">
-                      <h3>{{item.name}}</h3>
-                      <p>{{item.text}}</p>
-                    </div>
-                  </figure>
-                </router-link>
-              </li>
+              <template v-if="newProductList">
+                <li class="dh-product-list dh-newproduct" v-for="(item, index) in newProductList.data.product" v-if="index < dateCount.listCount">
+                  <router-link tag='a' :to='"/product/productDetail/" + item.id'>
+                    <figure>
+                      <div class="dh-product-pic">
+                        <img :src="item.pro_thumb" alt="" />
+                      </div>
+                      <div class="dh-product-text">
+                        <h3>{{item.name}}</h3>
+                        <p>{{item.text}}</p>
+                      </div>
+                    </figure>
+                  </router-link>
+                </li>
+              </template>
             </ul>
+            <load-more :dateCount="dateCount"></load-more>
           </section>
+          
           <footer-part></footer-part>
         </div>
     </div>
@@ -42,18 +46,23 @@
 <script>
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
+import loadMore from '@/components/common/loadMore'
 
 import { mapGetters } from 'vuex'
 
 export default {
     data(){
-        return{
-            
-        }
+      return{
+        dateCount: {
+          listCount: 8,
+          totalCount: ''
+        },
+      }
     },
     components: {
         headTop,
-        footerPart
+        footerPart,
+        loadMore
     },
     computed: {
       ...mapGetters([
@@ -61,7 +70,18 @@ export default {
       ])
     },
     created () {
-      if(this.newProductList.length == 0) this.$store.dispatch('getNewProductList')
+      this.$store.dispatch('getNewProductList')
+    },
+    mounted () {
+      this.$nextTick( () => {
+       let timer = setInterval( () => {
+        if(this.newProductList){
+          console.log(this.newProductList.data.product.length)
+          this.dateCount.totalCount = this.newProductList.data.product.length
+          clearInterval(timer)
+        }
+      }, 100)
+     })
     },
     methods: {
     }
@@ -69,7 +89,7 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import '../../assets/styles/common';
     .dh-product-item{
       margin-top: 18px;

@@ -82,6 +82,7 @@
                   </article>
               </section>
           </div>
+          <loading></loading>
           <footer-part></footer-part>
         </div>
     </div>
@@ -91,6 +92,8 @@
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
 import { Swiper } from 'vux'
+
+import { mapState } from 'vuex'
 
 import { mapGetters } from 'vuex'
 export default {
@@ -116,7 +119,7 @@ export default {
       if(this.newsEvent.length == 0) this.$store.dispatch('getNewsEvent')
       if(this.newProducts.length == 0) this.$store.dispatch('getNewProducts')
       if(this.homeBanner.length == 0) this.$store.dispatch('getHomeBanner')
-      if(this.storyList.length == 0) this.$store.dispatch('getStoryList')
+      if(this.storyList.length == 0) this.$store.dispatch('getStoryList') 
     },
     methods: {
     }
@@ -226,14 +229,15 @@ export default {
         background-color: #699320;
         padding: 16px 0;
         text-align: center;
-        img{
+        .dh-newproduct-img{
           width: 70px;
-          margin: 0 auto;
+          display: inline-block;
+          margin-left: -10px;
         }
         p{
           color: #f1f1f1;
           font-size: 16px;
-          margin-top: 10px;
+          margin-top: 6px;
         }
       }
     }

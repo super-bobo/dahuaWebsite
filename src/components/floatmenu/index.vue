@@ -58,8 +58,7 @@ export default {
   },
   methods: {
     isShowMenu: function (){
-       this.$emit('ShowMenuMethods')
-       
+       this.$emit('ShowMenuMethods')      
     }
   },
   created() {

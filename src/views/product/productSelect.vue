@@ -2,7 +2,7 @@
     <div class="dh-subpage">
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-product-wrapper">
+          <section class="dh-main-wrapper">
             <div class="dh-sub-title">
               <h3>Product select</h3>
             </div>
@@ -20,7 +20,7 @@
                 <div class="dh-filter-content">
                   <flexbox :gutter="0" wrap="wrap">
                     <flexbox-item :span="1/2" v-for="(item, index) in 4" :key="index">
-                      <div class="dh-filter-list dh-elip" @click="moveFilter(index)" :class="{'dh-has-product': filterProduct[index]}">{{filterProduct[index]}}</div>
+                      <div class="dh-filter-list dh-elip" ref="box" @click="moveFilter(index)" :class="{'dh-has-product': filterProduct[index]}">{{filterProduct[index]}}</div>
                     </flexbox-item>
                   </flexbox>
                 </div>
@@ -112,7 +112,7 @@ export default {
       showCompareBox() {//显示比较框
         
         if(JSON.stringify(this.getCompareObj()) == '{}'){
-          alert('至少选择一个')
+          alert('Not less than 0')
         }else{
           this.infoCompareObj = this.getCompareObj()
           this.isShowCompareBox = !this.isShowCompareBox
@@ -138,30 +138,40 @@ export default {
         let canSelectNum = 4
         let checkbox = document.getElementsByName('outAllFilter');
         for(let i in checkbox){
+
           if(checkbox[i].dataset.id == id){
             console.log(checkbox[i].dataset.id)
             console.log(checkbox[i].checked)
-            
             if(checkbox[i].checked){
-              if(selectedNum < canSelectNum){
-                this.ischeckedFilterNum += 1 //已选产品的个数
-                this.filterProduct.push(name)
-                this.selectedId.push(id)
-                this.moduleId.push(modulid)
-              }else{
-                checkbox[i].checked = false
-                alert('不能超过四个')
+              this.filterProduct.push(name)
+              this.selectedId.push(id)
+              this.moduleId.push(modulid)
+              if(selectedNum >= canSelectNum){
+                for(let j in checkbox){
+                  if(checkbox[j].dataset.id == this.selectedId[0]){
+                    checkbox[j].checked = false
+                    this.selectedId.splice(0,1)
+                    this.moduleId.splice(0,1)
+                    this.filterProduct.splice(0,1)
+                    this.ischeckedFilterNum = this.selectedId.length
+                    this.$refs.box[0].className = 'dh-filter-list dh-elip dh-del-product'
+                    setTimeout( () => {
+                      this.$refs.box[0].className = 'dh-filter-list dh-elip dh-has-product'
+                    }, 1000)
+                    return
+                  }
+                }
               }
             }else{
               for(let j in this.selectedId){
                 if(this.selectedId[j] == id){
-                  this.ischeckedFilterNum -= 1 //已选产品的个数
                   this.selectedId.splice(j,1)
                   this.moduleId.splice(j,1)
                   this.filterProduct.splice(j,1)
                 }
               }
             }
+            this.ischeckedFilterNum = this.selectedId.length
             return
           }
         }
@@ -289,11 +299,22 @@ export default {
         color: #606060;
         font-size: 12px;
         padding: 0 8px;
+        .trandtion-ease();
         &.dh-has-product{
-          border: none;
+          border-style: solid;
           background-color: @dh-bg-color;
         }
+        &.dh-del-product{
+          border-style: solid;
+          background-color: @dh-bg-color;
+          animation: delproduct 1s;
+        }
       }
+    }
+    @keyframes delproduct
+    {
+      from { background-color: #ee4503;border-color: #ee4503;color: #fff;}
+      to { background-color: @dh-bg-color;border-color: @dh-bg-color;color: #606060;}
     }
     .dh-filter-search{
       .vux-search-fixed{
@@ -369,10 +390,12 @@ export default {
           }
           input[type="checkbox"]:checked + .dh-product-btngroup{
             margin-left: -100%;
+            background-color: #606060;
           }
           .dh-product-btngroup{
             width: 200%;
             height: 100%;
+            background-color: #ee4503;
             .trandtion-ease();
             span{
               width: 50%;
@@ -383,12 +406,6 @@ export default {
               display: block;
               float: left;
               font-size: 22px;
-            }
-            .dh-plus{
-              background-color: #ee4503;
-            }
-            .dh-minus{
-              background-color: #606060;
             }
           }
         }

@@ -4,7 +4,7 @@
         <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-product-wrapper">
+            <section class="dh-main-wrapper">
               <div class="dh-sub-title">
                 <h3>Newsletter</h3>
               </div>
@@ -66,7 +66,7 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import '../../assets/styles/common';
     .dh-newsletter{
       margin: 12px 0 15px;

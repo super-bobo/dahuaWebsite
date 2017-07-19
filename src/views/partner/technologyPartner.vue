@@ -4,7 +4,7 @@
       <div>
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-product-wrapper" v-if="technologyPartner">
+          <section class="dh-main-wrapper" v-if="technologyPartner">
             <div class="dh-sub-title">
               <h3>{{technologyPartner.data.menu.name}}</h3>
             </div>
@@ -118,7 +118,7 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import '../../assets/styles/common';
     .dh-partner-list{
       padding: 20px 0;

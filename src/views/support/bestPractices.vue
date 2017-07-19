@@ -1,20 +1,20 @@
 <template>
   	<div>
       <transition name="router-fade" mode="out-in">
-      <div>
-        <head-top></head-top>
-        <div class="dh-container-scroller">
-          <section class="dh-main-wrapper">
-            <div class="dh-sub-title">
-              <h3>Distribution Partner</h3>
-            </div>
-            <div class="dh-distribution-partner">
-              <img :src="distributionPartner.data.menu.image" class="dh-width-fluid" v-if="distributionPartner">
-            </div>
-          </section>
-          <footer-part></footer-part>
+        <div>
+          <head-top></head-top>
+          <div class="dh-container-scroller">
+            <section class="dh-main-wrapper">
+              <div class="dh-sub-title">
+                <h3>Vulnerability Reporting</h3>
+              </div>
+              <div class="dh-container dh-bestPractices">
+                <section v-html="bestPractices.data.content" v-if="bestPractices"></section>
+              </div>
+            </section>
+            <footer-part></footer-part>
+          </div>
         </div>
-      </div>
       </transition>
       <transition name="router-fade" mode="out-in">
         <router-view></router-view>
@@ -25,6 +25,7 @@
 <script>
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
+
 
 import { mapGetters } from 'vuex'
 
@@ -39,7 +40,7 @@ export default {
     },
     computed: {
       ...mapGetters([
-        'distributionPartner'
+        'bestPractices'
       ])
     },
     created () {
@@ -47,17 +48,20 @@ export default {
     },
     methods: {
       getStatus () {
-        this.$store.dispatch('getDistributionPartner', 2)
+        this.$store.dispatch('getBestPractices')
       }
     }
 }
 
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     @import '../../assets/styles/common';
-    .dh-distribution-partner{
+    .dh-bestPractices{
       margin-top: 20px;
-      margin-bottom: 20px;
+      color: #606060;
+      *{
+        text-align: left!important;
+      }
     }
 </style>

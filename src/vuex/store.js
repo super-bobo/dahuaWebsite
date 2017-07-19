@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import loading from './modules/loading'
-
 import productsMenu from './modules/productsMenu'
 import newsEvent from './modules/newsEvent'
 import newProducts from './modules/newProducts'
@@ -39,6 +37,15 @@ import distributionPartner from './modules/distributionPartner'
 import IPCSupportList from './modules/IPCSupportList'
 
 import cybersecurity from './modules/cybersecurity'
+import vulnerabilityReporting from './modules/vulnerabilityReporting'
+import bestPractices from './modules/bestPractices'
+import aboutDhcc from './modules/aboutDhcc'
+import annoucement from './modules/annoucement'
+import annoucementDetail from './modules/annoucementDetail'
+
+import solutionBank from './modules/solutionBank'
+import entrance from './modules/entrance'
+import keyTechnology from './modules/keyTechnology'
 
 
 
@@ -47,8 +54,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        loading,
-
         productsMenu,
         newsEvent,
         newProducts,
@@ -85,5 +90,14 @@ export default new Vuex.Store({
         IPCSupportList,
 
         cybersecurity,
+        vulnerabilityReporting,
+        bestPractices,
+        aboutDhcc,
+        annoucement,
+        annoucementDetail,
+
+        solutionBank,
+        entrance,
+        keyTechnology,
     }
 })

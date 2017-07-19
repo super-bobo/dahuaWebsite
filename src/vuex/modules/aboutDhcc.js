@@ -1,24 +1,22 @@
 import api from '../../fetch/api'
 
 const state = {
-    newProductList: ''
+    aboutDhcc: ''
 }
 
 const actions = {
 
-    /**/
-        
-    getNewProductList() {
-        api.newProductList()
+    getAboutDhcc() {
+        api.aboutDhcc()
             .then(res => {
-                state.newProductList = res;
+                state.aboutDhcc = res;
                 console.log(res)
             })
     }
 }
 
 const getters = {
-    newProductList: state => state.newProductList
+    aboutDhcc: state => state.aboutDhcc
 }
 
 const mutations = {

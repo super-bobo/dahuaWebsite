@@ -2,7 +2,7 @@
     <div class="dh-subpage">
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-product-wrapper">
+          <section class="dh-main-wrapper">
             <div class="dh-sub-title">
               <h3 v-if="productList">{{productList.data.name}}</h3>
             </div>
@@ -19,7 +19,7 @@
                   </div>
                 </router-link>
               </li>
-              <li class="dh-product-list" v-for="(item, index) in productList.data.product">
+              <li class="dh-product-list" v-for="(item, index) in productList.data.product" v-if="index < dateCount.listCount">
                 <router-link tag='a' :to='"/product/productDetail/" + item.id'>
                   <figure>
                     <div class="dh-product-pic">
@@ -33,6 +33,7 @@
                 </router-link>
               </li>
             </ul>
+            <load-more :dateCount="dateCount"></load-more>
           </section>
           <footer-part></footer-part>
         </div>
@@ -42,18 +43,24 @@
 <script>
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
+import loadMore from '@/components/common/loadMore'
 
 import { mapGetters } from 'vuex'
 
 export default {
     data(){
         return{
-            listId: '',
+          listId: '',
+          dateCount: {
+            listCount: 8,
+            totalCount: ''
+          },
         }
     },
     components: {
         headTop,
-        footerPart
+        footerPart,
+        loadMore
     },
     computed: {
       ...mapGetters([
@@ -67,18 +74,37 @@ export default {
     methods: {
       getStatus () {
         this.$store.dispatch('getProductList', this.$route.params.productId)
+
+      },
+      setTotalCount () {
+        let timer = setInterval( () => {
+          if(this.productList){
+            console.log(this.productList.data.product.length)
+            this.dateCount.totalCount = this.productList.data.product.length
+            clearInterval(timer)
+          }
+        }, 100)
+      },
+      reload () {
+        window.location.reload();
       }
+    },
+    mounted () {
+      this.$nextTick( () => {
+       this.setTotalCount()
+     })
     },
     watch: {
       '$route' (to, from) {
-        this.getStatus()
+        this.reload()
       }
+
     }
 }
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import '../../assets/styles/common';
     .dh-product-item{
       margin-top: 18px;

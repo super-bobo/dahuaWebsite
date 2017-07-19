@@ -4,7 +4,7 @@
       <div>
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-product-wrapper">
+          <section class="dh-main-wrapper">
             <div class="dh-sub-title">
               <h3>NVR (IPC Support List)</h3>
             </div>
@@ -67,11 +67,11 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import '../../assets/styles/common';
     .dh-supportlist{
       margin-top: 18px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       .vux-flexbox-item{
         margin-bottom: 24px;
         border-right: solid 1px #eaecee;

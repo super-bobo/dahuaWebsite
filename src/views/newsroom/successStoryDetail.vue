@@ -4,7 +4,7 @@
         <div v-show="isSecondPage">
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-product-wrapper" v-if="successStoryDetail">
+            <section class="dh-main-wrapper" v-if="successStoryDetail">
               <div class="dh-sub-title">
                 <h3>{{successStoryDetail.data.menuName}}</h3>
               </div>

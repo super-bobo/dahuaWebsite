@@ -12,7 +12,7 @@ Vue.prototype.$http = axios
 import VueScroller from 'vue-scroller'
 Vue.use(VueScroller)
 
-if ('addEventListener' in document) {
+if ('addEventListener' in document) {//解决点击延迟事件
     document.addEventListener('DOMContentLoaded', function() {
         FastClick.attach(document.body);
     }, false);

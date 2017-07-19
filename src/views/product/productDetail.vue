@@ -2,7 +2,7 @@
   	<div class="dh-subpage">
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-product-detail-wrapper" v-if="productDetail">
+          <section class="dh-main-wrapper" v-if="productDetail">
             <div class="dh-product-topdetail">
               <div class="dh-productleft">
                 <div class="dh-imgbox"><img class="dh-width-fluid" :src="productDetail.data.pro_img" /></div>
@@ -17,8 +17,7 @@
                 </section>
               </div>
             </div>
-          </section>
-          <div>
+            <div>
             <tab class="dh-onetab" :line-width="0" v-model="onetabindex">
               <tab-item active-class="dh-active" :selected="onetabindex === index" v-for="(item, index) in onetablist" @click="onetabindex = index" :key="index">{{item}}</tab-item>
             </tab>
@@ -92,6 +91,8 @@
               </div>
             </section>
           </div>
+          </section>
+          
           <footer-part></footer-part>
         </div>
     </div>
@@ -101,7 +102,6 @@
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
 import { Tab, TabItem, Flexbox, FlexboxItem } from 'vux'
-import '@/assets/images/dh-product-pdf.png'
 
 import { mapGetters } from 'vuex'
 
@@ -111,7 +111,6 @@ export default {
            onetablist: ['Specifications', 'Accessories', 'Download'],
            onetabindex: 0,
            twotablist: ['Datasheet', 'User Manual', 'Drawings', 'A&E Document'],
-           //tablelist: ['Class', 'Date', 'Title', 'Language', 'Type', 'Download'],
            tablelist: ['Class', 'Date', 'Title', 'Download'],
            twotabindex: 0,
         }
@@ -130,7 +129,6 @@ export default {
       ])
     },
     created () {
-      console.log(this.$route.params.productId);
       this.$store.dispatch('getProductDetail', this.$route.params.productId)
         
     },
@@ -213,7 +211,7 @@ export default {
     .dh-oneswiper{
       background-color: #fff;
       overflow: hidden;
-      margin: 5px 0 15px;
+      margin: 5px 0 20px;
     }
     .dh-oneswiper-item{
       width: 300%;

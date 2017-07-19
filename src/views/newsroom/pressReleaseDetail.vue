@@ -4,7 +4,7 @@
         <div v-show="isSecondPage">
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-product-wrapper">
+            <section class="dh-main-wrapper">
               <div class="dh-sub-title">
                 <h3>press release</h3>
               </div>

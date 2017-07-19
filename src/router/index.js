@@ -31,7 +31,16 @@ const technologyPartner = r => require.ensure([], () => r(require('@/views/partn
 const distributionPartner = r => require.ensure([], () => r(require('@/views/partner/distributionPartner')), 'partner')
 const IPCSupportList = r => require.ensure([], () => r(require('@/views/partner/IPCSupportList')), 'partner')
 
-const cybersecurity = r => require.ensure([], () => r(require('@/views/support/cybersecurity')), 'partner')
+const cybersecurity = r => require.ensure([], () => r(require('@/views/support/cybersecurity')), 'support')
+const annoucement = r => require.ensure([], () => r(require('@/views/support/annoucementNotice')), 'support')
+const annoucementDetail = r => require.ensure([], () => r(require('@/views/support/annoucementDetail')), 'support')
+const vulnerabilityReporting = r => require.ensure([], () => r(require('@/views/support/vulnerabilityReporting')), 'support')
+const bestPractices = r => require.ensure([], () => r(require('@/views/support/bestPractices')), 'support')
+const aboutDhcc = r => require.ensure([], () => r(require('@/views/support/aboutDhcc')), 'support')
+
+const solutionBank = r => require.ensure([], () => r(require('@/views/solution/solutionBank')), 'solution')
+const entrance = r => require.ensure([], () => r(require('@/views/solution/entrance')), 'solution')
+const keyTechnology = r => require.ensure([], () => r(require('@/views/solution/keyTechnology')), 'solution')
 
 
 Vue.use(Router)
@@ -92,18 +101,42 @@ export default new Router({
             path: '/partner_category/technology-partner-1.html', 
             redirect: '/technologyPartner'
         },
-        { 
-            path: '/partner_category/distribution-partner-2.html', 
-            redirect: '/IPCSupportList'
-        },
+        // { 
+        //     path: '/partner_category/distribution-partner-2.html', 
+        //     redirect: '/IPCSupportList'
+        // },
         { 
             path: '/spartner-2.html', 
-            redirect: '/distributionPartner'
+            redirect: '/IPCSupportList'
         },
 
         { 
             path: '/cybersecurity.html', 
             redirect: '/cybersecurity'
+        },
+
+
+        { 
+            path: '/solution.html/:bankId', 
+            redirect: '/solutionBank/:bankId' 
+        },
+
+
+        { 
+            path: '/support.html/492', 
+            redirect: '/annoucement' 
+        },
+        { 
+            path: '/support.html/502', 
+            redirect: '/vulnerabilityReporting' 
+        },
+        { 
+            path: '/support.html/512', 
+            redirect: '/bestPractices' 
+        },
+        { 
+            path: '/support.html/522', 
+            redirect: '/aboutDhcc' 
         },
 
         //重定向结束
@@ -225,8 +258,40 @@ export default new Router({
             path: '/cybersecurity',
             component: cybersecurity
         },
+        {
+            path: '/vulnerabilityReporting',
+            component: vulnerabilityReporting
+        },
+        {
+            path: '/bestPractices',
+            component: bestPractices
+        },
+        {
+            path: '/aboutDhcc',
+            component: aboutDhcc
+        },
+        {
+            path: '/annoucement',
+            component: annoucement
+        },
+        {
+            path: '/annoucementDetail/:annoucementId',
+            component: annoucementDetail
+        },
 
-
+        //solution
+        {
+            path: '/solutionBank/:bankId',
+            component: solutionBank
+        },
+        {
+            path: '/entrance/:bankId/:entranceId',
+            component: entrance
+        },
+        {
+            path: '/keyTechnology/:keyId',
+            component: keyTechnology
+        },
 
     ]
   }],

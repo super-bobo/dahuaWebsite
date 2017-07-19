@@ -4,7 +4,7 @@
         <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-product-wrapper" v-if="successStoryList">
+            <section class="dh-main-wrapper" v-if="successStoryList">
               <div class="dh-sub-title">
                 <h3>{{successStoryList.data.name}}</h3>
               </div>
@@ -89,7 +89,7 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import '../../assets/styles/common';
     .dh-press-item{
       margin-bottom: 18px;
