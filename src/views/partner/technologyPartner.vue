@@ -4,47 +4,45 @@
       <div>
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-main-wrapper" v-if="technologyPartner">
-            <div class="dh-sub-title">
-              <h3>{{technologyPartner.data.menu.name}}</h3>
-            </div>
-            <div class="dh-partner">
-              <ul class="dh-partner-item dh-container">
-                <li class="dh-partner-list" v-for="(item, index) in technologyPartner.data.list" v-if="index < listCount">
-                  <flexbox :gutter="0" wrap="wrap" align="flex-start">
-                    <flexbox-item :span="2/3">
-                      <section class="dh-contentleft">
-                        <h3>{{item.name}}</h3>
-                        <p>Tel:{{item.tel}}</p>
-                        <p>Email:{{item.email}}</p>
-                        <p>Url:{{item.url}}</p>
-                        <button :class="{disabled: index == showDetail}" @click="showDetail = index">Details</button>
-                      </section>
-                    </flexbox-item>
-                    <flexbox-item :span="1/3">
-                      <div  class="dh-contentright">
-                        <img :src="item.image" class="dh-width-fluid">
-                      </div>
-                    </flexbox-item>
-                  </flexbox>
-                  <div class="dh-content" v-html="item.message" v-if="index == showDetail"></div>
-                  <flexbox class="dh-subcontent" :gutter="0" wrap="wrap" align="flex-start">
-                    <flexbox-item>
-                      <h3 class="dh-subtitle">Supported Products</h3>
-                      <p>{{item.text}}</p>
-                    </flexbox-item>
-                  </flexbox>
+          <section class="dh-list-wrapper" ref="dh_list_height">
+            <load-more :dateCount="dateCount">
+              <div slot="content" v-if="technologyPartner">
+                <div class="dh-sub-title">
+                  <h3>{{technologyPartner.data.menu.name}}</h3>
+                </div>
+                <div class="dh-partner">
+                  <ul class="dh-partner-item dh-container">
+                    <li class="dh-partner-list" v-for="(item, index) in technologyPartner.data.list" v-if="index < dateCount.listCount">
+                      <flexbox :gutter="0" wrap="wrap" align="flex-start">
+                        <flexbox-item :span="2/3">
+                          <section class="dh-contentleft">
+                            <h3>{{item.name}}</h3>
+                            <p>Tel:{{item.tel}}</p>
+                            <p>Email:{{item.email}}</p>
+                            <p>Url:{{item.url}}</p>
+                            <button :class="{disabled: index == showDetail}" @click="showDetail = index">Details</button>
+                          </section>
+                        </flexbox-item>
+                        <flexbox-item :span="1/3">
+                          <div  class="dh-contentright">
+                            <img :src="item.image" class="dh-width-fluid">
+                          </div>
+                        </flexbox-item>
+                      </flexbox>
+                      <div class="dh-content" v-html="item.message" v-if="index == showDetail"></div>
+                      <flexbox class="dh-subcontent" :gutter="0" wrap="wrap" align="flex-start">
+                        <flexbox-item>
+                          <h3 class="dh-subtitle">Supported Products</h3>
+                          <p>{{item.text}}</p>
+                        </flexbox-item>
+                      </flexbox>
 
-                </li>
-              </ul>
-              <load-more :tip="loadingText" v-show="showLoading"></load-more>
-              <load-more :tip="nodateText" :show-loading="false" v-show="showNoDate"></load-more>
-              <div class="dh-loadmore-btn dh-container" v-show="showMorebtn">
-                <button @click="loadMore">More</button>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
+            </load-more>
           </section>
-          <footer-part></footer-part>
         </div>
       </div>
       </transition>
@@ -58,20 +56,21 @@
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
 
-import { Flexbox, FlexboxItem, LoadMore } from 'vux'
+import loadMore from '@/components/common/loadMore'
+
+import { Flexbox, FlexboxItem } from 'vux'
 
 import { mapGetters } from 'vuex'
 
 export default {
     data(){
         return{
-          listCount: 8,
           showDetail: -1,
-          showLoading: false,
-          showMorebtn: true,
-          showNoDate: false,
-          loadingText: 'Loading...',
-          nodateText: 'Have no date'
+          dateCount: {
+            listCount: 0,
+            totalCount: '',
+            listHeight: ''
+          }
         }
     },
     components: {
@@ -79,7 +78,7 @@ export default {
         footerPart,
         Flexbox,
         FlexboxItem,
-        LoadMore
+        loadMore
     },
     computed: {
       ...mapGetters([
@@ -93,27 +92,26 @@ export default {
       getStatus () {
         this.$store.dispatch('getTechnologyPartner', 1)
       },
-      loadMore () {
-        this.showLoading = true
-        this.showMorebtn = false
-        let dataCount = this.technologyPartner.data.list.length
-        console.log(dataCount);
-        console.log(this.listCount)
-        if(dataCount > this.listCount){
-          setTimeout( () => {
-            this.listCount += 8
-            this.showLoading = false
-            this.showMorebtn = true
-          }, 1000)
-        }else{
-          setTimeout( () => {
-            this.showLoading = false
-            this.showMorebtn = false
-            this.showNoDate = true
-          }, 1000)
-        }
-      }
-    }
+      setTotalCount () {
+        let timer = setInterval( () => {
+          if(this.technologyPartner){
+            console.log(this.technologyPartner.data.list.length)
+            this.dateCount.totalCount = this.technologyPartner.data.list.length
+            clearInterval(timer)
+          }
+        }, 100)
+      },
+      pushListHeight () {
+        this.dateCount.listHeight = this.$refs.dh_list_height.clientHeight
+        console.log(this.dateCount.listHeight)
+      },
+    },
+    mounted () {
+      this.$nextTick( () => {
+       this.setTotalCount()
+       this.pushListHeight()
+     })
+    },
 }
 
 </script>

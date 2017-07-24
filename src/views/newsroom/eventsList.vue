@@ -4,56 +4,58 @@
         <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-main-wrapper">
-              <div class="dh-sub-title">
-                <h3>Events</h3>
-              </div>
-              <div class="dh-press" if="eventsList">
-                <div class="dh-tab dh-container">
-                   <tab class="dh-aboutus-tab" :line-width="0" v-model="currentIndex">
-                    <tab-item active-class="dh-active" :selected="currentIndex == index" v-for="(item, index) in eventsList.data" :key="index">{{item.name}}</tab-item>
-                  </tab>
-                </div>
-                <ul class="dh-press-item dh-container" v-for="(item, index) in eventsList.data">
-                  <template v-if="index == currentIndex">
-                    <template v-for="(subitem, subindex) in item.events">
-                      <li class="dh-press-list dh-first-events-item" v-if="subindex == 0">
-                        <flexbox :gutter="0" wrap="wrap">
-                          <flexbox-item :span="1/3">
-                            <div class="dh-leftpart">
-                              <img class="dh-width-fluid" :src="subitem.image">
-                            </div>
-                          </flexbox-item>
-                          <flexbox-item :span="2/3">
-                            <div class="dh-rightpart">
-                              <h3>{{subitem.name}}</h3>
-                              <p v-html="subitem.description"></p>
-                            </div>
-                          </flexbox-item>
-                        </flexbox>
-                      </li>
-                      <li class="dh-press-list" v-else>
-                        <flexbox :gutter="0" wrap="wrap">
-                          <flexbox-item :span="2/5">
-                            <div class="dh-leftpart">
-                              <img class="dh-width-fluid" :src="subitem.image">
-                            </div>
-                          </flexbox-item>
-                          <flexbox-item :span="3/5">
-                            <div class="dh-rightpart">
-                              <h3>{{subitem.name}}</h3>
-                              <p v-html="subitem.description"></p>
-                            </div>
-                          </flexbox-item>
-                        </flexbox>
-                      </li>
+            <section class="dh-list-wrapper" ref="dh_list_height">
+              <load-more :dateCount="dateCount">
+                <div slot="content">
+                  <div class="dh-sub-title">
+                    <h3>Events</h3>
+                  </div>
+                  <div class="dh-press" if="eventsList">
+                    <div class="dh-tab dh-container">
+                     <tab class="dh-aboutus-tab" :line-width="0" v-model="currentIndex">
+                      <tab-item active-class="dh-active" :selected="currentIndex == index" v-for="(item, index) in eventsList.data" :key="index">{{item.name}}</tab-item>
+                    </tab>
+                  </div>
+                  <ul class="dh-press-item dh-container" v-for="(item, index) in eventsList.data">
+                    <template v-if="index == currentIndex">
+                      <template v-for="(subitem, subindex) in item.events"  v-if="subindex < dateCount.listCount">
+                        <li class="dh-press-list dh-first-events-item" v-if="subindex == 0">
+                          <flexbox :gutter="0" wrap="wrap">
+                            <flexbox-item :span="1/3">
+                              <div class="dh-leftpart">
+                                <img class="dh-width-fluid" :src="subitem.image">
+                              </div>
+                            </flexbox-item>
+                            <flexbox-item :span="2/3">
+                              <div class="dh-rightpart">
+                                <h3>{{subitem.name}}</h3>
+                                <p v-html="subitem.description"></p>
+                              </div>
+                            </flexbox-item>
+                          </flexbox>
+                        </li>
+                        <li class="dh-press-list" v-else>
+                          <flexbox :gutter="0" wrap="wrap">
+                            <flexbox-item :span="2/5">
+                              <div class="dh-leftpart">
+                                <img class="dh-width-fluid" :src="subitem.image">
+                              </div>
+                            </flexbox-item>
+                            <flexbox-item :span="3/5">
+                              <div class="dh-rightpart">
+                                <h3>{{subitem.name}}</h3>
+                                <p v-html="subitem.description"></p>
+                              </div>
+                            </flexbox-item>
+                          </flexbox>
+                        </li>
+                      </template>
                     </template>
-                  </template>
-                </ul>
-
+                  </ul>
+                </div>
               </div>
-            </section>
-            <footer-part></footer-part>
+            </load-more>
+          </section>
           </div>
         </div>
       </transition>
@@ -64,6 +66,8 @@
 import headTop from '@/components/header/'
 import footerPart from '@/components/footer/'
 
+import loadMore from '@/components/common/loadMore'
+
 import { Tab, TabItem, Flexbox, FlexboxItem } from 'vux'
 
 import { mapGetters } from 'vuex'
@@ -71,7 +75,12 @@ import { mapGetters } from 'vuex'
 export default {
     data(){
         return{
-          currentIndex: 0
+          currentIndex: 0,
+          dateCount: {
+            listCount: 0,
+            totalCount: '',
+            listHeight: ''
+          }
         }
     },
     components: {
@@ -80,7 +89,8 @@ export default {
         Tab, 
         TabItem,
         Flexbox,
-        FlexboxItem
+        FlexboxItem,
+        loadMore
     },
     computed: {
       ...mapGetters([
@@ -90,16 +100,39 @@ export default {
     created () {
       this.getStatus()
     },
+    mounted () {
+      this.$nextTick( () => {
+       this.setTotalCount()
+       this.pushListHeight()
+     })
+    },
     methods: {
       getStatus () {
         this.$store.dispatch('getEventsList')
-      }
+      },
+      setTotalCount () {
+        let timer = setInterval( () => {
+          if(this.eventsList){
+            this.dateCount.totalCount = this.eventsList.data[this.currentIndex].events.length
+            console.log(this.eventsList.data[this.currentIndex].events.length)
+            clearInterval(timer)
+          }
+        }, 100)
+      },
+      pushListHeight () {
+        this.dateCount.listHeight = this.$refs.dh_list_height.clientHeight
+      },
+      resizeScroller () {
+        this.$nextTick( () => {
+          this.dateCount.listCount = 8
+          this.setTotalCount()
+        })
+      },
     },
     watch: {
-      '$route' (to, from) {
-      //刷新参数放到这里触发刷新相同界面
-        this.getStatus()
-      }
+      currentIndex: function(current) {//监听 年份切换，获取相应数据
+        this.resizeScroller()
+      },
     }
 }
 

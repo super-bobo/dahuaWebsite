@@ -190,6 +190,11 @@ export default {
         return fetchGet('indexApi/partner/nvr')
     },
 
+    /*获取partner IPCSupportList*/
+    IPCSupportDetail(params) {
+        return fetchGet('indexApi/partner/nvr_detail?id=' + params)
+    },
+
 
     /*获取support cybersecurity*/
     cybersecurity() {

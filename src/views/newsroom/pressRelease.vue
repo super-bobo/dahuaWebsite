@@ -1,46 +1,44 @@
 <template>
   	<div>
       <transition name="router-fade" mode="out-in">
-        <div v-show="isSecondPage">
+        <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-main-wrapper">
-              <div class="dh-sub-title">
-                <h3>press release</h3>
-              </div>
-              <div class="dh-press">
-                <div class="dh-tab dh-container">
-                   <tab class="dh-aboutus-tab" :line-width="0" v-model="currentIndex">
-                    <tab-item active-class="dh-active" :selected="currentIndex == index" v-for="(item, index) in getDateYear()" :key="index">{{item}}</tab-item>
-                  </tab>
-                </div>
-                
-                <div class="dh-list-scroller" :style="{height: listScrollerH +'px'}">
-                  <scroller :on-infinite="loadMore" ref="list_scroller">
-                    <ul class="dh-press-item dh-container" v-if="pressRelease">
-                      <li class="dh-press-list" v-for="(item, index) in pressRelease.data" v-if="index < loadCount">                   
-                        <router-link tag="a" :to='"/newsroom/pressReleaseDetail/" + item.id'>
-                          <flexbox :gutter="0" wrap="wrap">
-                            <flexbox-item :span="1/3">
-                              <div class="dh-leftpart">
-                                <img class="dh-width-fluid" :src="item.news_img">
-                              </div>
-                            </flexbox-item>
-                            <flexbox-item :span="2/3">
-                              <div class="dh-rightpart">
-                                <h3>{{item.name}}</h3>
-                                <p class="dh-elip">{{item.messages_e}}</p>
-                              </div>
-                            </flexbox-item>
-                          </flexbox>
-                        </router-link>
-                      </li>
-                    </ul>
-                  </scroller>
+            <section class="dh-list-wrapper" ref="dh_list_height">
+              <load-more :dateCount="dateCount">
+                <div slot="content">
+                  <div class="dh-sub-title">
+                    <h3>press release</h3>
+                  </div>
+                  <div class="dh-press">
+                    <div class="dh-tab dh-container">
+                     <tab class="dh-aboutus-tab" :line-width="0" v-model="currentIndex">
+                      <tab-item active-class="dh-active" :selected="currentIndex == index" v-for="(item, index) in getDateYear()" :key="index">{{item}}</tab-item>
+                    </tab>
+                  </div>          
+                  <ul class="dh-press-item dh-container" v-if="pressRelease">
+                    <li class="dh-press-list" v-for="(item, index) in pressRelease.data" v-if="index < dateCount.listCount">                   
+                      <router-link tag="a" :to='"/newsroom/pressReleaseDetail/" + item.id'>
+                        <flexbox :gutter="0" wrap="wrap">
+                          <flexbox-item :span="1/3">
+                            <div class="dh-leftpart">
+                              <img class="dh-width-fluid" :src="item.news_img">
+                            </div>
+                          </flexbox-item>
+                          <flexbox-item :span="2/3">
+                            <div class="dh-rightpart">
+                              <h3>{{item.name}}</h3>
+                              <p class="dh-elip">{{item.messages_e}}</p>
+                            </div>
+                          </flexbox-item>
+                        </flexbox>
+                      </router-link>
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </section>
-            <footer-part></footer-part>
+            </load-more>
+          </section>
           </div>
         </div>
       </transition>
@@ -52,7 +50,8 @@
 
 <script>
 import headTop from '@/components/header/'
-import footerPart from '@/components/footer/'
+
+import loadMore from '@/components/common/loadMore'
 
 import { Tab, TabItem, Flexbox, FlexboxItem } from 'vux'
 
@@ -61,20 +60,22 @@ import { mapGetters } from 'vuex'
 export default {
     data(){
         return{
-          isSecondPage: true,
           currentIndex: 0,
           currentDate: 'all',
-          listScrollerH: '',
-          loadCount: 8
+          dateCount: {
+            listCount: 0,
+            totalCount: '',
+            listHeight: ''
+          }
         }
     },
     components: {
         headTop,
-        footerPart,
         Tab, 
         TabItem,
         Flexbox,
-        FlexboxItem
+        FlexboxItem,
+        loadMore
     },
     computed: {
       ...mapGetters([
@@ -84,10 +85,11 @@ export default {
     created () {
       this.getStatus()
     },
-    mounted: function () {
-      this.$refs.list_scroller.resize()
-      let bodyHeight = document.getElementsByTagName('body')[0].offsetHeight
-      this.listScrollerH = bodyHeight - 250
+    mounted () {
+      this.$nextTick( () => {
+       this.setTotalCount()
+       this.pushListHeight()
+     })
     },
     methods: {
       getStatus () {
@@ -103,28 +105,31 @@ export default {
         dateArr.unshift('all')
         return dateArr
       },
-      loadMore: function (done) {
-        setTimeout(() => {
-          this.loadCount += 8
-          done();
-          console.log(this.loadCount)
-        }, 1500)
+      setTotalCount () {
+        let timer = setInterval( () => {
+          if(this.pressRelease){
+            this.dateCount.totalCount = Object.values(this.pressRelease.data).length
+            console.log(Object.values(this.pressRelease.data).length)
+            clearInterval(timer)
+          }
+        }, 100)
+      },
+      pushListHeight () {
+        this.dateCount.listHeight = this.$refs.dh_list_height.clientHeight
       },
       resizeScroller () {
-        /* 下面2种方式都可以调用 resize 方法 */
-        // 1. use scroller accessor
-        //$scroller.get('list_scroller').resize()
-
-        // 2. use component ref
-        this.$refs.list_scroller.resize()
-        this.loadCount = 8
-        console.log(1)
-      }
+        this.$nextTick( () => {
+          this.dateCount.listCount = 8
+        })
+      },
     },
     watch: {
       currentIndex: function(current) {//监听 年份切换，获取相应数据
         this.$store.dispatch('getPressRelease', this.getDateYear()[current])
         this.resizeScroller()
+      },
+      pressRelease: function(){
+        this.setTotalCount()
       }
     }
 }
@@ -133,11 +138,6 @@ export default {
 
 <style lang="less" scoped>
     @import '../../assets/styles/common';
-    .dh-list-scroller{
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
     .dh-product-item{
       margin-top: 18px;
       .dh-allproduct-list{

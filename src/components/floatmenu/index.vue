@@ -1,50 +1,70 @@
 <template>
-  <section class="dh-header-floatmenu" :class="{'dh-show-floatmenu': showMenu}">
-    <div class="dh-floatmenu-close">
-      <div class="dh-close-btn" @click="isShowMenu"><i class="fa fa-close" aria-hidden="true"></i></div>
-    </div>
-      <scroller>
-        <ul class="dh-floatmenu-fir">
-          <li class="dh-floatmenu-list" v-for="(firItem, firIndex) in productMenu.data" v-if="productMenu">
-            <template v-if="firIndex != 0">
-              <div class="dh-floatmenu-link dh-has-icon" @click="currentFirNode= currentFirNode===firIndex? -1:firIndex;currentSecNode=-1;" :class="{active: firIndex === currentFirNode}">{{firItem.name}}<i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+  <div v-transfer-dom>
+    <popup v-model="showMenu" position="left" width="100%">
+      <section class="dh-header-floatmenu">
+        <div class="dh-floatmenu-close">
+          <div class="dh-close-btn" @click="isShowMenu"><i class="fa fa-close" aria-hidden="true"></i></div>
+        </div>
+        <scroller>
+          <ul class="dh-floatmenu-fir">
+            <li class="dh-floatmenu-list" v-for="(firItem, firIndex) in productMenu.data" v-if="productMenu">
+              <div class="dh-linkbox" :class="{active: currentFirNode===firIndex}">
+                <router-link  tag="a" :to="'/'+ firItem.url" :key="firItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                  {{firItem.name}}
+                </router-link>
+                <span v-if="firItem.child != '' && firItem.child" :class="{active: currentFirNode===firIndex}" @click="currentFirNode= currentFirNode===firIndex? -1:firIndex;currentSecNode=-1;">
+                  <i class="fa fa-chevron-down"></i>
+                </span>
+              </div>
               <ul class="dh-floatmenu-sec" v-show="firIndex === currentFirNode">
                 <li class="dh-floatmenu-list" v-for="(secItem, secIndex) in firItem.child">
-                  <template v-if="secItem.child">
-                    <div class="dh-floatmenu-link dh-has-icon" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;" :class="{active: secIndex === currentSecNode}">{{secItem.name}} <i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-                    <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
-                      <li class="dh-floatmenu-list" v-for="thirItem in secItem.child">
+                  <div class="dh-linkbox" :class="{active: currentSecNode===secIndex}">
+                    <template v-if="secItem.url">
+                      <router-link  tag="a" :to="'/'+ secItem.url" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                        {{secItem.name}}
+                      </router-link>
+                    </template>
+                    <template v-else>
+                      <router-link  tag="a" :to="'/'+ firItem.url + '/' + secItem.child[0].id" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                        {{secItem.name}}
+                      </router-link>
+                    </template>
+                    <span v-if="secItem.child != '' && secItem.child" :class="{active: currentSecNode===secIndex}" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;">
+                      <i class="fa fa-chevron-down"></i>
+                    </span>
+                  </div>
+                  <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
+                    <li class="dh-floatmenu-list" v-for="thirItem in secItem.child">
+                      <div class="dh-linkbox">
                         <router-link  tag="a" :to="'/'+ firItem.url + '/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
                           {{thirItem.name}}
                         </router-link>
-                      </li>
-                    </ul>
-                  </template>
-                  <template v-else>
-                    <router-link  tag="a" :to="'/'+ secItem.url" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
-                      {{secItem.name}}
-                    </router-link>
-                  </template>
+                      </div>
+                    </li>
+                  </ul>
                 </li>
               </ul>
-            </template>
-
-            <template v-else>
-              <router-link  tag="a" :to="'/'+ firItem.url" :key="firItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
-                {{firItem.name}}
-              </router-link>
-            </template>
-          </li>
-        </ul>
-
-      </scroller>
-  </section>
+            </li>
+          </ul>
+        </scroller>
+      </section>
+    </popup>
+  </div>
 </template>
 
 <script>
+
+import { TransferDom, Popup } from 'vux'
+
 import { mapGetters } from 'vuex'
 export default {
   props: ['showMenu'],
+  directives: {
+    TransferDom
+  },
+  components: {
+    Popup
+  },
   data () {
     return {
       currentFirNode: -1,
@@ -73,28 +93,23 @@ export default {
 
 <style lang="less" scoped>
 @import '../../assets/styles/common';
+.vux-popup-mask{
+  z-index: 0;
+}
 .dh-header-floatmenu{
   width: 100%;
   height: 100%;
   background-color: #fff;
-  z-index: 11;
-  position: fixed;
-  left: -100%;
-  top: 0;
-  .trandtion-ease(0.3s);
-  &.dh-show-floatmenu{
-    left: 0;
-  }
-  @close-height: 56px;
-  @list-height: 48px;
+  @close-height: 84px;
+  @list-height: 76px;
   li{
     position: relative;
-    border-top: solid 1px #90b0d0;
+    border-top: solid 1px #4479ac;
   }
   .dh-floatmenu-close{
     width: 100%;
     height: @close-height;
-    background-color: @dh-theme-color;
+    background-image:linear-gradient( #105292, #2967a4);
     color: #fff;
     text-align: right;
     position: absolute;
@@ -103,45 +118,59 @@ export default {
     z-index: 999;
     .dh-close-btn{
       display: inline-block;
-      margin-right: 12px;
+      width: 72px;
       text-align: center;
       padding: 6px;
-      margin-top: (@close-height - 44)/2;
+      margin-top: (@close-height - 48)/2;
       i{
-        font-size: 32px;
+        font-size: 36px;
         color: #fff;
+      }
+    }
+  }
+  .dh-linkbox{
+    display: table;
+    width: 100%;
+    word-break: break-all;
+    >a{
+      display: table-cell;
+    }
+    >span{
+      display: table-cell;
+      width: 72px;
+      text-align: center;
+      vertical-align: middle;
+      i{
+        .trandtion-ease();
+      }
+      &.active{
+        i{
+          transform:rotate(180deg);
+        }
       }
     }
   }
   .dh-floatmenu-link{
     display: block;
-    line-height: @list-height - 20;
+    line-height: @list-height - 20 - 20;
     padding: 10px 18px;
-    &.dh-has-icon{
-      padding-right: 56px;
-      .fa{
-        .trandtion-ease();
-      }
-      &.active{
-        .fa{
-          transform:rotate(180deg);
-        }
-      }
-    }
-    i.fa{
-      position: absolute;
-      top: (@list-height - 16)/2;
-      right: 18px;
-    }
+    font-size: 18px;
+    color: #606060;
   }
   .dh-floatmenu-fir{
     padding-top: @close-height;
-    .dh-floatmenu-link{
-      background-color: @dh-theme-color;
+    >li>.dh-linkbox{
+      // background-image:linear-gradient( #105292, #2967a4);
+      background-color: #195b9b;
       color: #fff;
       .trandtion-ease();
       &.active{
-        background-color: @dh-theme-color * 1.3;
+        //background-image:linear-gradient( #1869b8, #2b78c2);
+        background-color: #2273c2;
+      }
+      .dh-floatmenu-link{
+        line-height: @list-height - 20;
+        color: #fff;
       }
     }
   }
@@ -149,13 +178,16 @@ export default {
     .dh-floatmenu-list{
       border-color: #fff;
     }
-    .dh-floatmenu-link{
+    .dh-linkbox{
       background-color: #eaecee;
-      color: @dh-font-color;
-      padding-left: 32px;
+      padding-left: 24px;
       .trandtion-ease();
+      i{
+        color: #606060;
+      }
       &.active{
         background-color: #dadada;
+        //background-image: none;
       }
     }
   }
@@ -164,11 +196,16 @@ export default {
     .dh-floatmenu-list{
       border-color: #eaecee;
     }
-    .dh-floatmenu-link{
+    .dh-linkbox{
       background-color: #fff;
-      color: @dh-font-color;
-      padding-left: 48px;
+      padding-left: 42px;
+      .trandtion-ease();
+      &.active{
+        background-color: #dadada;
+        //background-image: none;
+      }
     }
   }
 }
+
 </style>

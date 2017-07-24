@@ -91,6 +91,8 @@ export default {
       }
       .dh-content{
         margin-top: 10px;
+        color: #606060;
+        font-size: 15px;
         p{
           color: #606060;
           font-size: 15px;

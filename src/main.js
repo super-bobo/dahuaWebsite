@@ -6,8 +6,6 @@ import router from './router'
 require('font-awesome-webpack')
 import FastClick from 'fastclick'
 import store from './vuex/store'
-import axios from 'axios'
-Vue.prototype.$http = axios
 
 import VueScroller from 'vue-scroller'
 Vue.use(VueScroller)
@@ -18,7 +16,7 @@ if ('addEventListener' in document) {//解决点击延迟事件
     }, false);
 }
 
-Vue.config.productionTip = false
+//Vue.config.productionTip = false  //是否显示console提示
 
 new Vue({
   el: '#app',

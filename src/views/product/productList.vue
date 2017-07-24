@@ -2,40 +2,42 @@
     <div class="dh-subpage">
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-main-wrapper">
-            <div class="dh-sub-title">
-              <h3 v-if="productList">{{productList.data.name}}</h3>
-            </div>
-            <ul class="dh-container dh-product-item" v-if="productList">
-              <li class="dh-product-select-enter">
-                <router-link tag="a" :to='"/product/productSelect/"+listId'>
-                  <div class="dh-toptitle">
-                    <h3>Product Selector</h3>
-                    <p>Use one of the options below to locate your desired
-  product.</p>
-                  </div>
-                  <div class="dh-img">
-                    <img class="dh-width-fluid" src="../../assets/images/dh-selectproduct-img.png">
-                  </div>
-                </router-link>
-              </li>
-              <li class="dh-product-list" v-for="(item, index) in productList.data.product" v-if="index < dateCount.listCount">
-                <router-link tag='a' :to='"/product/productDetail/" + item.id'>
-                  <figure>
-                    <div class="dh-product-pic">
-                      <img :src="item.pro_thumb" alt="" />
-                    </div>
-                    <div class="dh-product-text">
-                      <h3>{{item.name}}</h3>
-                      <p>{{item.text}}</p>
-                    </div>
-                  </figure>
-                </router-link>
-              </li>
-            </ul>
-            <load-more :dateCount="dateCount"></load-more>
+          <section class="dh-list-wrapper" ref="dh_list_height">
+            <load-more :dateCount="dateCount">
+              <div slot="content">
+                <div class="dh-sub-title">
+                  <h3 v-if="productList">{{productList.data.name}}</h3>
+                </div>
+                <ul class="dh-container dh-product-item" v-if="productList">
+                  <li class="dh-product-select-enter">
+                    <router-link tag="a" :to='"/product/productSelect/"+listId'>
+                      <div class="dh-toptitle">
+                        <h3>Product Selector</h3>
+                        <p>Use one of the options below to locate your desired
+      product.</p>
+                      </div>
+                      <div class="dh-img">
+                        <img class="dh-width-fluid" src="../../assets/images/dh-selectproduct-img.png">
+                      </div>
+                    </router-link>
+                  </li>
+                  <li class="dh-product-list" v-for="(item, index) in productList.data.product" v-if="index < dateCount.listCount">
+                    <router-link tag='a' :to='"/product/productDetail/" + item.id'>
+                      <figure>
+                        <div class="dh-product-pic">
+                          <img :src="item.pro_thumb" alt="" />
+                        </div>
+                        <div class="dh-product-text">
+                          <h3>{{item.name}}</h3>
+                          <p>{{item.text}}</p>
+                        </div>
+                      </figure>
+                    </router-link>
+                  </li>
+                </ul>
+              </div>
+            </load-more>
           </section>
-          <footer-part></footer-part>
         </div>
     </div>
 </template>
@@ -52,8 +54,9 @@ export default {
         return{
           listId: '',
           dateCount: {
-            listCount: 8,
-            totalCount: ''
+            listCount: 0,
+            totalCount: '',
+            listHeight: ''
           },
         }
     },
@@ -74,7 +77,6 @@ export default {
     methods: {
       getStatus () {
         this.$store.dispatch('getProductList', this.$route.params.productId)
-
       },
       setTotalCount () {
         let timer = setInterval( () => {
@@ -85,6 +87,10 @@ export default {
           }
         }, 100)
       },
+      pushListHeight () {
+        this.dateCount.listHeight = this.$refs.dh_list_height.clientHeight
+        console.log(this.dateCount.listHeight)
+      },
       reload () {
         window.location.reload();
       }
@@ -92,6 +98,7 @@ export default {
     mounted () {
       this.$nextTick( () => {
        this.setTotalCount()
+       this.pushListHeight()
      })
     },
     watch: {
@@ -137,7 +144,6 @@ export default {
       }
     }
     .dh-product-select-enter{
-      background-image:-webkit-linear-gradient(-120deg, #fabb43, #f67d12); 
       background-image:linear-gradient(-120deg, #fabb43, #f67d12);
       padding: 16px;
       margin-bottom: 18px;

@@ -82,7 +82,6 @@
                   </article>
               </section>
           </div>
-          <loading></loading>
           <footer-part></footer-part>
         </div>
     </div>

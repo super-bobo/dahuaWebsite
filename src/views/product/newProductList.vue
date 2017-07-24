@@ -2,41 +2,44 @@
   	<div class="dh-subpage">
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-main-wrapper">
-            <div class="dh-sub-title" v-if="newProductList">
-              <h3>{{newProductList.data.name}}</h3>
-            </div>
-            <ul class="dh-container dh-product-item">
-              <li class="dh-product-select-enter">
-                <router-link tag="a" :to='"/product/productDetail/"'>
-                  <div class="dh-toptitle">
-                    <h3>Product Selector</h3>
-                    <p>Use one of the options below to locate your desired
-  product.</p>
-                  </div>
-                  <div class="dh-img">
-                    <img class="dh-width-fluid" src="../../assets/images/dh-selectproduct-img.png">
-                  </div>
-                </router-link>
-              </li>
-              <template v-if="newProductList">
-                <li class="dh-product-list dh-newproduct" v-for="(item, index) in newProductList.data.product" v-if="index < dateCount.listCount">
-                  <router-link tag='a' :to='"/product/productDetail/" + item.id'>
-                    <figure>
-                      <div class="dh-product-pic">
-                        <img :src="item.pro_thumb" alt="" />
-                      </div>
-                      <div class="dh-product-text">
-                        <h3>{{item.name}}</h3>
-                        <p>{{item.text}}</p>
-                      </div>
-                    </figure>
-                  </router-link>
-                </li>
-              </template>
-            </ul>
-            <load-more :dateCount="dateCount"></load-more>
-          </section>
+          <section class="dh-list-wrapper">
+            <load-more :dateCount="dateCount">
+              <div slot="content">
+                <div class="dh-sub-title" v-if="newProductList">
+                  <h3>{{newProductList.data.name}}</h3>
+                </div>
+                <ul class="dh-container dh-product-item">
+                  <li class="dh-product-select-enter">
+                    <router-link tag="a" :to='"/product/productDetail/"'>
+                      <div class="dh-toptitle">
+                        <h3>Product Selector</h3>
+                        <p>Use one of the options below to locate your desired
+                          product.</p>
+                        </div>
+                        <div class="dh-img">
+                          <img class="dh-width-fluid" src="../../assets/images/dh-selectproduct-img.png">
+                        </div>
+                      </router-link>
+                    </li>
+                    <template v-if="newProductList">
+                      <li class="dh-product-list dh-newproduct" v-for="(item, index) in newProductList.data.product" v-if="index < dateCount.listCount">
+                        <router-link tag='a' :to='"/product/productDetail/" + item.id'>
+                          <figure>
+                            <div class="dh-product-pic">
+                              <img :src="item.pro_thumb" alt="" />
+                            </div>
+                            <div class="dh-product-text">
+                              <h3>{{item.name}}</h3>
+                              <p>{{item.text}}</p>
+                            </div>
+                          </figure>
+                        </router-link>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </load-more>
+            </section>
           
           <footer-part></footer-part>
         </div>
@@ -54,8 +57,9 @@ export default {
     data(){
       return{
         dateCount: {
-          listCount: 8,
-          totalCount: ''
+          listCount: 0,
+          totalCount: '',
+          listHeight: ''
         },
       }
     },
@@ -72,18 +76,28 @@ export default {
     created () {
       this.$store.dispatch('getNewProductList')
     },
+    methods: {
+      getStatus () {
+        this.$store.dispatch('getProductList', this.$route.params.productId)
+      },
+      setTotalCount () {
+        let timer = setInterval( () => {
+          if(this.newProductList){
+            console.log(this.newProductList.data.product.length)
+            this.dateCount.totalCount = this.newProductList.data.product.length
+            clearInterval(timer)
+          }
+        }, 100)
+      },
+      pushListHeight () {
+        this.dateCount.listHeight = this.$refs.dh_list_height.clientHeight
+      }
+    },
     mounted () {
       this.$nextTick( () => {
-       let timer = setInterval( () => {
-        if(this.newProductList){
-          console.log(this.newProductList.data.product.length)
-          this.dateCount.totalCount = this.newProductList.data.product.length
-          clearInterval(timer)
-        }
-      }, 100)
+       this.setTotalCount()
+       this.pushListHeight()
      })
-    },
-    methods: {
     }
 }
 
@@ -126,7 +140,6 @@ export default {
       }
     }
     .dh-product-select-enter{
-      background-image:-webkit-linear-gradient(-120deg, #fabb43, #f67d12); 
       background-image:linear-gradient(-120deg, #fabb43, #f67d12);
       padding: 16px;
       margin-bottom: 18px;

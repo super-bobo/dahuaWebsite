@@ -31,15 +31,17 @@
                     <div  v-if="onetabindex == 1" class="dh-product-swiper dh-oneswiper-list2">
                       <flexbox :gutter="0" wrap="wrap">
                         <flexbox-item :span="1/2" :key="index" v-for="(item, index) in productDetail.data.product_related_info">
-                          <flexbox :gutter="0" wrap="wrap" class="dh-oneswiper-subpart">
-                            <flexbox-item :span="1/4">
-                              <img class="dh-width-fluid" :src="item.pro_thumb">
-                            </flexbox-item>
-                            <flexbox-item :span="3/4">
-                              <h3>{{item.name}}</h3>
-                              <p>{{item.menu_name}}</p>
-                            </flexbox-item>
-                          </flexbox>
+                          <router-link tag='a' :to='"/product/productDetail/" + item.id'>
+                            <flexbox :gutter="0" wrap="wrap" class="dh-oneswiper-subpart">
+                              <flexbox-item :span="1/4">
+                                <img class="dh-width-fluid" :src="item.pro_thumb">
+                              </flexbox-item>
+                              <flexbox-item :span="3/4">
+                                <h3>{{item.name}}</h3>
+                                <p>{{item.menu_name}}</p>
+                              </flexbox-item>
+                            </flexbox>
+                          </router-link>
                         </flexbox-item>
                       </flexbox>
                     </div>
@@ -129,18 +131,21 @@ export default {
       ])
     },
     created () {
-      this.$store.dispatch('getProductDetail', this.$route.params.productId)
+      this.getStatus()
         
     },
-    mounted(){
-      
-      this.$nextTick(() => {
-
-        })
-    },
     methods: {
+      getStatus () {
+        this.$store.dispatch('getProductDetail', this.$route.params.productId)
+      },
+      reload () {
+        window.location.reload();
+      }
     },
     watch: {
+      '$route' (to, from) {
+        this.reload()
+      }
     }
 }
 
@@ -183,7 +188,7 @@ export default {
           }
           .dh-content{
             .dh-content-description{
-              font-size: 14px;
+              font-size: 13px;
               color: #606060;
               word-break: break-all;
               img{

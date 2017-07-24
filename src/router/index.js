@@ -30,6 +30,7 @@ const career = r => require.ensure([], () => r(require('@/views/aboutus/career')
 const technologyPartner = r => require.ensure([], () => r(require('@/views/partner/technologyPartner')), 'partner')
 const distributionPartner = r => require.ensure([], () => r(require('@/views/partner/distributionPartner')), 'partner')
 const IPCSupportList = r => require.ensure([], () => r(require('@/views/partner/IPCSupportList')), 'partner')
+const IPCSupportDetail = r => require.ensure([], () => r(require('@/views/partner/IPCSupportDetail')), 'partner')
 
 const cybersecurity = r => require.ensure([], () => r(require('@/views/support/cybersecurity')), 'support')
 const annoucement = r => require.ensure([], () => r(require('@/views/support/annoucementNotice')), 'support')
@@ -58,11 +59,20 @@ export default new Router({
             redirect: '/home' 
         },
 
+
+        { 
+            path: '/products.html', 
+            redirect: '/product' 
+        },
         { 
             path: '/products.html/:productId', 
             redirect: '/product/productList/:productId' 
         },
 
+        { 
+            path: '/press.html', 
+            redirect: '/newsroom' 
+        },
         { 
             path: '/news.html', 
             redirect: '/newsroom/pressRelease' 
@@ -110,18 +120,24 @@ export default new Router({
             redirect: '/IPCSupportList'
         },
 
+
         { 
-            path: '/cybersecurity.html', 
-            redirect: '/cybersecurity'
+            path: '/solution.html', 
+            redirect: '/solutionBank/62' 
         },
-
-
         { 
             path: '/solution.html/:bankId', 
             redirect: '/solutionBank/:bankId' 
         },
 
-
+        { 
+            path: '/support.html', 
+            redirect: '/cybersecurity'
+        },
+        { 
+            path: '/cybersecurity.html', 
+            redirect: '/cybersecurity'
+        },
         { 
             path: '/support.html/492', 
             redirect: '/annoucement' 
@@ -247,6 +263,10 @@ export default new Router({
         {
             path: '/IPCSupportList',
             component: IPCSupportList
+        },
+        {
+            path: '/IPCSupportDetail/:IPCSupportId',
+            component: IPCSupportDetail
         },
         {
             path: '/distributionPartner',

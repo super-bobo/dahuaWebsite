@@ -11,12 +11,12 @@
             <div class="dh-partner dh-supportlist">
               <flexbox :gutter="0" wrap="wrap" align="flex-start">
                 <flexbox-item :span="1/3" :key="index" v-for="(item, index) in IPCSupportList.data" v-if="IPCSupportList">
-                  <!-- <router-link tag="a" :to='"/IPCSupportList/" + item.id'> -->
+                  <router-link tag="a" :to='"/IPCSupportDetail/" + item.id'>
                     <figure>
                       <img :src="item.image" class="dh-width-fluid">
                       <p>{{item.name}}</p>
                     </figure>
-                  <!-- </router-link> -->
+                  </router-link>
                 </flexbox-item>
               </flexbox>
             </div>
@@ -24,9 +24,6 @@
           <footer-part></footer-part>
         </div>
       </div>
-      </transition>
-      <transition name="router-fade" mode="out-in">
-        <router-view></router-view>
       </transition>
     </div>
 </template>

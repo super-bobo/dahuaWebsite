@@ -7,7 +7,7 @@
               <h3>Product select</h3>
             </div>
             <div class="dh-container-fluid">
-              <section class="dh-filter-wrapper dh-container">
+              <section class="dh-filter-wrapper dh-container" :class="{'dh-filter-float': showFilterFloat}">
                 <div class="dh-filter-top">
                   <div class="dh-leftpart">
                     <button class="dh-filter-btn" @click="showFilterBox">Filter</button>
@@ -26,13 +26,7 @@
                 </div>
               </section>
               <div class="dh-filter-search">
-                <search
-                  position="absolute"
-                  auto-scroll-to-top top="62px"
-                  ref="search"
-                  placeholder="search..."
-                  cancel-text="cancel">
-                </search>
+                <input type="text" name="" placeholder="Search...">
               </div>
               <div class="dh-filter-productlist">
                 <h3 class="dh-filter-title">Products list</h3>
@@ -71,7 +65,7 @@ import footerPart from '@/components/footer/'
 import selectFilter from '@/components/product/selectFilter'
 import compareFilter from '@/components/product/compareFilter'
 
-import { Flexbox, FlexboxItem, Search } from 'vux'
+import { Flexbox, FlexboxItem } from 'vux'
 
 import { mapGetters } from 'vuex'
 
@@ -84,7 +78,9 @@ export default {
             isShowFilterBox: false,
             isShowCompareBox: false,
             ischeckedFilterNum: 0,
-            infoCompareObj: {}
+            infoCompareObj: {},
+            showFilterFloat: false,
+            key: ''
         }
     },
     components: {
@@ -93,17 +89,36 @@ export default {
         selectFilter,
         compareFilter,
         Flexbox,
-        FlexboxItem,
-        Search
+        FlexboxItem
     },
     computed: {
       ...mapGetters([
         'productSelect'
-      ])
+      ]),
+      filterShoppingList: function () {
+            var key = this.key;
+            var shoppingList = this.shoppingList;
+            return shoppingList.filter(function (item) {
+                return item.toLowerCase().indexOf(key.toLowerCase()) != -1
+            });;
+        }
     },
     created () {
       console.log(this.$route.params.productId)
       this.getStatus()
+    },
+    mounted () {
+      this.$nextTick( () => {
+        let _this = this
+        window.onscroll = function() {　
+          let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+          if(scrollTop > 62 ){
+            _this.showFilterFloat = true
+          }else{
+            _this.showFilterFloat = false
+          }
+        }
+     })
     },
     methods: {
       showFilterBox() {//显示删选框
@@ -238,9 +253,20 @@ export default {
 <style lang="less">
     @import '../../assets/styles/common';
     .dh-filter-wrapper{
-      margin: 16px 0 5px;
+      width: 100%;
+      margin: 16px auto 5px;
       padding-top: 12px;
       border-top: solid 2px @dh-bg-color;
+      background-color: #fff;
+      .trandtion-ease();
+      top: 0;
+    }
+    .dh-filter-float{
+      position: fixed;
+      top: 46px;
+      left: 0;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+      z-index: 8;
     }
     .dh-filter-top{
         display: table;
@@ -313,30 +339,24 @@ export default {
     }
     @keyframes delproduct
     {
-      from { background-color: #ee4503;border-color: #ee4503;color: #fff;}
-      to { background-color: @dh-bg-color;border-color: @dh-bg-color;color: #606060;}
+      from { 
+        background-color: #ee4503;
+        border-color: #ee4503;
+        color: #fff;
+      }
+      to { 
+        background-color: @dh-bg-color;
+        border-color: @dh-bg-color;
+        color: #606060;
+      }
     }
     .dh-filter-search{
-      .vux-search-fixed{
-        z-index: 1;
-      }
-      .weui-search-bar__label{
-        z-index: 1;
-      }
-      .weui-search-bar{
-        &:before, &:after{
-          border: none;
-        }
-      }
-      .weui-search-bar__label{
-        text-align: left;
-        .weui-icon-search{
-          margin-left: 12px;
-          margin-right: 0;
-        }
-      }
-      .weui-search-bar__cancel-btn{
-        color: @dh-theme-color;
+      padding: 10px 12px;
+      background-color: @dh-bg-color;
+      input{
+        width: 100%;
+        padding: 6px 10px;
+        border-radius: 3px;
       }
     }
     .dh-filter-productlist{
@@ -353,7 +373,7 @@ export default {
         display: table;
         width: 100%;
         table-layout: fixed;
-        @list-height: 40px;
+        @list-height: 46px;
         .dh-list-part{
           display: table-cell;
           height: @list-height;

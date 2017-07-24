@@ -10,7 +10,7 @@
               </div>
               <div class="dh-annoucement">
                 <ul class="dh-annoucement-item" v-if="annoucement">
-                  <router-link tag="li" :to="'/annoucementDetail/' + item.id" class="dh-annoucement-list dh-elip dh-container" v-for="item in annoucement.data.annoucementList" :key="index">
+                  <router-link tag="li" :to="'/annoucementDetail/' + item.id" class="dh-annoucement-list dh-elip dh-container" v-for="(item, index) in annoucement.data.annoucementList" :key="index">
                     <i class="fa fa-caret-right" aria-hidden="true"></i> <span>{{item.name}}</span>
                   </router-link>
                 </ul>

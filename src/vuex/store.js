@@ -35,6 +35,7 @@ import awards from './modules/awards'
 import technologyPartner from './modules/technologyPartner'
 import distributionPartner from './modules/distributionPartner'
 import IPCSupportList from './modules/IPCSupportList'
+import IPCSupportDetail from './modules/IPCSupportDetail'
 
 import cybersecurity from './modules/cybersecurity'
 import vulnerabilityReporting from './modules/vulnerabilityReporting'
@@ -88,6 +89,7 @@ export default new Vuex.Store({
         technologyPartner,
         distributionPartner,
         IPCSupportList,
+        IPCSupportDetail,
 
         cybersecurity,
         vulnerabilityReporting,
