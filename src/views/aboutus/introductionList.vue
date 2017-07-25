@@ -52,8 +52,7 @@ export default {
     },
     methods: {
       getStatus () {
-        // this.$store.dispatch('introductionList', this.$route.params.pressReleaseId)
-        this.$store.dispatch('getIntroductionList')
+        this.$store.dispatch('getIntroductionList', this.$route.params.introductionKeyWord)
       }
     },
     watch: {

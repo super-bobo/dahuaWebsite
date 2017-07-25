@@ -26,7 +26,7 @@
                 </div>
               </section>
               <div class="dh-filter-search">
-                <input type="text" name="" placeholder="Search...">
+                <input type="text" name="" placeholder="Search..." v-model="key">
               </div>
               <div class="dh-filter-productlist">
                 <h3 class="dh-filter-title">Products list</h3>
@@ -357,6 +357,11 @@ export default {
         width: 100%;
         padding: 6px 10px;
         border-radius: 3px;
+        border: solid 1px @dh-bg-color * .98;
+        .trandtion-ease();
+        &:focus{
+          border: solid 1px #287ec8;
+        }
       }
     }
     .dh-filter-productlist{

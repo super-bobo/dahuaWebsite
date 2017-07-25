@@ -42,8 +42,8 @@
               </div>
               <div>
                 <div v-transfer-dom>
-                  <previewer :list="awardsImg" ref="previewerAwards" :options="options"></previewer>
-                  <previewer :list="certificationsImg" ref="previewerCertifications" :options="options"></previewer>
+                  <previewer :list="awardsImg" ref="previewerAwards" :options="options" v-if="awardsImg"></previewer>
+                  <previewer :list="certificationsImg" ref="previewerCertifications" :options="options" v-if="certificationsImg"></previewer>
                 </div>
               </div>
             </section>
@@ -93,7 +93,6 @@ export default {
             clearInterval(timer)
             this.awardsImg = this.getImgArr(this.awards.data.awards)
             this.certificationsImg = this.getImgArr(this.awards.data.cerfications)
-            console.log(this.list1)
             console.log(this.awardsImg)
           }
         },200)

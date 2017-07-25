@@ -205,7 +205,6 @@ export default {
     }
     .dh-linkbox{
       background-color: #eaecee;
-      padding-left: 24px;
       .trandtion-ease();
       i{
         color: #606060;
@@ -213,6 +212,9 @@ export default {
       &.active{
         background-color: #dadada;
         //background-image: none;
+      }
+      .dh-floatmenu-link{
+        padding-left: 32px;
       }
     }
   }
@@ -223,11 +225,13 @@ export default {
     }
     .dh-linkbox{
       background-color: #fff;
-      padding-left: 42px;
       .trandtion-ease();
       &.active{
         background-color: #dadada;
         //background-image: none;
+      }
+      .dh-floatmenu-link{
+        padding-left: 54px;
       }
     }
   }

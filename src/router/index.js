@@ -156,6 +156,19 @@ export default new Router({
             redirect: '/aboutDhcc' 
         },
 
+        { 
+            path: '/aboutus/introduction', 
+            redirect: '/aboutUs/introduction/532' 
+        },
+        { 
+            path: '/introduction.html/272', 
+            redirect: '/aboutUs/awards' 
+        },
+        { 
+            path: '/introduction.html/:introductionKeyWord', 
+            redirect: '/aboutUs/introduction/:introductionKeyWord' 
+        },
+
         //重定向结束
 
         {
@@ -212,17 +225,17 @@ export default new Router({
                     component: awards
                 },
                 {
-                    path: 'introduction',
+                    path: 'introduction/:introductionKeyWord',
                     component: introductionList
                 },
                 {
                     path: 'contactUs',
                     component: contactUs
                 },
-                {
-                    path: 'career',
-                    component: career
-                }
+                // {
+                //     path: 'career',
+                //     component: career
+                // }
             ]
         },
         //newsroom

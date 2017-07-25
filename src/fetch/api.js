@@ -161,7 +161,30 @@ export default {
 
     /*获取about us  introductionList*/
     introductionList(params) {
-        return fetchGet('indexApi/about_us/single_page?keyword=introduction')
+        console.log(params)
+        switch (params) {
+            case '532':
+                return fetchGet('indexApi/about_us/single_page?keyword=introduction')
+                break;
+             case '542':
+                return fetchGet('indexApi/about_us/single_page?keyword=sales')
+                break; 
+            case '552':
+                return fetchGet('indexApi/about_us/single_page?keyword=manufacturing')
+                break; 
+            case '562':
+                return fetchGet('indexApi/about_us/single_page?keyword=globalization')
+                break; 
+            case '572':
+                return fetchGet('indexApi/about_us/single_page?keyword=corevalues')
+                break;   
+            case '272':
+                return fetchGet('indexApi/about_us/awards_certifications')
+                break;   
+            default:
+                return fetchGet('indexApi/about_us/single_page?keyword=introduction')
+                break;
+        }
     },
 
     /*获取about us  contactUs*/
@@ -174,7 +197,7 @@ export default {
         return fetchGet('indexApi/about_us/open_positions?country_id='+ params.country_id + '&function=' + params.functions + '&search=' + params.search)
     },
 
-    /*获取about us  career*/
+    /*获取about us  awards_certifications*/
     awards() {
         return fetchGet('indexApi/about_us/awards_certifications')
     },
