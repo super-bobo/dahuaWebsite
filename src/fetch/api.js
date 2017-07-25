@@ -74,6 +74,11 @@ export default {
         return fetchGet('indexApi/product/menu_product?id=' + id)
     },
 
+    /*获取videoConferencing列表 */
+    videoConferencing() {
+        return fetchGet('indexApi/product/video_conferencing')
+    },
+
     /*获取子产品子列表 */
     productList(id) {
         return fetchGet('indexApi/product/product_list?id=' + id)

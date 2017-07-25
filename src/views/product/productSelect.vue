@@ -95,13 +95,13 @@ export default {
       ...mapGetters([
         'productSelect'
       ]),
-      filterShoppingList: function () {
-            var key = this.key;
-            var shoppingList = this.shoppingList;
-            return shoppingList.filter(function (item) {
-                return item.toLowerCase().indexOf(key.toLowerCase()) != -1
-            });;
-        }
+      filterProductList: function () {
+        let key = this.key;
+        let ProductList = this.ProductList;
+        return ProductList.filter(function (item) {
+            return item.toLowerCase().indexOf(key.toLowerCase()) != -1
+        });
+      }
     },
     created () {
       console.log(this.$route.params.productId)

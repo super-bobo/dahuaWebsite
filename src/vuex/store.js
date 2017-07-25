@@ -10,6 +10,7 @@ import storyList from './modules/storyList'
 import allProducts from './modules/allProducts'
 import subProducts from './modules/subProducts'
 import productList from './modules/productList'
+import videoConferencing from './modules/videoConferencing'
 import newProductList from './modules/newProductList'
 import productDetail from './modules/productDetail'
 import productSelect from './modules/productSelect'
@@ -64,6 +65,7 @@ export default new Vuex.Store({
         allProducts,
         subProducts,
         productList,
+        videoConferencing,
         newProductList,
         productDetail,
         productSelect,

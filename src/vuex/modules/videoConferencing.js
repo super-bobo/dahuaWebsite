@@ -1,24 +1,24 @@
 import api from '../../fetch/api'
 
 const state = {
-    subProducts: ''
+    videoConferencing: ''
 }
 
 const actions = {
 
     /**/
         
-    getSubProducts({ commit }, id) {
-        api.subProducts(id)
+    getVideoConferencing() {
+        api.videoConferencing()
             .then(res => {
-                state.subProducts = res
+                state.videoConferencing = res;
                 console.log(res)
             })
     }
 }
 
 const getters = {
-    subProducts: state => state.subProducts
+    videoConferencing: state => state.videoConferencing
 }
 
 const mutations = {

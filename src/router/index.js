@@ -8,6 +8,7 @@ const home = r => require.ensure([], () => r(require('@/views/home/home')), 'hom
 const product = r => require.ensure([], () => r(require('@/views/product/product')), 'product')
 const subProduct = r => require.ensure([], () => r(require('@/views/product/subProduct')), 'product')
 const productList = r => require.ensure([], () => r(require('@/views/product/productList')), 'product')
+const videoConferencing = r => require.ensure([], () => r(require('@/views/product/videoConferencing')), 'product')
 const newProductList = r => require.ensure([], () => r(require('@/views/product/newProductList')), 'product')
 const productDetail = r => require.ensure([], () => r(require('@/views/product/productDetail')), 'product')
 const productSelect = r => require.ensure([], () => r(require('@/views/product/productSelect')), 'product')
@@ -181,6 +182,10 @@ export default new Router({
                     component: productList
                 },
                 {
+                    path: 'videoConferencing',
+                    component: videoConferencing
+                },
+                {
                     path: 'newProductList',
                     alias: 'subProduct/newProductList',
                     component: newProductList
@@ -316,10 +321,11 @@ export default new Router({
     ]
   }],
   scrollBehavior (to, from, savedPosition) {
-      if (savedPosition) {
+    if (savedPosition) {
         return savedPosition
-      } else {
+    } else {
         return { x: 0, y: 0 }
-      }
+    }
+
   }
 })

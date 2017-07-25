@@ -195,10 +195,10 @@ export default {
       font-weight: bold;
       span{
         display: inline-block;
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
         background-color: #0e5fae;
-        margin-right: 6px;
+        margin-right: 8px;
       }
     }
     .dh-overview-img{

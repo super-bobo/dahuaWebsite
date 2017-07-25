@@ -17,32 +17,57 @@
                 </span>
               </div>
               <ul class="dh-floatmenu-sec" v-show="firIndex === currentFirNode">
-                <li class="dh-floatmenu-list" v-for="(secItem, secIndex) in firItem.child">
-                  <div class="dh-linkbox" :class="{active: currentSecNode===secIndex}">
-                    <template v-if="secItem.url">
-                      <router-link  tag="a" :to="'/'+ secItem.url" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
-                        {{secItem.name}}
-                      </router-link>
-                    </template>
-                    <template v-else>
-                      <router-link  tag="a" :to="'/'+ firItem.url + '/' + secItem.child[0].id" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
-                        {{secItem.name}}
-                      </router-link>
-                    </template>
-                    <span v-if="secItem.child != '' && secItem.child" :class="{active: currentSecNode===secIndex}" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;">
-                      <i class="fa fa-chevron-down"></i>
-                    </span>
-                  </div>
-                  <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
-                    <li class="dh-floatmenu-list" v-for="thirItem in secItem.child">
-                      <div class="dh-linkbox">
-                        <router-link  tag="a" :to="'/'+ firItem.url + '/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
-                          {{thirItem.name}}
+                <template v-for="(secItem, secIndex) in firItem.child">
+                  <template v-if="secItem.id == '121'">
+                    <li class="dh-floatmenu-list">
+                      <div class="dh-linkbox" :class="{active: currentSecNode===secIndex}">
+                        <router-link  tag="a" :to="'/product/videoConferencing'" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                          {{secItem.name}}
                         </router-link>
+                        <span v-if="secItem.child != '' && secItem.child" :class="{active: currentSecNode===secIndex}" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;">
+                          <i class="fa fa-chevron-down"></i>
+                        </span>
                       </div>
+                      <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
+                        <li class="dh-floatmenu-list" v-for="thirItem in secItem.child">
+                          <div class="dh-linkbox">
+                            <router-link  tag="a" :to="'/product/videoConferencing#' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                              {{thirItem.name}}
+                            </router-link>
+                          </div>
+                        </li>
+                      </ul>
                     </li>
-                  </ul>
-                </li>
+                  </template>
+                  <template v-else>
+                    <li class="dh-floatmenu-list" >
+                      <div class="dh-linkbox" :class="{active: currentSecNode===secIndex}">
+                        <template v-if="secItem.url">
+                          <router-link  tag="a" :to="'/'+ secItem.url" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                            {{secItem.name}}
+                          </router-link>
+                        </template>
+                        <template v-else>
+                          <router-link  tag="a" :to="'/'+ firItem.url + '/' + secItem.child[0].id" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                            {{secItem.name}}
+                          </router-link>
+                        </template>
+                        <span v-if="secItem.child != '' && secItem.child" :class="{active: currentSecNode===secIndex}" @click="currentSecNode= currentSecNode===secIndex?-1:secIndex;">
+                          <i class="fa fa-chevron-down"></i>
+                        </span>
+                      </div>
+                      <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
+                        <li class="dh-floatmenu-list" v-for="thirItem in secItem.child">
+                          <div class="dh-linkbox">
+                            <router-link  tag="a" :to="'/'+ firItem.url + '/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                              {{thirItem.name}}
+                            </router-link>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                  </template>
+                </template>
               </ul>
             </li>
           </ul>
