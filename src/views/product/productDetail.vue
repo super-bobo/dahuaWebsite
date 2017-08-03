@@ -226,9 +226,8 @@ export default {
         flex-wrap: 1;
       }
       .dh-technocal{
-        .div-drop{
-          overflow: auto;
-        }
+        overflow-y: auto;
+        font-size: 14px;
       }
     }
     .dh-oneswiper-subpart{

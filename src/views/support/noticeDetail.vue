@@ -4,20 +4,20 @@
         <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-main-wrapper">
+            <section class="dh-main-wrapper" v-if="noticeDetail">
               <div class="dh-sub-title">
-                <h3>Vulnerability Reporting</h3>
+                <h3>Notice</h3>
               </div>
-              <div class="dh-container dh-bestPractices">
-                <section v-html="bestPractices.data.content" v-if="bestPractices"></section>
+              <div class="dh-container dh-noticeDetail">
+                <section class="dh-content-top">
+                  <h3>{{noticeDetail.data.name}}</h3>
+                </section>
+                <section class="dh-content" v-html="noticeDetail.data.message"></section>
               </div>
             </section>
             <footer-part></footer-part>
           </div>
         </div>
-      </transition>
-      <transition name="router-fade" mode="out-in">
-        <router-view></router-view>
       </transition>
     </div>
 </template>
@@ -40,7 +40,7 @@ export default {
     },
     computed: {
       ...mapGetters([
-        'bestPractices'
+        'noticeDetail'
       ])
     },
     created () {
@@ -48,7 +48,7 @@ export default {
     },
     methods: {
       getStatus () {
-        this.$store.dispatch('getBestPractices')
+        this.$store.dispatch('getNoticeDetail', this.$route.params.noticeId)
       }
     }
 }
@@ -57,11 +57,29 @@ export default {
 
 <style lang="less">
     @import '../../assets/styles/common';
-    .dh-bestPractices{
-      margin-top: 20px;
+    .dh-noticeDetail{
       color: #606060;
       *{
         text-align: left!important;
+      }
+      .dh-content-top{
+        border-bottom: dashed 1px #eaecee;
+        padding: 16px 0 10px;
+        h3{
+          font-size: 16px;
+          color: #0e5fae;
+          font-weight: bold;
+        }
+      }
+      .dh-content{
+        margin-top: 10px;
+        table{
+          max-width: 100%!important;
+          table-layout: fixed;
+          td{
+            width: auto;
+          }
+        }
       }
     }
 </style>

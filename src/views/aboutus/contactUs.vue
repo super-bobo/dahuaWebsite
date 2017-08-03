@@ -8,16 +8,13 @@
               <div class="dh-sub-title">
                 <h3>Contact Us</h3>
               </div>
-              <div class="dh-contactus">
-                <section class="dh-content" v-html="contactUs.data.content" v-if="contactUs"></section>
+              <div class="dh-contactus dh-container">
+                <section class="dh-content" v-html="contactUs.data.m_content" v-if="contactUs"></section>
               </div>
             </section>
             <footer-part></footer-part>
           </div>
         </div>
-      </transition>
-      <transition name="router-fade" mode="out-in">
-        <router-view></router-view>
       </transition>
     </div>
 </template>
@@ -52,7 +49,38 @@ export default {
     methods: {
       getStatus () {
         this.$store.dispatch('getContactUs')
-      }
+      },
+
+    },
+    updated () {
+      this.$nextTick ( () => {//点击切换事件
+        var itemNode = document.getElementsByClassName('dh-content-item');
+        for(let i=0; i<itemNode.length; i++){
+          itemNode[i].addEventListener('click', function(e) {
+            for(let j=0; j<itemNode.length; j++){
+              itemNode[j].setAttribute('class', 'dh-content-item')
+              itemNode[j].children[1].style.height = '0px'
+            }
+            let event = e || window.e;
+            if(event.target.tagName.toLowerCase() == 'h3' || event.target.tagName.toLowerCase() == 'em'){
+              let contentHeight = this.children[1].getBoundingClientRect().height
+              if(!!contentHeight){
+                this.children[1].style.height = contentHeight + 'px'
+                this.children[1].style.height = '0px'
+                this.setAttribute('class', 'dh-content-item')
+              }else{
+                this.children[1].style.height = 'auto'
+                contentHeight = this.children[1].getBoundingClientRect().height
+                this.children[1].style.height = '0px'
+                let justToDo = document.body.offsetHeight
+                this.children[1].style.height = contentHeight + 'px'
+                this.setAttribute('class', 'dh-content-item dh-show')
+              }
+              
+            }
+          })
+        }
+      })
     }
 }
 
@@ -61,30 +89,58 @@ export default {
 <style lang="less">
     @import '../../assets/styles/common';
       .dh-contactus{
-      }
-      .dh-content{
-        margin-top: 12px;
-        >P{
-          margin: 0 10px;
-        }
-        *{
+        margin: 12px 0;
+        .dh-content-top{
+          font-size: 16px;
           color: #606060;
-          font-size: 15px!important;
         }
-        .sideMenu{
-          margin-top: 20px;
-          word-break: break-all;
-          td{
-            width: auto;
-          }
-          h3{
-            margin: 0 10px;
-          }
+        .dh-content-main{
+          margin-top: 10px;
         }
-        img{
-          max-width: 100%;
-          min-width: 120px;
-          height: auto;
+        .dh-content-item{
+          border-bottom: solid 1px #fff;
+          overflow: hidden;
+          >h3{
+            font-weight: 500;
+            font-size: 16px;
+            color: #606060;
+            background-color: @dh-bg-color;
+            padding: 5px 12px;
+            em:before{
+              content: "+";
+              text-align: center;
+              display: inline-block;
+              width: 12px;
+              margin-right: 4px;
+              font-weight: bold;
+            }
+          }
+          >div{
+            height: 0;
+            transition: height .5s;
+            table{
+              border: solid 1px @dh-bg-color;
+              td{
+                font-size: 15px;
+                color: #606060;
+                span,a{
+                  color: #606060!important;
+                }
+              }
+              figure{
+                padding: 12px 15px;
+                img{
+                  width: 100%;
+                }
+              }
+            }
+          }
+          &.dh-show{
+            transition: height .5s;
+            h3 em:before{
+              content: "-";
+            }
+          }
         }
       }
 </style>

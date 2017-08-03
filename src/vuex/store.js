@@ -39,15 +39,21 @@ import IPCSupportList from './modules/IPCSupportList'
 import IPCSupportDetail from './modules/IPCSupportDetail'
 
 import cybersecurity from './modules/cybersecurity'
-import vulnerabilityReporting from './modules/vulnerabilityReporting'
-import bestPractices from './modules/bestPractices'
-import aboutDhcc from './modules/aboutDhcc'
+import cybersecurityList from './modules/cybersecurityList'
 import annoucement from './modules/annoucement'
 import annoucementDetail from './modules/annoucementDetail'
+import notice from './modules/notice'
+import noticeDetail from './modules/noticeDetail'
 
 import solutionBank from './modules/solutionBank'
 import entrance from './modules/entrance'
 import keyTechnology from './modules/keyTechnology'
+
+
+import search from './modules/search'
+import searchList from './modules/searchList'
+
+import sendEmail from './modules/sendEmail'
 
 
 
@@ -94,14 +100,19 @@ export default new Vuex.Store({
         IPCSupportDetail,
 
         cybersecurity,
-        vulnerabilityReporting,
-        bestPractices,
-        aboutDhcc,
         annoucement,
         annoucementDetail,
+        notice,
+        noticeDetail,
+        cybersecurityList,
 
         solutionBank,
         entrance,
         keyTechnology,
+
+        search,
+        searchList,
+
+        sendEmail,
     }
 })

@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-require('font-awesome-webpack')
+// require('font-awesome-webpack') //字体图标
 import FastClick from 'fastclick'
 import store from './vuex/store'
 

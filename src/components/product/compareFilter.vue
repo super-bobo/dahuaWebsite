@@ -33,7 +33,10 @@
                 <tr v-for="(itemtwo, indextwo) in item.child"  class="dh-compare-bottom">
                   <td class="dh-compare-list dh-compare-listtitle">{{itemtwo.name}}</td>
                   <td  class="dh-compare-list" v-for="(itemthree, indexthree) in itemtwo.text">
-                    <span>{{itemthree.text}}</span>
+                    <template v-if="itemthree.text == ''">N/A</template>
+                    <template v-else>
+                      <span>{{itemthree.text}}</span>
+                    </template>
                   </td>
                 </tr>
               </template>
@@ -121,12 +124,21 @@ export default {
       .dh-compare-list{
         border-right: solid 1px #eaecee;
         padding: 8px 5px;
+
         &:last-child{
           border-right: 0;
         }
       }
       .dh-compare-listtitle{
         background-color: #f6f6f6;
+      }
+    }
+    .dh-compare-top{
+      .dh-compare-list{
+        text-align: center;
+      }
+      .dh-compare-listtitle{
+        text-align: left;
       }
     }
     .dh-compare-bottom{

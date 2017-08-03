@@ -2,16 +2,16 @@
   	<div class="dh-subpage">
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-main-wrapper">
+          <section class="dh-main-wrapper" v-if="subProducts">
             <div class="dh-sub-title">
-              <h3>Network Products</h3>
+              <h3>{{subProducts.data.name}}</h3>
             </div>
             <ul class="dh-container dh-product-item">
-              <li class="dh-product-list" v-for="(item, index) in subProducts.data" v-if="subProducts">
+              <li class="dh-product-list" v-for="(item, index) in subProducts.data.menuList">
                 <router-link tag='a' :to='"/product/productList/" + item.id'>
                   <figure>
                     <div class="dh-product-pic">
-                      <img :src="item.menu_image" alt="" />
+                      <img class="dh-width-fluid" :src="item.menu_image" alt="" />
                     </div>
                     <div class="dh-product-text">
                       <h3>{{item.name}}</h3>
@@ -47,12 +47,18 @@ export default {
       ])
     },
     created () {
-      console.log(this.$route.params.productId);
-      this.$store.dispatch('getSubProducts', this.$route.params.productId)
-    },
-    mounted(){
+      this.getStatus()
+
     },
     methods: {
+      getStatus () {
+        this.$store.dispatch('getSubProducts', this.$route.params.productId)
+      }
+    },
+    watch: {
+      '$route' (to, from) {
+        this.getStatus()
+      }
     }
 }
 
@@ -72,7 +78,7 @@ export default {
           text-align: center;
           padding: 20px 0;
           img{
-            height: 110px;
+            max-height: 110px;
             margin: 0 auto;
           }
         }

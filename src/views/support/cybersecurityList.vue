@@ -4,20 +4,18 @@
         <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-main-wrapper">
+            <section class="dh-main-wrapper" v-if="cybersecurityList">
               <div class="dh-sub-title">
-                <h3>Vulnerability Reporting</h3>
+                <h3>{{cybersecurityList.data.name}}</h3>
               </div>
-              <div class="dh-container dh-vulnerabilityReporting">
-                <section v-html="vulnerabilityReporting.data.content" v-if="vulnerabilityReporting"></section>
+              <div class="dh-container dh-cybersecurityList">
+                <section v-if="cybersecurityList.data.m_content != ''" v-html="cybersecurityList.data.m_content"></section>
+                <section v-else v-html="cybersecurityList.data.content"></section>
               </div>
             </section>
             <footer-part></footer-part>
           </div>
         </div>
-      </transition>
-      <transition name="router-fade" mode="out-in">
-        <router-view></router-view>
       </transition>
     </div>
 </template>
@@ -40,7 +38,7 @@ export default {
     },
     computed: {
       ...mapGetters([
-        'vulnerabilityReporting'
+        'cybersecurityList'
       ])
     },
     created () {
@@ -48,7 +46,12 @@ export default {
     },
     methods: {
       getStatus () {
-        this.$store.dispatch('getVulnerabilityReporting')
+        this.$store.dispatch('getCybersecurityList', this.$route.params.cybersecurityKeyword)
+      }
+    },
+    watch: {
+      '$route' (to, from) {//监听路由变化
+        this.getStatus()
       }
     }
 }
@@ -57,11 +60,15 @@ export default {
 
 <style lang="less">
     @import '../../assets/styles/common';
-    .dh-vulnerabilityReporting{
-      margin-top: 20px;
+    .dh-cybersecurityList{
+      margin: 20px 0;
       color: #606060;
       *{
         text-align: left!important;
+      }
+      img{
+        max-width: 100%;
+        height: auto; 
       }
     }
 </style>

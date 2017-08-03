@@ -21,7 +21,9 @@
                       <li class="dh-newproduct-list" v-for="item in newProducts.data" v-if="newProducts">
                         <router-link tag="a" :to="'/product/productDetail/' + item.id">
                           <figure>
-                            <img class="dh-newproduct-img" :src="item.pro_thumb" alt="" />
+                            <div class="dh-width-fluid">
+                              <img class="dh-newproduct-img" :src="item.pro_thumb" alt="" />
+                            </div>
                             <figcaption>
                                 <h3 class="dh-elip">{{item.name}}</h3>
                                 <p>{{item.text}}</p>
@@ -176,7 +178,7 @@ export default {
     .dh-index-title{
       font-size: 20px;
       color: @dh-font-color;
-      font-weight: bold;
+      font-weight: 500;
     }
     .dh-index-morebtn{
       display: inline-block;
@@ -209,13 +211,11 @@ export default {
         width: 100%;
       }
       figcaption{
-        h3, p{
-          margin-top: 5px;
-        }
         h3{
           color: @dh-theme-color;
           font-size: 15px;
-          font-weight: bold;
+          font-weight: 500;
+          margin-top: 6px;
         }
         p{
           color: @dh-ligth-color;
@@ -268,7 +268,7 @@ export default {
         padding: 10px 5%;
         h3{
           font-size: 16px;
-          font-weight: bold;
+          font-weight: 500;
           margin-top: 2px;
           color: @dh-ligth-color;
         }

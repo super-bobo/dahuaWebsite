@@ -6,10 +6,10 @@
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
               <div class="dh-sub-title">
-                <h3>Vulnerability Reporting</h3>
+                <h3>Tools</h3>
               </div>
-              <div class="dh-container dh-aboutDhcc">
-                <section v-html="aboutDhcc.data.content" v-if="aboutDhcc"></section>
+              <div class="dh-container dh-cybersecurity">
+                <section ></section>
               </div>
             </section>
             <footer-part></footer-part>
@@ -40,7 +40,7 @@ export default {
     },
     computed: {
       ...mapGetters([
-        'aboutDhcc'
+        'tools'
       ])
     },
     created () {
@@ -48,25 +48,17 @@ export default {
     },
     methods: {
       getStatus () {
-        this.$store.dispatch('getAboutDhcc')
+        this.$store.dispatch('getTools')
       }
     }
 }
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import '../../assets/styles/common';
-    .dh-aboutDhcc{
-      margin: 20px 0;
+    .dh-cybersecurity{
+      margin: 10px 0 20px;
       color: #606060;
-      *{
-        text-align: left!important;
-      }
-      h1{
-        span{
-          font-size: 20px!important;
-        }
-      }
     }
 </style>

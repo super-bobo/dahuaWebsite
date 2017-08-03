@@ -46,9 +46,6 @@
         </div>
       </div>
       </transition>
-      <transition name="router-fade" mode="out-in">
-        <router-view></router-view>
-      </transition>
     </div>
 </template>
 
@@ -122,7 +119,7 @@ export default {
       padding: 20px 0;
       border-bottom: dashed 1px #dadada;
       h3{
-        font-weight: bold;
+        font-weight: 500;
         color: #333;
         &.dh-subtitle{
           font-size: 15px;

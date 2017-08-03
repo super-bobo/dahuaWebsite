@@ -1,7 +1,7 @@
 <template>
   	<div>
       <transition name="router-fade" mode="out-in">
-        <div v-show="isSecondPage">
+        <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper" v-if="introductionList">
@@ -15,9 +15,6 @@
             <footer-part></footer-part>
           </div>
         </div>
-      </transition>
-      <transition name="router-fade" mode="out-in">
-        <router-view></router-view>
       </transition>
     </div>
 </template>
@@ -33,7 +30,6 @@ import { mapGetters } from 'vuex'
 export default {
     data(){
         return{
-          isSecondPage: true
         }
     },
     components: {

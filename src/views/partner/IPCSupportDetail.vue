@@ -20,9 +20,9 @@
               </flexbox>
             </div>
             <div class="dh-supportdetail">
-              <h3 class="dh-title dh-container">axios</h3>
+              <h3 class="dh-title dh-container">{{IPCSupportDetail.data.partnerName}}</h3>
               <div class="dh-supportdetail-box">
-                <table class="dh-table" cellpadding="0" cellspacing="0" >
+                <table class="dh-table" cellpadding="0" cellspacing="0">
                   <tr>
                     <th v-for="(item, index) in supportTableTitle">{{item}}</th>
                   </tr>

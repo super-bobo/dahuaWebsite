@@ -37,30 +37,52 @@
       <p>© 2010-2017 Dahua Technology Co., Ltd</p>
     </article>
   </section>
-  <toast v-model="showModule" type="text" text="please input your email"></toast>
+  <toast v-model="showModule" type="text" :text="showText"></toast>
 </div>
 </template>
 
 <script>
 import { Toast } from 'vux'
+
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
       emailAddress: "",
-      showModule: false
-    }
-  },
-  methods: {
-    postAddress: function(){
-      const _this = this;
-      if(this.emailAddress == ""){
-          _this.showModule = true;
-      }
+      showModule: false,
+      showText: '',
+      emptyText: 'Please input your email',
+      errorText: 'Worry email',
+      successText: 'Subscription success'
     }
   },
   components: {
     Toast
-  }
+  },
+  computed: {
+    ...mapGetters([
+      'sendEmail'
+    ])
+  },
+  methods: {
+    postAddress: function(){
+      let emailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
+      if(this.emailAddress == ""){//邮件为空
+          this.showText = this.emptyText
+          this.showModule = true
+      }else if(!emailReg.test(this.emailAddress)){//邮件格式不正确
+        this.showText = this.errorText
+        this.showModule = true
+      }else{//邮件格式正确，传数据到后台
+        this.$store.dispatch('getSendEmail', {
+          email: this.emailAddress
+        })
+        this.showText = this.successText
+        this.showModule = true
+      }
+    }
+  },
 }
 </script>
 
@@ -79,7 +101,7 @@ export default {
   font-size: 16px;
   line-height: 42px;
   border-bottom: 1px solid #aaa;
-  font-weight: bold;
+  font-weight: 500;
 }
 .dh-footer-text{
   font-size: 15px;
@@ -99,6 +121,7 @@ export default {
       width: 96%;
       height: @dh-form-height;
       border: solid 1px #eaecee;
+      border-radius: 0;
       outline: none;
       background-color: transparent;
       text-indent: 8px;

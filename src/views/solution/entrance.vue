@@ -8,7 +8,7 @@
             <div class="dh-sub-title">
               <h3>{{entrance.data.solution_area_info.title}}</h3>
             </div>
-            <div class="dh-entrance dh-container">
+            <div class="dh-entrance-wrapper dh-container">
               <ul class="dh-area-content">
                 <li v-for="item in entrance.data.solution_area_info.content">
                   <img class="dh-width-fluid" :src="item.image">
@@ -42,9 +42,6 @@
           <footer-part></footer-part>
         </div>
       </div>
-      </transition>
-      <transition name="router-fade" mode="out-in">
-        <router-view></router-view>
       </transition>
     </div>
 </template>

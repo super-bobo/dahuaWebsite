@@ -161,7 +161,6 @@ export default {
 
     /*获取about us  introductionList*/
     introductionList(params) {
-        console.log(params)
         switch (params) {
             case '532':
                 return fetchGet('indexApi/about_us/single_page?keyword=introduction')
@@ -234,23 +233,25 @@ export default {
         return fetchGet('indexApi/support/annoucement')
     },
 
+
     /*获取support annoucement*/
     annoucementDetail(params) {
         return fetchGet('indexApi/support/annoucement_info?id=' + params)
     },
 
-    /*获取support vulnerability-reporting*/
-    vulnerabilityReporting() {
-        return fetchGet('indexApi/support/single_page?keyword=vulnerability-reporting')
+    /*获取support notice*/
+    notice() {
+        return fetchGet('indexApi/support/notice')
     },
 
-    /*获取support best-practices*/
-    bestPractices() {
-        return fetchGet('indexApi/support/single_page?keyword=best-practices')
+    /*获取support annoucement*/
+    noticeDetail(params) {
+        return fetchGet('indexApi/support/notice_info?id=' + params)
     },
-    /*获取support about-dhcc*/
-    aboutDhcc() {
-        return fetchGet('indexApi/support/single_page?keyword=about-dhcc')
+
+    /*获取support cybersecurityList*/
+    cybersecurityList(params) {
+        return fetchGet('indexApi/about_us/single_page?keyword=' + params)
     },
 
 
@@ -269,5 +270,17 @@ export default {
         return fetchGet('indexApi/solution/key_technology?menu_id=' + params)
     },
 
+     /*获取search list*/
+    search(params) {
+        return fetchGet('indexApi/search/search_menu?keyword=' + params)
+    },
+    searchList(params) {
+        return fetchGet('indexApi/search/search_info?keyword=' + params.keyword + '&menu=' + params.menu)
+    },
+
+    //send email
+    sendEmail(params) {
+        return fetchPost('indexApi/subscription/email', params)
+    },
 
 }

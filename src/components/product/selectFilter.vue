@@ -40,7 +40,7 @@
                     <label>
                       <input type="checkbox" name="filterCheckboxName" :data-id="item.id" @click="getFilterCheckbox(item.id)">
                       <span class="dh-check-btn">
-                        <i class="fa fa-check" aria-hidden="true"></i>
+                        <svg viewBox="0 0 1024 1024" width="84%" height="84%"><path d="M401.4 641.1L199.2 438.9c-31.8-31.8-80.8-31.2-111.4-0.7-30.8 30.8-30.3 80.4 0.7 111.4l256.9 256.8 0.3 0.3 0.3 0.3c15.4 15.4 35.4 23 55.3 22.9 20.4 0 40.2-7.8 55.3-22.9l0.1-0.1 0.1-0.1L936 327.7c30.2-30.2 30.8-80.3 0.2-110.8-30.8-30.8-80.2-30.5-110.9 0.2l-423.9 424z" p-id="4655"></path></svg>
                       </span>
                       {{item.name}}
                     </label>
@@ -64,10 +64,10 @@ import { mapGetters } from 'vuex'
 export default {
     data(){
         return{
-            mainMenuSelected: '1',
-            mainSmall:'0',
+            mainMenuSelected: 1,
+            mainSmall: 0,
             secondMenuSelected: '',
-            searchId: '10931',
+            searchId: 10931,
             filterCheckbox: []
         }
     },
@@ -274,7 +274,7 @@ export default {
       border-bottom: solid 1px #aaa;
       label{
         display: inline-block;
-        padding: 8px 9.6%;
+        padding: 10px 9.6%;
         font-size: 15px;
         position: relative;
         input{
@@ -292,23 +292,22 @@ export default {
           border-radius: 4px;
           height: 20px;
           line-height: 20px;
+          vertical-align: bottom;
           width: 20px;
           text-align: center;
           margin-right: 6px;
           .trandtion-ease();
-          i{
-            font-size: 14px;
-            vertical-align: top;
-            line-height: 20px;
-            color: #fff;
-            transform:scale(0, 0);
+          path{
+            transform: scale(0, 0);
+            transform-origin: center center;
+            fill: #fff;
             .trandtion-ease();
           }
         }
         input[type="checkbox"]:checked + .dh-check-btn{
           background-color: #287ec8;
           border-color: #287ec8;
-          i{
+          path{
             transform:scale(1, 1); 
           }
         }
