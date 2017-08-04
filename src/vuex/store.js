@@ -55,6 +55,8 @@ import searchList from './modules/searchList'
 
 import sendEmail from './modules/sendEmail'
 
+import htmlToPdf from './modules/htmlToPdf'
+
 
 
 
@@ -114,5 +116,7 @@ export default new Vuex.Store({
         searchList,
 
         sendEmail,
+
+        htmlToPdf,
     }
 })

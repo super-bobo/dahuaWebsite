@@ -134,7 +134,6 @@ export default {
             }
 
             let itemNode = document.getElementById('dhFilterItem') //获取显示着的产品个数
-            console.log(itemNode.getElementsByTagName('li').length)
             this.ischeckedFilterNum = itemNode.getElementsByClassName('dh-filter-list').length
             this.isHasData = this.ischeckedFilterNum == 0 
           }
@@ -147,8 +146,8 @@ export default {
         this.isShowFilterBox = !this.isShowFilterBox
       },
       showCompareBox() {//显示比较框
-        
-        if(this.getCompareObj()){
+        console.log(Object.values(this.getCompareObj()))
+        if(Object.values(this.getCompareObj()) != ""){
           this.infoCompareObj = this.getCompareObj()
           this.isShowCompareBox = !this.isShowCompareBox
         }else{
@@ -193,6 +192,7 @@ export default {
                 }
               })
             }
+            console.log(this.filterProduct)
             return
           }
         })
@@ -391,7 +391,7 @@ export default {
         display: table;
         width: 100%;
         table-layout: fixed;
-        @list-height: 46px;
+        @list-height: 50px;
         .dh-list-part{
           display: table-cell;
           height: @list-height;
@@ -448,5 +448,11 @@ export default {
           }
         }
       }
+    }
+    .dh-no-data{
+      font-size: 16px;
+      text-align: center;
+      color: #606060;
+      margin-top: 36px;
     }
 </style>

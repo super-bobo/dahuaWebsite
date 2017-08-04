@@ -283,4 +283,9 @@ export default {
         return fetchPost('indexApi/subscription/email', params)
     },
 
+    //html to pdf
+    htmlToPdf(params) {
+        return fetchPost('indexApi/product/product_pdf', params)
+    },
+
 }
