@@ -64,6 +64,8 @@ export default {
             let event = e || window.e;
             if(event.target.tagName.toLowerCase() == 'h3' || event.target.tagName.toLowerCase() == 'em'){
               let contentHeight = this.children[1].getBoundingClientRect().height
+              //let scrollTop = document.body.scrollTop
+              //console.log(scrollTop)
               if(!!contentHeight){
                 this.children[1].style.height = contentHeight + 'px'
                 this.children[1].style.height = '0px'
@@ -75,6 +77,7 @@ export default {
                 let justToDo = document.body.offsetHeight
                 this.children[1].style.height = contentHeight + 'px'
                 this.setAttribute('class', 'dh-content-item dh-show')
+                document.body.scrollTop = 0
               }
               
             }
@@ -89,7 +92,7 @@ export default {
 <style lang="less">
     @import '../../assets/styles/common';
       .dh-contactus{
-        margin: 12px 0;
+        margin: 12px 0 20px;
         .dh-content-top{
           font-size: 16px;
           color: #606060;
@@ -105,7 +108,7 @@ export default {
             font-size: 16px;
             color: #606060;
             background-color: @dh-bg-color;
-            padding: 5px 12px;
+            padding: 8px 12px;
             em:before{
               content: "+";
               text-align: center;

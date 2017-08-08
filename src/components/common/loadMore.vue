@@ -22,24 +22,25 @@ export default {
   },
   methods: {
       loadMore (done) {
-        setTimeout(() => {
-          //console.log(this.$refs.list_scroller)
-          console.log(this.dateCount.totalCount)
-          if(this.dateCount.listCount >= this.dateCount.totalCount){
-            this.$refs.list_scroller.finishInfinite(2)
-          }else{
-            this.dateCount.listCount += 8
-            this.$refs.list_scroller.resize()
-            done()
-          }
-        }, 1000)
+          setTimeout(() => {
+            if(this.dateCount.totalCount){
+              if(this.dateCount.listCount >= this.dateCount.totalCount){
+                this.$refs.list_scroller.finishInfinite(2)
+              }else{
+                this.dateCount.listCount += 8
+                this.$refs.list_scroller.resize()
+                done()
+              }
+            }
+          }, 1000)
+
       },
       scrollToTop () {
         this.$refs.list_scroller.scrollBy(0, 0, true)
         setTimeout( () => {
           this.$refs.list_scroller.scrollTo(0, 0, true)
           this.showScrollTop = false
-        }, 50)
+        }, 100)
       },
       touchSatrat (event) {
         var event = event || window.event

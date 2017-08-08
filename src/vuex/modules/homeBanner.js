@@ -17,10 +17,12 @@ const actions = {
                 // }));
                 const bannerArr = [];
                 for(const arr in res.data){
-          　　    bannerArr.push({
-                        url: res.data[arr].url,
-                        img: res.data[arr].mobile_image
-                    });
+                    if(res.data[arr].mobile_url && res.data[arr].mobile_image){
+                        bannerArr.push({
+                            url: res.data[arr].mobile_url,
+                            img: res.data[arr].mobile_image
+                        })
+                    }
                 }
                 console.log(bannerArr)
                 state.homeBanner = bannerArr

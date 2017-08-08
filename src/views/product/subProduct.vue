@@ -11,7 +11,7 @@
                 <router-link tag='a' :to='"/product/productList/" + item.id'>
                   <figure>
                     <div class="dh-product-pic">
-                      <img class="dh-width-fluid" :src="item.menu_image" alt="" />
+                      <img :src="item.menu_image" alt="" />
                     </div>
                     <div class="dh-product-text">
                       <h3>{{item.name}}</h3>
@@ -76,7 +76,7 @@ export default {
         .dh-product-pic{
           border: solid 1px @dh-bg-color;
           text-align: center;
-          padding: 20px 0;
+          padding: 12px 0;
           img{
             max-height: 110px;
             margin: 0 auto;

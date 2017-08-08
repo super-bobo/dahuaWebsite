@@ -46,7 +46,7 @@
             <table style="table-layout: fixed;word-break: break-all;border: solid 1px #eaecee;font-size: 12px;margin-bottom: 15px;border-collapse:collapse;" cellpadding="0" cellspacing="0" width="100%" v-if="productToCompare">
               <tr class="dh-compare-top">
                 <td valign="center" style="border-right: solid 1px #eaecee; padding: 8px 5px; background-color: #f6f6f6;">Network Camera</td>
-                <td valign="top" style="border-right: solid 1px #eaecee;padding: 8px 5px;" v-for="(item, index) in productToCompare.data.product">
+                <td valign="top" style="border-right: solid 1px #eaecee;padding: 8px 5px;text-align: center;" v-for="(item, index) in productToCompare.data.product">
                   <img :src="item.pro_thumb" style="max-width: 100%; max-width: 200px;display: block;">
                   <span>{{item.name}}</span>
                 </td>

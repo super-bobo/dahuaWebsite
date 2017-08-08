@@ -36,7 +36,7 @@
                   <template v-for="(item, index) in productSelect.data">
                     <li class="dh-filter-list"  v-for="(item2, index2) in item.product_models" v-if="myfilter(item2.model)">
                       <div class="dh-list-part dh-product-img">
-                        <img :src="item.pro_thumb">
+                        <router-link tag="a" :to='"/product/productDetail/" + item2.id'><img :src="item.pro_thumb"></router-link>
                       </div>
                       <div class="dh-list-part dh-product-name">
                         <span class="dh-elip">{{item2.model}}</span>

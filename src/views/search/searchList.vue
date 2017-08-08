@@ -89,19 +89,19 @@
         ]),
       getRouterLink () {
         switch (this.$route.params.menu) {
-            case 'products':
+            case 'Products':
                 return 'product/productDetail'
                 break; 
-            case 'news':
+            case 'News':
                 return 'newsroom/pressReleaseDetail'
                 break;
-            case 'solution':
+            case 'Solution':
                 return 'solutionBank'
                 break;
-            case 'partner':
+            case 'Partner':
                 return 'IPCSupportDetail'
                 break;
-            case 'successStories':
+            case 'SuccessStories':
                 return 'newsroom/successStoryDetail'
                 break;
             default:

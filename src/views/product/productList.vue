@@ -123,9 +123,9 @@ export default {
         .dh-product-pic{
           border: solid 1px @dh-bg-color;
           text-align: center;
-          padding: 20px 0;
+          padding: 12px 0;
           img{
-            height: 110px;
+            max-height: 110px;
             margin: 0 auto;
           }
         }
