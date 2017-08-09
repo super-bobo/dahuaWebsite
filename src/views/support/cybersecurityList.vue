@@ -4,11 +4,11 @@
         <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-main-wrapper" v-if="cybersecurityList">
-              <div class="dh-sub-title">
+            <section class="dh-main-wrapper">
+              <div class="dh-sub-title" v-if="cybersecurityList">
                 <h3>{{cybersecurityList.data.name}}</h3>
               </div>
-              <div class="dh-container dh-cybersecurityList">
+              <div class="dh-container dh-cybersecurityList" v-if="cybersecurityList">
                 <section v-if="cybersecurityList.data.m_content != ''" v-html="cybersecurityList.data.m_content"></section>
                 <section v-else v-html="cybersecurityList.data.content"></section>
               </div>

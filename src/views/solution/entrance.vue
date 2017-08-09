@@ -4,11 +4,11 @@
       <div>
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-main-wrapper" v-if="entrance">
-            <div class="dh-sub-title">
+          <section class="dh-main-wrapper">
+            <div class="dh-sub-title" v-if="entrance">
               <h3>{{entrance.data.solution_area_info.title}}</h3>
             </div>
-            <div class="dh-entrance-wrapper dh-container">
+            <div class="dh-entrance-wrapper dh-container" v-if="entrance">
               <ul class="dh-area-content">
                 <li v-for="item in entrance.data.solution_area_info.content">
                   <img class="dh-width-fluid" :src="item.image">
@@ -16,7 +16,7 @@
                 </li>
               </ul>
               <section class="dh-showcase">
-                <h3>Product Showcase</h3>
+                <h3 v-if="entrance.data.product_list != ''">Product Showcase</h3>
                 <ul>
                   <li v-for="item in entrance.data.product_list">
                   <router-link tag="a" :to='"/product/productDetail/" + item.id'>
@@ -103,7 +103,7 @@ export default {
         }
         div{
           color: #606060;
-          font-size: 14px;
+          font-size: 15px;
           background-color: @dh-bg-color;
           padding: 8px 12px;
         }
@@ -130,6 +130,9 @@ export default {
           font-size: 12px;
           margin-top: 5px;
         }
+      }
+      .dh-imgbox img{
+        display: block;
       }
     }
 </style>

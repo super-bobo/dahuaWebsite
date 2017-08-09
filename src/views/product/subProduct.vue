@@ -2,11 +2,11 @@
   	<div class="dh-subpage">
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-main-wrapper" v-if="subProducts">
-            <div class="dh-sub-title">
+          <section class="dh-main-wrapper">
+            <div class="dh-sub-title" v-if="subProducts">
               <h3>{{subProducts.data.name}}</h3>
             </div>
-            <ul class="dh-container dh-product-item">
+            <ul class="dh-container dh-product-item" v-if="subProducts">
               <li class="dh-product-list" v-for="(item, index) in subProducts.data.menuList">
                 <router-link tag='a' :to='"/product/productList/" + item.id'>
                   <figure>

@@ -4,11 +4,11 @@
         <div>
           <head-top></head-top>
           <div class="dh-container-scroller">
-            <section class="dh-main-wrapper" v-if="noticeDetail">
+            <section class="dh-main-wrapper">
               <div class="dh-sub-title">
                 <h3>Notice</h3>
               </div>
-              <div class="dh-container dh-noticeDetail">
+              <div class="dh-container dh-noticeDetail" v-if="noticeDetail">
                 <section class="dh-content-top">
                   <h3>{{noticeDetail.data.name}}</h3>
                 </section>

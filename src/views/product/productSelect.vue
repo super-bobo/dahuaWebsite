@@ -1,7 +1,7 @@
 <template>
     <div class="dh-subpage">
         <head-top></head-top>
-        <div class="dh-container-scroller" ref="totalHeight">
+        <div class="dh-container-scroller">
           <section class="dh-main-wrapper">
             <div class="dh-sub-title">
               <h3>Product select</h3>

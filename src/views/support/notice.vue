@@ -5,7 +5,7 @@
           <head-top></head-top>
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
-              <div class="dh-sub-title" v-if="notice">
+              <div class="dh-sub-title">
                 <h3>Notice</h3>
               </div>
               <div class="dh-notice">
