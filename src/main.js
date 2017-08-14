@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// require('font-awesome-webpack') //字体图标
 import FastClick from 'fastclick'
 import store from './vuex/store'
 
@@ -16,7 +15,7 @@ if ('addEventListener' in document) {//解决点击延迟事件
     }, false);
 }
 
-//Vue.config.productionTip = false  //是否显示console提示
+Vue.config.productionTip = false  //是否显示vue提示
 
 new Vue({
   el: '#app',

@@ -11,7 +11,7 @@
                 <router-link tag='a' :to='"/product/productList/" + item.id'>
                   <figure>
                     <div class="dh-product-pic">
-                      <img :src="item.menu_image" alt="" />
+                      <img :src="item.mobile_image" alt="" />
                     </div>
                     <div class="dh-product-text">
                       <h3>{{item.name}}</h3>

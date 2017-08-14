@@ -6,7 +6,7 @@
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
               <div class="dh-sub-title">
-                <h3>press release</h3>
+                <h3>Press release</h3>
               </div>
               <div class="dh-container dh-success-storyDetail" v-if="pressReleaseDetail">
                 <section class="dh-content-top">

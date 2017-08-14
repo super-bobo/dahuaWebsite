@@ -6,7 +6,7 @@
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
               <div class="dh-sub-title">
-                <h3>newsroom</h3>
+                <h3>Newsroom</h3>
               </div>
               <ul class="dh-container dh-product-item" v-if="newsroom">
                 <li class="dh-allproduct-list">

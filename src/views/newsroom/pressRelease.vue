@@ -8,7 +8,7 @@
               <load-more :dateCount="dateCount">
                 <div slot="content">
                   <div class="dh-sub-title">
-                    <h3>press release</h3>
+                    <h3>Press release</h3>
                   </div>
                   <div class="dh-press">
                     <div class="dh-tab dh-container">
