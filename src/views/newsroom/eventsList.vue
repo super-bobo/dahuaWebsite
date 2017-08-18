@@ -29,7 +29,7 @@
                             <flexbox-item :span="2/3">
                               <div class="dh-rightpart">
                                 <h3>{{subitem.name}}</h3>
-                                <p v-html="subitem.description"></p>
+                                <div v-html="subitem.description"></div>
                               </div>
                             </flexbox-item>
                           </flexbox>
@@ -44,7 +44,7 @@
                             <flexbox-item :span="3/5">
                               <div class="dh-rightpart">
                                 <h3>{{subitem.name}}</h3>
-                                <p v-html="subitem.description"></p>
+                                <div v-html="subitem.description"></div>
                               </div>
                             </flexbox-item>
                           </flexbox>
@@ -138,7 +138,7 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import '../../assets/styles/common';
     .dh-product-item{
       margin-top: 18px;
@@ -223,21 +223,28 @@ export default {
          display: block;
         }
       }
-      .dh-rightpart{
-        padding-left: 12px;
-        h3{
-          font-weight: bold;
-          color: #606060;
-          font-size: 13px;
-        }
-        p{
-          font-size: 12px;
-          color: @dh-font-color;
-          margin-top: 3px;
-        }
-      }
+      
     }
-    .dh-first-events-item{
+</style>
+<style lang="less">
+@import '../../assets/styles/common';
+  .dh-press-item{
+    .dh-rightpart{
+          padding-left: 12px;
+          h3{
+            font-weight: bold;
+            color: #606060;
+            font-size: 13px;
+          }
+
+          div,p{
+            font-size: 12px;
+            color: @dh-font-color;
+            margin-top: 3px;
+          }
+        }
+  }
+  .dh-first-events-item{
       .dh-rightpart{
         padding-left: 0;
       }

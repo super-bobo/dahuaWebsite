@@ -6,14 +6,16 @@
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper" v-if="successStoryDetail">
               <div class="dh-sub-title">
-                <h3>{{successStoryDetail.data.menuName}}</h3>
+                <h3 v-if="successStoryDetail.data.menuName">{{successStoryDetail.data.menuName}}</h3>
+                <h3 v-else>{{successStoryDetail.data.name}}</h3>
               </div>
               <div class="dh-container dh-success-storyDetail">
                 <section class="dh-content-top">
                   <h3>{{successStoryDetail.data.name}}</h3>
                   <span>Times：{{successStoryDetail.data.post_date}}</span>&nbsp;&nbsp;<span>Browse：{{successStoryDetail.data.hits}}</span>
                 </section>
-                <section class="dh-content" v-html="successStoryDetail.data.message"></section>
+                <section class="dh-content" v-if="successStoryDetail.data.mobile_message != ''" v-html="successStoryDetail.data.mobile_message"></section>
+                <section class="dh-content" v-else v-html="successStoryDetail.data.message"></section>
                 <section class="dh-content-bottom">
                   <button class="dh-back-btn" onclick="window.history.go(-1)">Back</button>
                 </section>
@@ -95,6 +97,11 @@ export default {
         }
         img{
           max-width: 100%;
+          height: auto;
+        }
+        input[type='image']{
+          max-width: 100%;
+          height: auto;
         }
       }
       .dh-content-bottom{

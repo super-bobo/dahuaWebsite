@@ -5,7 +5,7 @@ import qs from 'qs'
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['accept'] = 'application/json, text/plain, */*';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/' : 'http://mobiletest.dahuasecurity.com/';
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/' : 'http://m.dahuasecurity.com/';
 
 //POST传参序列化
 axios.interceptors.request.use((config) => {
@@ -72,6 +72,11 @@ export default {
     /*获取子产品列表 */
     subProducts(id) {
         return fetchGet('indexApi/product/menu_product?id=' + id)
+    },
+
+    /*获取子产品列表 */
+    thirProducts(id) {
+        return fetchGet('indexApi/product/menu_second_product?id=' + id)
     },
 
     /*获取videoConferencing列表 */

@@ -62,6 +62,10 @@ export default {
       margin-top: 16px;
       img{
         max-width: 100%;
+        margin-left: 0!important;
+      }
+      td{
+        width: auto;
       }
     }
     .keytech-title{
@@ -104,10 +108,21 @@ export default {
     .keytech-sub-title{
       font-size: 14px;
     }
+    table.smart-table{
+      table-layout: fixed;
+      word-break: break-all;
+      width: 100%;
+      margin: 10px 0 20px;
+      th{
+        width: auto;
+      }
+      td,th{
+        padding: 6px 12px;
+      }
+    }
     .data-safety{
       margin-top: 16px!important;
       td{
-        width: auto;
         border-top: dashed 1px #d4d5d6;
         padding-top: 10px;
         .systemBox{
@@ -136,4 +151,5 @@ export default {
         }
       }
     }
+
 </style>

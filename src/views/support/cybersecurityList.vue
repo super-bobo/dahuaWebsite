@@ -6,11 +6,14 @@
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
               <div class="dh-sub-title" v-if="cybersecurityList">
-                <h3>{{cybersecurityList.data.name}}</h3>
+                <h3>{{cybersecurityList.data.title}}</h3>
               </div>
               <div class="dh-container dh-cybersecurityList" v-if="cybersecurityList">
-                <section v-if="cybersecurityList.data.m_content != ''" v-html="cybersecurityList.data.m_content"></section>
-                <section v-else v-html="cybersecurityList.data.content"></section>
+                <section class="dh-content-top" v-if="cybersecurityList.data.name != cybersecurityList.data.title">
+                  <h3>{{cybersecurityList.data.name}}</h3>
+                </section>
+                <section class="dh-content"  v-if="cybersecurityList.data.m_content != ''" v-html="cybersecurityList.data.m_content"></section>
+                <section class="dh-content"  v-else v-html="cybersecurityList.data.content"></section>
               </div>
             </section>
             <footer-part></footer-part>
@@ -61,8 +64,20 @@ export default {
 <style lang="less">
     @import '../../assets/styles/common';
     .dh-cybersecurityList{
-      margin: 20px 0;
       color: #606060;
+      margin-bottom: 20px;
+      .dh-content-top{
+        border-bottom: dashed 1px #eaecee;
+        padding: 16px 0 10px;
+        h3{
+          font-size: 16px;
+          color: #0e5fae;
+          font-weight: bold;
+        }
+      }
+      .dh-content{
+        margin-top: 10px;
+      }
       *{
         text-align: left!important;
       }

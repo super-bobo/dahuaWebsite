@@ -6,14 +6,15 @@
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
               <div class="dh-sub-title">
-                <h3>Press release</h3>
+                <h3>Press Release</h3>
               </div>
               <div class="dh-container dh-success-storyDetail" v-if="pressReleaseDetail">
                 <section class="dh-content-top">
                   <h3>{{pressReleaseDetail.data.name}}</h3>
                   <span>Times：{{pressReleaseDetail.data.post_date}}</span>&nbsp;&nbsp;<span>Browse：{{pressReleaseDetail.data.hits}}</span>
                 </section>
-                <section class="dh-content" v-html="pressReleaseDetail.data.message"></section>
+                <section class="dh-content" v-if="pressReleaseDetail.data.mobile_message != ''" v-html="pressReleaseDetail.data.mobile_message"></section>
+                <section class="dh-content" v-else v-html="pressReleaseDetail.data.message"></section>
                 <section class="dh-content-bottom">
                   <button class="dh-back-btn" onclick="window.history.go(-1)">Back</button>
                 </section>
@@ -92,6 +93,15 @@ export default {
         img{
           max-width: 100%;
           height: auto;
+        }
+        table{
+          width: 100%;
+          table-layout: fixed;
+          td{
+            width: auto;
+            word-break: break-all;
+            border-width: 1px!important;
+          }
         }
       }
       .dh-content-bottom{

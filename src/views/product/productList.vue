@@ -79,13 +79,15 @@ export default {
         this.$store.dispatch('getProductList', this.$route.params.productId)
       },
       setTotalCount () {
-        let timer = setInterval( () => {
-          if(this.productList){
-            console.log(this.productList.data.product.length)
-            this.dateCount.totalCount = this.productList.data.product.length
-            clearInterval(timer)
-          }
-        }, 100)
+        this.$nextTick( () => {
+          let timer = setInterval( () => {
+            if(this.productList){
+              console.log(this.productList.data)
+              this.dateCount.totalCount = !this.productList.data ? 0 : this.productList.data.product.length
+              clearInterval(timer)
+            }
+          }, 100)
+        })
       },
       pushListHeight () {
         this.dateCount.listHeight = this.$refs.dh_list_height.clientHeight

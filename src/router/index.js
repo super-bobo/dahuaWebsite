@@ -7,6 +7,7 @@ const home = r => require.ensure([], () => r(require('@/views/home/home')), 'hom
 
 const product = r => require.ensure([], () => r(require('@/views/product/product')), 'product')
 const subProduct = r => require.ensure([], () => r(require('@/views/product/subProduct')), 'product')
+const thirProduct = r => require.ensure([], () => r(require('@/views/product/thirProduct')), 'product')
 const productList = r => require.ensure([], () => r(require('@/views/product/productList')), 'product')
 const videoConferencing = r => require.ensure([], () => r(require('@/views/product/videoConferencing')), 'product')
 const newProductList = r => require.ensure([], () => r(require('@/views/product/newProductList')), 'product')
@@ -68,10 +69,7 @@ export default new Router({
             path: '/products.html', 
             redirect: '/product' 
         },
-        { 
-            path: '/products.html/:productId', 
-            redirect: '/product/productList/:productId' 
-        },
+
 
         { 
             path: '/press.html', 
@@ -187,6 +185,10 @@ export default new Router({
                 {
                     path: 'subProduct/:productId',
                     component: subProduct
+                },
+                {
+                    path: 'thirProduct/:productId',
+                    component: thirProduct
                 },
                 {
                     path: 'productList/:productId',

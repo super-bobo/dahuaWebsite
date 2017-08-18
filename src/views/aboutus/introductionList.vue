@@ -9,7 +9,8 @@
                 <h3>{{introductionList.data.name}}</h3>
               </div>
               <div class="dh-container dh-success-storyDetail">
-                <section class="dh-content" v-html="introductionList.data.content"></section>
+                <section class="dh-content" v-if="introductionList.data.m_content != ''" v-html="introductionList.data.m_content"></section>
+                <section class="dh-content" v-else v-html="introductionList.data.content"></section>
               </div>
             </section>
             <footer-part></footer-part>

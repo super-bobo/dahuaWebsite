@@ -13,7 +13,7 @@
                   <div class="dh-success-storylist">
                     <ul class="dh-press-item dh-container">
                       <li class="dh-press-list" v-for="(item, index) in successStoryList.data.case" v-if="index < dateCount.listCount">                   
-                        <router-link tag="a" :to='"/newsroom/successStoryDetail/" + item.subclass_id'>
+                        <router-link tag="a" :to='"/newsroom/successStoryDetail/" + item.id'>
                           <flexbox :gutter="0" wrap="wrap">
                             <flexbox-item :span="1/3">
                               <div class="dh-leftpart">

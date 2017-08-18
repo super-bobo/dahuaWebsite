@@ -6,7 +6,7 @@
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
               <div class="dh-sub-title">
-                <h3>Open positions</h3>
+                <h3>Open Positions</h3>
               </div>
               <div class="dh-career-top">
                 <section class="dh-container dh-search-wrapper">

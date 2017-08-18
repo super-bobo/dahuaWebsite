@@ -6,7 +6,7 @@
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
               <div class="dh-sub-title">
-                <h3>Awards</h3>
+                <h3>Awards & Certifications</h3>
               </div>
               <div class="dh-aboutus-awards">
                 <div class="dh-tab dh-container">

@@ -4,7 +4,7 @@
         <div class="dh-container-scroller">
           <section class="dh-main-wrapper">
             <div class="dh-sub-title">
-              <h3>Product select</h3>
+              <h3>Product Select</h3>
             </div>
             <div class="dh-container-fluid">
               <section class="dh-filter-wrapper dh-container" :class="{'dh-filter-float': showFilterFloat}">

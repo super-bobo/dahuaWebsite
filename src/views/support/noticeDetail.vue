@@ -74,10 +74,13 @@ export default {
       .dh-content{
         margin-top: 10px;
         table{
-          max-width: 100%!important;
+          width: 100%!important;
           table-layout: fixed;
+          word-break: break-all;
           td{
             width: auto;
+            padding-left: 5px;
+            padding-right: 5px;  
           }
         }
       }

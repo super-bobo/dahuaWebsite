@@ -6,7 +6,7 @@
           <div class="dh-container-scroller">
             <section class="dh-main-wrapper">
               <div class="dh-sub-title">
-                <h3>Success stories</h3>
+                <h3>Success Stories</h3>
               </div>
               <ul class="dh-container dh-product-item">
                 <li class="dh-allproduct-list" v-for="(item, index) in successStory.data" v-if="successStory">

@@ -4,8 +4,8 @@
       <div>
         <head-top></head-top>
         <div class="dh-container-scroller">
-          <section class="dh-main-wrapper">
-            <div class="dh-sub-title" v-if="solutionBank">
+          <section class="dh-main-wrapper" v-if="solutionBank">
+            <div class="dh-sub-title">
               <h3>{{solutionBank.data.solution_menu.name}}</h3>
             </div>
             <div class="dh-solution-bank" v-if="solutionBank">
@@ -13,8 +13,8 @@
               <div class="dh-content dh-content1 dh-container">
                 <ul>
                   <li v-for="item in solutionBank.data.solution.content1" v-if="solutionBank.data.solution.content1 != ''">
-                    <h3>{{item.title}}</h3>
-                    <p>{{item.content}}</p>
+                    <h3 v-html="item.title"></h3>
+                    <p v-html="item.content"></p>
                   </li>
                 </ul>
                 <div class="dh-download-btn">
@@ -39,7 +39,7 @@
                       <router-link tag="a" :to="'/entrance/'+bankId+'/'+item.lb">
                         <img :src="item.img" class="dh-width-fluid">
                         <section class="dh-bottom-title">
-                          <h3 class="dh-elip">{{item.title}}</h3>
+                          <h3 class="dh-elip" v-html="item.title"></h3>
                         </section>                        
                       </router-link>
                     </li>
@@ -55,8 +55,8 @@
                     <li class="dh-container" v-for="item in solutionBank.data.solution.content3">
                       <router-link tag="a" :to="'/keyTechnology/' + bankId">
                         <figure>
-                          <h3 class="dh-elip">{{item.title}}</h3>
-                          <p>{{item.content}}</p>
+                          <h3 class="dh-elip" v-html="item.title"></h3>
+                          <div v-html="item.content"></div>
                           <img :src="item.image" class="dh-width-fluid">
                         </figure>
                       </router-link>
@@ -69,7 +69,7 @@
                   <span class="dh-title-icon"></span>Solution Features
                 </h3>
                 <div class="dh-features dh-container">
-                  <p>{{solutionBank.data.solution.content2}}</p>
+                  <div v-html="solutionBank.data.solution.content2"></div>
                 </div>
               </div>
               <div class="dh-content dh-content6">
@@ -97,7 +97,7 @@
                     <img class="dh-width-fluid" :src="item.case_img">
                     <figure class="dh-container">
                       <h3>{{item.name}}</h3>
-                      <p>{{item.messages_e}}</p>
+                      <p v-html="item.messages_e"></p>
                       <div class="dh-download-btn">
                       <router-link tag="a" :to='"/newsroom/successStoryDetail/" + item.id'>Details</router-link>
                     </div>
@@ -249,7 +249,7 @@ export default {
           background-color: #0568bb;
           color: #fff;
           font-size: 18px;
-          font-weight: bold;
+          font-weight: 600;
           position: relative;
           &:before,
           &:after{
@@ -276,7 +276,7 @@ export default {
             top: 0;
           }
         }
-        p{
+        div{
           color: #606060;
           margin-top: 10px;
           text-align: left;
@@ -287,7 +287,7 @@ export default {
       }
     }
     .dh-features{
-      p{
+      div{
         color: #606060;
         margin-top: 6px;
       }
@@ -313,7 +313,7 @@ export default {
           margin-top: 5px;
           font-size: 17px;
           color: #333;
-          font-weight: 500;
+          font-weight: 600;
         }
         p{
           color: #606060;

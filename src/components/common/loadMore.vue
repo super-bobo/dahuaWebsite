@@ -1,6 +1,6 @@
 <template>
   <div class="dh-scroller-content">
-    <scroller :on-infinite="loadMore" ref="list_scroller" :noDataText="noDateText">
+    <scroller :on-infinite="loadMore" ref="list_scroller" :noDataText="noDataText">
       <slot name="content"></slot>
     </scroller>
     <div @click="scrollToTop" class="dh-scrollTotop" :class="{'dh-isshow': showScrollTop}">
@@ -15,7 +15,7 @@ export default {
   props: ['dateCount'],
   data () {
     return {
-      noDateText: 'no date',
+      noDataText: 'no data',
       startY: '',
       showScrollTop: false
     }
@@ -23,7 +23,9 @@ export default {
   methods: {
       loadMore (done) {
           setTimeout(() => {
-            if(this.dateCount.totalCount){
+            if(this.dateCount.totalCount == 0){
+              this.$refs.list_scroller.finishInfinite(2)
+            }else{
               if(this.dateCount.listCount >= this.dateCount.totalCount){
                 this.$refs.list_scroller.finishInfinite(2)
               }else{

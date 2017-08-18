@@ -54,12 +54,31 @@
                             </span>
                           </div>
                           <ul class="dh-floatmenu-thir" v-show="secIndex === currentSecNode">
-                            <li class="dh-floatmenu-list" v-for="thirItem in secItem.child">
-                              <div class="dh-linkbox">
-                                <router-link  tag="a" :to="'/'+ firItem.url + '/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
-                                  {{thirItem.name}}
-                                </router-link>
+                            <li class="dh-floatmenu-list" v-for="(thirItem, thirIndex) in secItem.child">
+                              <div class="dh-linkbox" :class="{active: currentThirNode===thirIndex}">
+                                <template v-if="thirItem.child && thirItem.child != ''">
+                                  <router-link  tag="a" :to="'/product/thirProduct/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                                    {{thirItem.name}}
+                                  </router-link>
+                                </template>
+                                <template v-else>
+                                  <router-link  tag="a" :to="'/product/productList/' + thirItem.id" :key="thirItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                                    {{thirItem.name}}
+                                  </router-link>
+                                </template>
+                                <span v-if="thirItem.child != '' && thirItem.child" :class="{active: currentThirNode===thirIndex}" @click="currentThirNode= currentThirNode===thirIndex?-1:thirIndex;">
+                                  <svg viewBox="0 0 1024 1024" width="24" height="24"><path fill="#606060" d="M998.303758 318.164317l0-0.081864 0.089028 0L998.303758 318.164317zM103.918791 385.951189l0-67.868737 87.87335 0 322.642305 298.143331L837.068564 318.082452l86.710874 0 0 68.957535L514.433422 765.28261 103.918791 385.951189z" p-id="4003"></path></svg>
+                                </span>
                               </div>
+                              <ul class="dh-floatmenu-fourth" v-show="thirIndex === currentThirNode">
+                                <li class="dh-floatmenu-list" v-for="fourthItem in thirItem.child">
+                                  <div class="dh-linkbox">
+                                    <router-link  tag="a" :to="'/product/productList/' + fourthItem.id" :key="fourthItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                                      {{fourthItem.name}}
+                                    </router-link>
+                                  </div>
+                                </li>
+                              </ul>
                             </li>
                           </ul>
                         </li>
@@ -172,7 +191,8 @@ export default {
   data () {
     return {
       currentFirNode: -1,
-      currentSecNode: -1
+      currentSecNode: -1,
+      currentThirNode: -1
     }
   },
   computed: {
@@ -282,11 +302,10 @@ export default {
       border-color: #fff;
     }
     .dh-linkbox{
-      background-color: #eaecee;
+      background-color: #e3e5e6;
       .trandtion-ease();
       &.active{
         background-color: #dadada;
-        //background-image: none;
       }
       .dh-floatmenu-link{
         padding-left: 32px;
@@ -296,17 +315,32 @@ export default {
   .dh-floatmenu-thir{
     transition: all ease .3s;
     .dh-floatmenu-list{
-      border-color: #eaecee;
+      border-color: #fff;
+    }
+    .dh-linkbox{
+      background-color: #f2f2f2;
+      .trandtion-ease();
+      &.active{
+        background-color: #e3e5e6;
+      }
+      .dh-floatmenu-link{
+        padding-left: 54px;
+      }
+    }
+  }
+  .dh-floatmenu-fourth{
+    transition: all ease .3s;
+    .dh-floatmenu-list{
+      border-color: #f2f2f2;
     }
     .dh-linkbox{
       background-color: #fff;
       .trandtion-ease();
       &.active{
-        background-color: #dadada;
-        //background-image: none;
+        background-color: #f0f0f0;
       }
       .dh-floatmenu-link{
-        padding-left: 54px;
+        padding-left: 76px;
       }
     }
   }

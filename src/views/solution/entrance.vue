@@ -12,7 +12,7 @@
               <ul class="dh-area-content">
                 <li v-for="item in entrance.data.solution_area_info.content">
                   <img class="dh-width-fluid" :src="item.image">
-                  <div v-html="item.content"></div>
+                  <div v-html="item.content" v-if="item.content"></div>
                 </li>
               </ul>
               <section class="dh-showcase">
