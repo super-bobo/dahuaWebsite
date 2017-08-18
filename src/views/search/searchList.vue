@@ -101,7 +101,7 @@
             case 'Partner':
                 return 'IPCSupportDetail'
                 break;
-            case 'SuccessStories':
+            case 'Success Stories':
                 return 'newsroom/successStoryDetail'
                 break;
             default:

@@ -12,7 +12,8 @@
                 <section class="dh-content-top">
                   <h3>{{annoucementDetail.data.name}}</h3>
                 </section>
-                <section class="dh-content" v-html="annoucementDetail.data.message"></section>
+                <section class="dh-content" v-if="annoucementDetail.data.mobile_message != ''" v-html="annoucementDetail.data.mobile_message"></section>
+                <section class="dh-content" v-else v-html="annoucementDetail.data.message"></section>
               </div>
             </section>
             <footer-part></footer-part>

@@ -2,7 +2,7 @@
   <div class="dh-filter-modulebox">
     <section class="dh-filterproduct-wrapper">
       <div class="dh-sub-title">
-        <h3>Product select</h3>
+        <h3>Product Select</h3>
       </div>
       <div class="dh-container-fluid">
         <section class="dh-filter-wrapper dh-container">
