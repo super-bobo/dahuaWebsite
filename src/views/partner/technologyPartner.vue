@@ -16,7 +16,7 @@
                       <flexbox :gutter="0" wrap="wrap" align="flex-start">
                         <flexbox-item :span="2/3">
                           <section class="dh-contentleft">
-                            <h3>{{item.name}}</h3>
+                            <h3 v-html="item.name"></h3>
                             <p>Tel:{{item.tel}}</p>
                             <p>Email:{{item.email}}</p>
                             <p>Url:{{item.url}}</p>
@@ -157,17 +157,5 @@ export default {
     }
     .dh-subcontent{
       margin-top: 15px;
-    }
-    .dh-loadmore-btn{
-      margin: 20px 0; 
-      button{
-        width: 100%;
-        padding: 5px 0;
-        border: solid 1px #90b0d0;
-        border-radius: 2px;
-        background-color: #fff;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, .16);
-      }
-      
     }
 </style>

@@ -11,8 +11,9 @@
                 <h3>{{searchList.data.menu}}</h3>
               </div>
               <ul class="dh-container dh-searchlist-item">
-               <li class="dh-searchlist-list" v-for="(item, index) in searchList.data.list" v-if="index < dateCount.listCount">
-                <template v-if="$route.params.menu == 'events'">
+                <template v-if="$route.params.menu == 'Events'">
+                <li class="dh-searchlist-list" v-for="(item, index) in searchList.data.list" v-if="index < dateCount.listCount">
+
                   <flexbox :gutter="0" wrap="wrap">
                     <flexbox-item :span="1/3" v-if="item.image">
                       <div class="dh-partleft">
@@ -26,8 +27,37 @@
                       </div>
                     </flexbox-item>
                   </flexbox>
-                </template>
-                <template v-else>
+                </li>
+              </template>
+              <template v-else-if="$route.params.menu == 'Partner'">
+                <li class="dh-searchlist-list dh-partner-list" v-for="(item, index) in searchList.data.list" v-if="index < dateCount.listCount">
+                  <flexbox :gutter="0" wrap="wrap" align="flex-start">
+                    <flexbox-item :span="2/3">
+                      <section class="dh-contentleft">
+                        <h3 v-html="item.name"></h3>
+                        <p>Tel:{{item.tel}}</p>
+                        <p>Email:{{item.email}}</p>
+                        <p>Url:{{item.url}}</p>
+                        <button :class="{disabled: index == showDetail}" @click="showDetail = index">Details</button>
+                      </section>
+                    </flexbox-item>
+                    <flexbox-item :span="1/3">
+                      <div  class="dh-contentright">
+                        <img :src="item.image" class="dh-width-fluid">
+                      </div>
+                    </flexbox-item>
+                  </flexbox>
+                  <div class="dh-content" v-html="item.searchText" v-if="index == showDetail"></div>
+                  <flexbox class="dh-subcontent" :gutter="0" wrap="wrap" align="flex-start">
+                    <flexbox-item>
+                      <h3 class="dh-subtitle">Supported Products</h3>
+                      <p>{{item.text}}</p>
+                    </flexbox-item>
+                  </flexbox>
+                </li>
+              </template>
+              <template v-else>
+                <li class="dh-searchlist-list" v-for="(item, index) in searchList.data.list" v-if="index < dateCount.listCount">
                   <router-link tag="a" :to="'/' + getRouterLink + '/' + item.id">
                    <flexbox :gutter="0" wrap="wrap">
                     <flexbox-item :span="1/3" v-if="item.image">
@@ -43,8 +73,8 @@
                     </flexbox-item>
                   </flexbox>
                 </router-link>
-              </template>
-            </li>
+              </li>
+            </template>
           </ul>
         </div>
       </load-more>
@@ -69,6 +99,7 @@
   export default {
     data(){
       return{
+        showDetail: -1,
         dateCount: {
           listCount: 0,
           totalCount: '',
@@ -99,7 +130,7 @@
                 return 'solutionBank'
                 break;
             case 'Partner':
-                return 'IPCSupportDetail'
+                return 'technologyPartner'
                 break;
             case 'Success Stories':
                 return 'newsroom/successStoryDetail'
@@ -152,7 +183,7 @@
 <style lang="less">
   @import '../../assets/styles/common';
   .dh-searchlist-item{
-    margin: 20px 0;
+    margin-bottom: 20px;
     .dh-searchlist-list{
       padding-bottom: 12px;
       margin-top: 12px;
@@ -169,16 +200,55 @@
         font-size: 13px;
         color: #606060;
         margin-top: 3px;
-      }
-      .dh-partright{
-        font{
-          color: red;
-        }
+        word-wrap: break-word;
       }
     }
   }
+  .dh-partner-list{
+      padding: 20px 0;
+      border-bottom: dashed 1px #dadada;
+      h3{
+        font-weight: 500;
+        color: #333;
+        &.dh-subtitle{
+          font-size: 15px;
+          color: #606060;
+        }
+      }
+      p{
+        font-size: 14px;
+        line-height: 17px;
+        color: #606060;
+      }
+      button{
+        padding: 4px 12px;
+        background-color: #ee4503;
+        font-size: 14px;
+        color: #fff;
+        margin-top: 8px;
+        .trandtion-ease();
+        &.disabled{
+          background-color: #dadada;
+        }
+      }
+    }
+    .dh-contentleft{
+      margin-right: 12px;
+    }
+    .dh-contentright{
+      padding: 5px;
+      border: solid 1px #eaecee;
+    }
+    .dh-content{
+      margin-top: 15px;
+      font-size: 14px;
+      color: #606060;
+    }
+    .dh-subcontent{
+      margin-top: 15px;
+    }
 </style>
-<style lang="less">
+<style lang="less" scoped>
   .dh-partright{
       font{
         color: red;
