@@ -4,7 +4,7 @@
         <div class="dh-container-scroller">
           <section class="dh-main-wrapper">
             <div class="dh-sub-title">
-              <h3>Product Select</h3>
+              <h3>Product Selector</h3>
             </div>
             <div class="dh-container-fluid">
               <section class="dh-filter-wrapper dh-container" :class="{'dh-filter-float': showFilterFloat}">
@@ -163,22 +163,24 @@ export default {
       setFilter (name, id, modulid) {//选择产品或者删除已选产品
         let selectedNum = this.filterProduct.length
         let canSelectNum = 4
-        let checkbox = document.getElementsByName('outAllFilter');
-        checkbox.forEach( (ele, index) => {
-          if(ele.dataset.modulid == modulid){
-            if(ele.checked){
+        let checkbox = document.getElementsByName('outAllFilter')
+        for(let ele in checkbox){
+          if(checkbox[ele].dataset.modulid == modulid){
+            if(checkbox[ele].checked){
               this.filterProduct.push({
                 filterName: name,
                 selectedId: id,
                 moduleId: modulid
               })
               if(selectedNum >= canSelectNum){
-                checkbox.forEach( (ele, index) => {
-                  if(ele.dataset.modulid == this.filterProduct[0].moduleId){//判断否是存在显示的产品
-                    checkbox[index].checked = false
-                    return
+                for(let ele = 0; ele < checkbox.length; ele++　){
+                  console.log(checkbox[ele])
+                  console.log(this.filterProduct[0].moduleId)
+                  if(checkbox[ele].dataset.modulid == this.filterProduct[0].moduleId){//判断是否存在显示的产品
+                    checkbox[ele].checked = false
+                    break
                   }
-                })
+                } 
                 this.filterProduct.splice(0,1)
                 this.$refs.box[0].className = 'dh-filter-list dh-elip dh-del-product'
                 setTimeout( () => {
@@ -195,19 +197,19 @@ export default {
             console.log(this.filterProduct)
             return
           }
-        })
+        }
       },
       moveFilter (index) {//删除已选产品
         if(this.filterProduct.length > index){
           let indexId = this.filterProduct[index].moduleId;
           this.filterProduct.splice(index,1)
           let checkbox = document.getElementsByName('outAllFilter')
-          checkbox.forEach( (ele, index) => {
-            if(ele.dataset.modulid == indexId){
-              ele.checked = false
-              return
+          for(let index in checkbox){
+            if(checkbox[index].dataset.modulid == indexId){
+              checkbox[index].checked = false
+              break
             }
-          }) 
+          }
         }
         
       },
@@ -304,7 +306,7 @@ export default {
         }
        .dh-rightpart{
           text-align: right;
-          width: 42%;
+          width: 32%;
           .dh-compare-btn{
             height: 28px;
             padding: 0 10px;

@@ -2,7 +2,7 @@
   <div class="dh-filter-modulebox">
     <section class="dh-filterproduct-wrapper">
       <div class="dh-sub-title">
-        <h3>Product Select</h3>
+        <h3>Product Selector</h3>
       </div>
       <div class="dh-container-fluid">
         <section class="dh-filter-wrapper dh-container">
@@ -10,7 +10,7 @@
             <div class="dh-leftpart">
               <button class="dh-filter-btn" @click="sendInfoToParent">Back</button>
             </div>
-            <div class="dh-rightpart">
+            <div class="dh-rightpart" style="width: 50%;">
               <button class="dh-compare-btn dh-reset-btn" @click="saveToPdf">Save result as PDF</button>
             </div>
           </div>

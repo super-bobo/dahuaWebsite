@@ -6,10 +6,10 @@
       <P class="dh-footer-text">Enter your email address to receive the latest news & products information</P>
       <div class="dh-footer-form">
         <div class="part1">
-          <input type="text" name="" v-model="emailAddress">
+          <input type="text" name="" v-model="emailAddress" @change="changeEmial()">
         </div>
         <div class="part2">
-          <button @click="postAddress">Submit</button>
+          <router-link tag="a" :to="'/newslettersub'">Submit</router-link> 
         </div>
       </div>
     </article>
@@ -37,7 +37,6 @@
       <p>© 2010-2017 Dahua Technology Co., Ltd</p>
     </article>
   </section>
-  <toast v-model="showModule" type="text" :text="showText"></toast>
 </div>
 </template>
 
@@ -50,11 +49,6 @@ export default {
   data () {
     return {
       emailAddress: "",
-      showModule: false,
-      showText: '',
-      emptyText: 'Please input your email',
-      errorText: 'Worry email',
-      successText: 'Subscription success'
     }
   },
   components: {
@@ -62,25 +56,13 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'sendEmail'
+      'letterEmail'
     ])
   },
   methods: {
-    postAddress: function(){
-      let emailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
-      if(this.emailAddress == ""){//邮件为空
-          this.showText = this.emptyText
-          this.showModule = true
-      }else if(!emailReg.test(this.emailAddress)){//邮件格式不正确
-        this.showText = this.errorText
-        this.showModule = true
-      }else{//邮件格式正确，传数据到后台
-        this.$store.dispatch('getSendEmail', {
-          email: this.emailAddress
-        })
-        this.showText = this.successText
-        this.showModule = true
-      }
+    changeEmial() { 
+      this.$store.commit('change', this.emailAddress)
+      console.log(this.letterEmail)
     }
   },
 }
@@ -113,6 +95,7 @@ export default {
   display: table;
   .part1, .part2{
     display: table-cell;
+    vertical-align: top;
     font-size: 16px;
   }
   .part1{
@@ -133,10 +116,12 @@ export default {
     }
   }
   .part2{
-    button{
+    a{
+      display: block;
       width: 100%;
       height: @dh-form-height;
-      border: none;
+      line-height: @dh-form-height;
+      text-align: center;
       background-color: #eaecee;
       color: @dh-footer-bg;
       font-size: 16px;

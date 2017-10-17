@@ -9,18 +9,6 @@
                   <h3>{{newProductList.data.name}}</h3>
                 </div>
                 <ul class="dh-container dh-product-item">
-                  <!-- <li class="dh-product-select-enter">
-                    <router-link tag="a" :to='"/product/productSelect/"'>
-                      <div class="dh-toptitle">
-                        <h3>Product Selector</h3>
-                        <p>Use one of the options below to locate your desired
-                          product.</p>
-                        </div>
-                        <div class="dh-img">
-                          <img class="dh-width-fluid" src="../../assets/images/dh-selectproduct-img.png">
-                        </div>
-                      </router-link>
-                    </li> -->
                     <template v-if="newProductList">
                       <li class="dh-product-list dh-newproduct" v-for="(item, index) in newProductList.data.product" v-if="index < dateCount.listCount">
                         <router-link tag='a' :to='"/product/productDetail/" + item.id'>

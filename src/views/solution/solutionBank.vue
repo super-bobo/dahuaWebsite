@@ -8,7 +8,7 @@
             <div class="dh-sub-title">
               <h3>{{solutionBank.data.solution_menu.name}}</h3>
             </div>
-            <div class="dh-solution-bank" v-if="solutionBank">
+            <div class="dh-solution-bank">
               <img :src="solutionBank.data.solution.video_img" class="dh-width-fluid" v-if="solutionBank.data.solution.video_img != ''">
               <div class="dh-content dh-content1 dh-container">
                 <ul>

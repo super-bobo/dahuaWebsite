@@ -43,6 +43,24 @@
                           </ul>
                         </li>
                       </template>
+                      <template v-else-if="secItem.id == '-1'">
+                        <li class="dh-floatmenu-list">
+                          <div class="dh-linkbox" :class="{active: currentSecNode===secIndex}">
+                            <router-link  tag="a" :to="'/product/newProductList'" :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                              {{secItem.name}}
+                            </router-link>
+                          </div>
+                        </li>
+                      </template>
+                      <template v-else-if="secItem.id == '-2'">
+                        <li class="dh-floatmenu-list">
+                          <div class="dh-linkbox" :class="{active: currentSecNode===secIndex}">
+                            <router-link  tag="a" :to='"/product/productSelect/" + secItem.main_id' :key="secItem.id" class="dh-floatmenu-link" @click.native="isShowMenu">
+                              {{secItem.name}}
+                            </router-link>
+                          </div>
+                        </li>
+                      </template>
                       <template v-else>
                         <li class="dh-floatmenu-list" >
                           <div class="dh-linkbox" :class="{active: currentSecNode===secIndex}">

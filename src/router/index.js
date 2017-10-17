@@ -41,12 +41,15 @@ const annoucementDetail = r => require.ensure([], () => r(require('@/views/suppo
 const notice = r => require.ensure([], () => r(require('@/views/support/notice')), 'support')
 const noticeDetail = r => require.ensure([], () => r(require('@/views/support/noticeDetail')), 'support')
 
+const solution = r => require.ensure([], () => r(require('@/views/solution/solution')), 'solution')
 const solutionBank = r => require.ensure([], () => r(require('@/views/solution/solutionBank')), 'solution')
 const entrance = r => require.ensure([], () => r(require('@/views/solution/entrance')), 'solution')
 const keyTechnology = r => require.ensure([], () => r(require('@/views/solution/keyTechnology')), 'solution')
 
 const search = r => require.ensure([], () => r(require('@/views/search/search')), 'search')
 const searchList = r => require.ensure([], () => r(require('@/views/search/searchList')), 'search')
+
+const newslettersub = r => require.ensure([], () => r(require('@/views/newsletter/newsletter')), 'newsletter')
 
 
 Vue.use(Router)
@@ -122,10 +125,10 @@ export default new Router({
             redirect: '/IPCSupportList'
         },
 
-
+        //solution
         { 
             path: '/solution.html', 
-            redirect: '/solutionBank/62' 
+            redirect: '/solution' 
         },
         { 
             path: '/solution.html/:bankId', 
@@ -172,7 +175,7 @@ export default new Router({
             path: '',
             component: home
         },
-        //首页城市列表页
+        //首页
         {
             path: '/home',
             component: home
@@ -321,6 +324,10 @@ export default new Router({
 
         //solution
         {
+            path: '/solution',
+            component: solution
+        },
+        {
             path: '/solutionBank/:bankId',
             component: solutionBank
         },
@@ -343,6 +350,19 @@ export default new Router({
             path: '/searchList/:menu/:keyword',
             component: searchList
         },
+
+        //newslettersub 
+        {
+            path: '/newslettersub',
+            component: newslettersub
+        },
+
+        //404
+        {
+            path: '*',
+            component: home
+        },
+
     ]
   }],
   scrollBehavior (to, from, savedPosition) {

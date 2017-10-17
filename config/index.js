@@ -31,6 +31,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
      '/indexApi': {
+        //target: 'http://mobiletest.dahuasecurity.com',
         target: 'http://m.dahuasecurity.com',
         changeOrigin: true,
         pathRewrite: {

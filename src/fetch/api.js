@@ -5,6 +5,7 @@ import qs from 'qs'
 axios.defaults.timeout = 5000;
 axios.defaults.headers.post['accept'] = 'application/json, text/plain, */*';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+//axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/' : 'http://mobiletest.dahuasecurity.com/';
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/' : 'http://m.dahuasecurity.com/';
 
 //POST传参序列化
@@ -23,7 +24,7 @@ export function fetchPost (url, params = {}) {
     axios.post(url, params).then(res => {
       resolve(res.data)
     }).catch((error) => {
-      reject(error);
+      reject(error)
     })
   })
 }
@@ -32,7 +33,7 @@ export function fetchGet (url, params) {
     axios.get(url, params).then(res => {
       resolve(res.data)
     }).catch((error) => {
-      reject(error);
+      reject(error)
     })
   })
 }
@@ -260,6 +261,11 @@ export default {
     },
 
 
+    /*获取solution 目录页*/
+    solution() {
+        return fetchGet('indexApi/solution/solution_index')
+    },
+
     /*获取solution banking*/
     solutionBank(params) {
         return fetchGet('indexApi/solution/solution_bank?menu_id=' + params)
@@ -288,9 +294,19 @@ export default {
         return fetchPost('indexApi/subscription/email', params)
     },
 
+    //获取 region
+    region(params) {
+        return fetchGet('indexApi/subscription/region_info')
+    },
+
     //html to pdf
     htmlToPdf(params) {
         return fetchPost('indexApi/product/product_pdf', params)
+    },
+
+    //获取 图片验证码
+    verificationCode(params) {
+        return fetchGet('indexApi/subscription/captcha')
     },
 
 }

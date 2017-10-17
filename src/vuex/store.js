@@ -26,6 +26,7 @@ import successStoryList from './modules/successStoryList'
 import successStoryDetail from './modules/successStoryDetail'
 import eventsList from './modules/eventsList'
 import newsletter from './modules/newsletter'
+import region from './modules/region'
 import pressRelease from './modules/pressRelease'
 import pressReleaseDetail from './modules/pressReleaseDetail'
 
@@ -46,6 +47,7 @@ import annoucementDetail from './modules/annoucementDetail'
 import notice from './modules/notice'
 import noticeDetail from './modules/noticeDetail'
 
+import solution from './modules/solution'
 import solutionBank from './modules/solutionBank'
 import entrance from './modules/entrance'
 import keyTechnology from './modules/keyTechnology'
@@ -57,6 +59,10 @@ import searchList from './modules/searchList'
 import sendEmail from './modules/sendEmail'
 
 import htmlToPdf from './modules/htmlToPdf'
+
+import letterEmail from './modules/letterEmail'
+
+import verificationCode from './modules/verificationCode'
 
 
 
@@ -90,6 +96,7 @@ export default new Vuex.Store({
         successStoryDetail,
         eventsList,
         newsletter,
+        region,
         pressRelease,
         pressReleaseDetail,
 
@@ -110,6 +117,7 @@ export default new Vuex.Store({
         noticeDetail,
         cybersecurityList,
 
+        solution,
         solutionBank,
         entrance,
         keyTechnology,
@@ -120,5 +128,9 @@ export default new Vuex.Store({
         sendEmail,
 
         htmlToPdf,
+
+        letterEmail,
+
+        verificationCode,
     }
 })

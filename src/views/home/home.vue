@@ -33,6 +33,16 @@
                       </li>
                   </ul>
               </section>
+              <section class="dh-index-wrapper dh-selector-wrapper">
+                  <article class="dh-index-title-box dh-spe">
+                      <h2 class="dh-index-title">Product Selector</h2>
+                  </article>
+                  <router-link  tag="a" :to="'/product/productSelect/1'">
+                    <figure>
+                      <img class="dh-width-fluid" src="../../assets/images/dh-home-product-selector.png" alt="Product selector" />
+                    </figure>
+                  </router-link>
+              </section>
               <section class="dh-index-wrapper dh-newletter-wrapper">
                   <article class="dh-index-title-box dh-spe">
                       <h2 class="dh-index-title">Newsletter</h2>
@@ -69,9 +79,9 @@
                       <h2 class="dh-index-title">Success Stories</h2>
                   </article>
                   <article>
-                    <figure>
-                      <img class="dh-width-fluid" src="../../assets/images/dh-story-img.png" alt="" />
-                      <figcaption v-if="storyList">
+                    <figure v-if="storyList">
+                      <img class="dh-width-fluid" :src="storyList.data.mobile_img" alt="" />
+                      <figcaption>
                         <h3>{{storyList.data.name}}</h3>
                         <p>{{storyList.data.messages_e}} …</p>
                         <div class="dh-stoty-more">
@@ -129,14 +139,8 @@ export default {
 </script>
 
 <style lang="less">
-    @import '../../assets/styles/common';
-    .dh-home-container{
-      padding-bottom: 25px;
-      img{
-        display: block;
-      }
-    }
-    .dh-index-swiper{
+  @import '../../assets/styles/common';
+  .dh-index-swiper{
       &.vux-slider .vux-indicator,
       &.vux-slider .vux-indicator-right{
         left: 0;
@@ -158,6 +162,15 @@ export default {
     }
     .dh-index-wrapper{
       margin-top: 24px;
+    }
+</style>
+<style lang="less" scoped>
+    @import '../../assets/styles/common';
+    .dh-home-container{
+      padding-bottom: 25px;
+      img{
+        display: block;
+      }
     }
     .dh-newproduct-wrapper{
         padding: 20px 5%;
@@ -239,6 +252,9 @@ export default {
           margin-top: 6px;
         }
       }
+    }
+    .dh-selector-wrapper{
+
     }
     .dh-events-list{
       border-bottom: solid 1px #fff;
